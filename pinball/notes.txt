@@ -1,0 +1,8 @@
+art requirements
+	concept art
+	animate something
+		a fliper
+		target
+themes
+	carnival/circus
+
