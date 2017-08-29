@@ -3,6 +3,10 @@ art requirements
 	animate something
 		a fliper
 		target
-themes
-	carnival/circus
-
+coding requirements
+	<tbd>
+pro-tips
+	<add turorial links>
+	search for layout templates
+zombie theme
+	zombie targets
