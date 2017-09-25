@@ -1,12 +1,9 @@
 # Cat in a Castle
-### A White Flag Games Production
-![](https://openclipart.org/image/2400px/svg_to_png/265235/HirnlichtspieleWhiteFlag.png)
 
-### The Story So Far
+```cover art```
 
-The Sharkteeth regime rules Apogee Isle with an iron fist. The Kingpins: Sicho Martin's Gance city gangsters strong-arm citizens, Wild Grove forrest is terrorized by Marius Veil and his beasts, while Ventura Macede and his Deslium Legion precides over it all from his high tower in Darham Citadel.
-
-```king pins```
+##### A White Flag Games Production
+<a href="https://openclipart.org/detail/265235/hirnlichtspieles-white-flag-vectorized"> <img src="https://openclipart.org/image/2400px/svg_to_png/265235/HirnlichtspieleWhiteFlag.png" width="200" height="140" border="10" /></a>
 
 ---
 
@@ -14,15 +11,19 @@ The Sharkteeth regime rules Apogee Isle with an iron fist. The Kingpins: Sicho M
 
 Bipin lives a normal life, and does what he had to do to stay our of trouble. But when The Sharkteeth take his beloved Gwen from him, he'll take justice into his own hands. 
 
-``` Bipin and Gwen```
+'Bipin and Gwen'
 
----
+### The Story So Far
+
+The Sharkteeth regime rules Apogee Isle with an iron fist. The Kingpins: Sicho Martin's Gance city gangsters strong-arm citizens, Wild Grove forrest is terrorized by Marius Veil and his beasts, while Ventura Macede and his Deslium Legion precides over it all from his high tower in Darham Citadel.
+
+'king pins'
 
 ### Immerse Yourself
 
 Fight across 3 amazing levels against 6 unique and exciting enemies. Confront each Kingpin in epic mortal combat to rescue Gwen, deismantle The Sharkteeth regime, and save Apogee Isle!
 
-```each level and enemy```
+'each level and enemy'
 
 ---
 
@@ -31,6 +32,9 @@ Fight across 3 amazing levels against 6 unique and exciting enemies. Confront ea
 #### ICS 485 Video Game Design and Development
 ###### [Course Description](http://www.catalog.hawaii.edu/courses/departments/ics.htm)
 Students will team design, build, and demonstrate video games or related interactive entertainment environments and applications. Topics will include emerging computer science techniques relevant to the development of these types of environments
+
+#### Studio Logo
+[Firkin](https://openclipart.org/user-detail/Firkin)
 
 #### License
 [MIT](https://opensource.org/licenses/MIT)
