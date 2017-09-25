@@ -1,6 +1,8 @@
 # Cat in a Castle
 
-```cover art```
+```
+cover art
+```
 
 ##### A White Flag Games Production
 <a href="https://openclipart.org/detail/265235/hirnlichtspieles-white-flag-vectorized"> <img src="https://openclipart.org/image/2400px/svg_to_png/265235/HirnlichtspieleWhiteFlag.png" width="200" height="140" border="10" /></a>
