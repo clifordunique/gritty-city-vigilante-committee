@@ -19,6 +19,4 @@ screenshot
 ```
 ### Credits
 ##### [MIT](https://opensource.org/licenses/MIT) License
-##### Developed by White Flag Games
-<img src="https://juicyecumenism.com/wp-content/uploads/White-Flag.jpg" width="200" height="140" border="10" />
-###### An [ICS 485](http://www.catalog.hawaii.edu/courses/departments/ics.htm) project
+##### An [ICS 485](http://www.catalog.hawaii.edu/courses/departments/ics.htm) project
