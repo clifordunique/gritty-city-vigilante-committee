@@ -20,6 +20,5 @@ screenshot
 ### Credits
 ##### [MIT](https://opensource.org/licenses/MIT) License
 ##### Developed by White Flag Games
-<a href="https://openclipart.org/detail/265235/hirnlichtspieles-white-flag-vectorized"> <img src="https://openclipart.org/image/2400px/svg_to_png/265235/HirnlichtspieleWhiteFlag.png" width="200" height="140" border="10" /></a>
-###### Studio Logo by [Firkin](https://openclipart.org/user-detail/Firkin)
+<img src="https://juicyecumenism.com/wp-content/uploads/White-Flag.jpg" width="200" height="140" border="10" />
 ###### An [ICS 485](http://www.catalog.hawaii.edu/courses/departments/ics.htm) project
