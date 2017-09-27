@@ -1,4 +1,7 @@
 # Gritty City Vigilante Committee
+```
+cover art
+```
 ### The Story So Far
 The Sharkteeth Gang rule Apogee City with an iron fist by the three Kingpins, Sicho Martin, Marius Veil, and their leader, Ventura Macede.
 ```
