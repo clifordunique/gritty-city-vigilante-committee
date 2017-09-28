@@ -13,7 +13,7 @@ Bipin and Samuel live normal lives, and do what needs to be done to stay out of 
 art
 ```
 ### Immerse Yourself
-Fight across 3 amazing levels against 4 unique and exciting enemies. Confront each Kingin in epic mortal combat to rescue Gwen and save Apogee City!
+Fight across amazing levels against unique and exciting enemies. Confront each Kingin in epic mortal combat to rescue Gwen and save Apogee City!
 ```
 screenshot
 ```
