@@ -3,17 +3,17 @@
 cover art
 ```
 ### The Story So Far
-The Sharkteeth Gang rule Apogee City with an iron fist by the three Kingpins, Sicho Martin, Marius Veil, and their leader, Ventura Macede.
+Gritty City is ruled by The Sharkteeth Gang and the three Kingpins, The Slasher, Macho Man, and Big Boss.
 ```
 art
 ```
 ### A Call to Action
-Bipin and Samuel live normal lives, and do what needs to be done to stay out of trouble. But when trouble takes their beloved Gwen, they'll take justice into their own hands to get her back.
+Hogan and Logan live normal lives, and do what needs to be done to stay out of trouble. But when trouble takes their beloved Gwen, they'll use vigilante justice to get her back.
 ```
 art
 ```
 ### Immerse Yourself
-Fight across amazing levels against unique and exciting enemies. Confront each Kingin in epic mortal combat to rescue Gwen and save Apogee City!
+Fight across amazing levels against unique and exciting enemies. Confront each Kingin in epic mortal combat to rescue Gwen and save Gritty City!
 ```
 screenshot
 ```
