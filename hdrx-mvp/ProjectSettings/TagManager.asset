@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Bombs
+  - Player
+  - Enemies
+  - Pickups
+  - Ground
   - 
   - 
   - 
