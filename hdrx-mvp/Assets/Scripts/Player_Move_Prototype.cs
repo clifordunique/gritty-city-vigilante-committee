@@ -13,6 +13,7 @@ public class Player_Move_Prototype : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         PlayerMove();
+        PlayerRaycast();
 	}
 
     void PlayerMove()
@@ -55,8 +56,34 @@ public class Player_Move_Prototype : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        Debug.Log("Player has colided with " + col.collider.name);
         if(col.gameObject.tag == "ground")
+        {
+            isGrounded = true;
+        }
+    }
+
+    void PlayerRaycast()
+    {
+        //Ray up for blocks
+        RaycastHit2D rayUp= Physics2D.Raycast(transform.position, Vector2.down);
+        if (rayUp.distance < 0.9f && rayUp.collider.tag == "enemy")
+        {
+            Destroy(rayUp.collider.gameObject);
+        }
+
+            //Ray down for enemies
+            RaycastHit2D rayDown = Physics2D.Raycast(transform.position, Vector2.down);
+        if (rayDown.distance < 0.9f && rayDown.collider.tag == "enemy")
+        {
+            GetComponent<Rigidbody2D>().AddForce(Vector2.up * 1000);
+            rayDown.collider.gameObject.GetComponent<Rigidbody2D>().AddForce(Vector2.right * 200);
+            rayDown.collider.gameObject.GetComponent<Rigidbody2D>().gravityScale = 20;
+            rayDown.collider.gameObject.GetComponent<Rigidbody2D>().freezeRotation = false;
+            rayDown.collider.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            rayDown.collider.gameObject.GetComponent<EnemyMove>().enabled = false;
+            //Destroy(rayDown.collider.gameObject);
+        }
+        if (rayDown.distance < 0.9f && rayDown.collider.tag != "enemy")
         {
             isGrounded = true;
         }
