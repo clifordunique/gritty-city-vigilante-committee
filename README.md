@@ -1,10 +1,6 @@
 # Gritty City Vigilante Committee
 
----
-
 ## TBD
-
----
 
 ### Credits
 ##### [MIT](https://opensource.org/licenses/MIT) License
