@@ -30,14 +30,14 @@ public class EnemyPatrol : PhysicsObject {
 	{
 		//Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w
 		//Draws a line on the Left Side to check if the enemy will be grounded on the left
-		Vector2 lineCastPosLeft = myTrans.position - myTrans.right * myWidth;
-		Debug.DrawLine (lineCastPosLeft, lineCastPosLeft + Vector2.down);
-		bool willBeGroundedLeft = Physics2D.Linecast (lineCastPosLeft, lineCastPosLeft + Vector2.down, enemyMask);
+		Vector2 lineCastPos = myTrans.position - myTrans.right * myWidth;
+		Debug.DrawLine (lineCastPos, lineCastPos + Vector2.down);
+		bool willBeGrounded = Physics2D.Linecast (lineCastPos, lineCastPos + Vector2.down, enemyMask);
 
 		Vector2 move = Vector2.zero;
 
 		//Flips the enemy to face the other direction if it is going to arrive at an edge 
-		if (!willBeGroundedLeft) {
+		if (!willBeGrounded) {
 			Vector3 currRot = myTrans.eulerAngles; 
 			currRot.y += 180; 
 			myTrans.eulerAngles = currRot; 
