@@ -6,19 +6,25 @@ public class playerPlatformerController : PhysicsObject {
     public float jumpTakeOffSpeed = 7;
     public float maxSpeed = 7;
     private float test = 23;
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
     private Animator animator;
-	private bool facingRight; 
+	private bool facingRight;
+    
 
+    public GameObject shot;
+    public Transform shotSpawn;
+    public float fireRate;
 
-	public Collider[] attackHitboxes; // Assigned in Inspector with size of 4, to accomodate left/right arm, and left/right leg
+    private float nextFire;
+
+    public Collider[] attackHitboxes; // Assigned in Inspector with size of 4, to accomodate left/right arm, and left/right leg
 
 	// Use this for initialization
 	void Awake () {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 	}
-		
+ 
     protected override void ComputeVelocity()
     {
         Vector2 move = Vector2.zero;
@@ -41,13 +47,25 @@ public class playerPlatformerController : PhysicsObject {
                 
             }
         }
+        //this fire a shot
+        else if (Input.GetButton("Fire1") && Time.time > nextFire)
+        {
+            //limits how often you can shoot
+            nextFire = Time.time + fireRate;
+            Debug.Log("hashtag fired a shot son");
+            Debug.Log(spriteRenderer.flipX);
+            //Instantiate(object, player poistion, player rotation)
+            Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+          //  GetComponent<AudioSource>().Play();
+        }
 
-        //makes sprite flip back and forth depending on direction moving
-        bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
+            //makes sprite flip back and forth depending on direction moving
+           bool flipSprite = (spriteRenderer.flipX ? (move.x > 0.01f) : (move.x < -0.01f));
 
         if (flipSprite)
         {
             spriteRenderer.flipX = !spriteRenderer.flipX;
+
         }
        
         animator.SetBool("grounded", grounded);
