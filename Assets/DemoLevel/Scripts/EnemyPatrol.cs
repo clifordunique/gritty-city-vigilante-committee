@@ -8,7 +8,7 @@ public class EnemyPatrol : PhysicsObject {
 	private float test = 23;
 	private SpriteRenderer spriteRenderer;
 	private Animator animator;
-	private bool facingRight; 
+	private bool facingRight = true; 
 	public LayerMask enemyMask; 
 	Rigidbody2D myBody; 
 	Transform myTrans; 
@@ -26,26 +26,64 @@ public class EnemyPatrol : PhysicsObject {
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
 	}
 
-	protected override void ComputeVelocity()
+	private float aiHorizontal()
 	{
-		//Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w
-		//Draws a line on the Left Side to check if the enemy will be grounded on the left
-		Vector2 lineCastPos = myTrans.position - myTrans.right * myWidth;
-		Debug.DrawLine (lineCastPos, lineCastPos + Vector2.down);
-		bool willBeGrounded = Physics2D.Linecast (lineCastPos, lineCastPos + Vector2.down, enemyMask);
+		//Try to move to right 
 
-		Vector2 move = Vector2.zero;
+		Vector2 lineCastPosRight = myTrans.position - myTrans.right * myWidth;
+		Debug.DrawLine (lineCastPosRight, lineCastPosRight + Vector2.down);
+		bool willBeGroundedRight = Physics2D.Linecast (lineCastPosRight, lineCastPosRight + Vector2.down, enemyMask);
 
-		//Flips the enemy to face the other direction if it is going to arrive at an edge 
-		if (!willBeGrounded) {
-			Vector3 currRot = myTrans.eulerAngles; 
-			currRot.y += 180; 
-			myTrans.eulerAngles = currRot; 
-//			move.x = 0.2f;//Not working for some reason 
+		Vector2 lineCastPosLeft = myTrans.position + myTrans.right * myWidth;
+		Debug.DrawLine (lineCastPosLeft, lineCastPosLeft + Vector2.down);
+		bool willBeGroundedLeft = Physics2D.Linecast (lineCastPosLeft, lineCastPosLeft + Vector2.down, enemyMask);
+		Debug.Log ("facing Right is" + facingRight); 
+
+
+		if (facingRight == true) {
+			Debug.Log ("entering right case");
+			if (!willBeGroundedRight) {
+				Debug.Log ("Will not be facing right");
+				facingRight = false;//Face the left
+				return 0f; 
+			} else {
+				return -0.1f;
+			}
 		} else 
 		{
-//			move.x = -0.1f;//Not working for some reason
+			Debug.Log ("entering left case");
+			if (!willBeGroundedLeft) {
+				Debug.Log ("Will not be facing left");
+				facingRight = true;//Face the left
+				return 0; 
+			} else 
+			{
+				return 0.1f;
+			}
 		}
+	}
+
+	protected override void ComputeVelocity()
+	{
+		Vector2 move = Vector2.zero;
+		move.x = aiHorizontal ();
+//		//Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w
+//		//Draws a line on the Left Side to check if the enemy will be grounded on the left
+//		Vector2 lineCastPos = myTrans.position + myTrans.right * myWidth;
+//		Debug.DrawLine (lineCastPos, lineCastPos + Vector2.down);
+//		bool willBeGrounded = Physics2D.Linecast (lineCastPos, lineCastPos + Vector2.down, enemyMask);
+//
+//		Vector2 move = Vector2.zero;
+//
+//		float direc = 1; 
+//		//Flips the enemy to face the other direction if it is going to arrive at an edge 
+//		if (!willBeGrounded) {
+//			Vector3 currRot = myTrans.eulerAngles; 
+//			currRot.y += 180; 
+//			myTrans.eulerAngles = currRot; 
+//			direc = -1; 
+//		}
+//		move.x = 0.1f * direc; 
 
 //		if (Input.GetButtonDown("Jump") && grounded )
 //		{
