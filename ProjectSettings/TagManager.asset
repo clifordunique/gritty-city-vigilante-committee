@@ -51,6 +51,12 @@ TagManager:
   - name: frontCity
     uniqueID: 3032405787
     locked: 0
+  - name: backDecoration
+    uniqueID: 1592948371
+    locked: 0
+  - name: frontDecoration
+    uniqueID: 3144369847
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
