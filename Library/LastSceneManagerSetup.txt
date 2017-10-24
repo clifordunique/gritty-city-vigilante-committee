@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Prototype/Scenes/2DPlatformerMain.unity
+- path: Assets/DemoLevel/Scenes/DemoLevel.unity
   isLoaded: 1
   isActive: 1

@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ef40ac567d5c34f48a7cbcdebadcfc3a
-timeCreated: 1508315644
+timeCreated: 1508824970
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -24,6 +24,9 @@ TextureImporter:
     21300034: cityForeground_17
     21300036: cityForeground_18
     21300038: cityForeground_19
+    21300040: cityForeground_20
+    21300042: cityForeground_21
+    21300044: cityForeground_22
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -322,10 +325,10 @@ TextureImporter:
       name: cityForeground_16
       rect:
         serializedVersion: 2
-        x: 120
+        x: 122
         y: 60
-        width: 20
-        height: 17
+        width: 16
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -341,7 +344,7 @@ TextureImporter:
         width: 20
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -352,10 +355,10 @@ TextureImporter:
         serializedVersion: 2
         x: 53
         y: 60
-        width: 14
+        width: 7
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -368,6 +371,48 @@ TextureImporter:
         y: 60
         width: 20
         height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cityForeground_20
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 60
+        width: 15
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cityForeground_21
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100
+        width: 60
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: cityForeground_22
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 60
+        width: 7
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
