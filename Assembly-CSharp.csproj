@@ -53,11 +53,10 @@
   <ItemGroup>
      <Compile Include="Assets\DemoLevel\Scripts\DeadzoneCamera.cs" />
      <Compile Include="Assets\DemoLevel\Scripts\EnemyPatrol.cs" />
-     <Compile Include="Assets\Prototype\Misc\autoMoveCrate.cs" />
-     <Compile Include="Assets\Prototype\Misc\PhysicsObject.cs" />
-     <Compile Include="Assets\Prototype\Misc\playerPlatformerController.cs" />
-     <Compile Include="Assets\Prototype\Misc\Shotmover.cs" />
      <Compile Include="Assets\Prototype\Scripts\PerfectPixel.cs" />
+     <Compile Include="Assets\Prototype\Scripts\PhysicsObject.cs" />
+     <Compile Include="Assets\Prototype\Scripts\playerPlatformerController.cs" />
+     <Compile Include="Assets\Prototype\Scripts\Shotmover.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>E:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

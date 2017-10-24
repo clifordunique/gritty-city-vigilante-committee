@@ -8,7 +8,7 @@ public class EnemyPatrol : PhysicsObject {
 	private float test = 23;
 	private SpriteRenderer spriteRenderer;
 	private Animator animator;
-	private bool facingRight = true; //Always tries to move right at the begining when set to true 
+	private bool facingRight = false; //Always tries to move right at the begining when set to true 
 	public LayerMask enemyMask; 
 	Rigidbody2D myBody; 
 	Transform myTrans; 
@@ -82,41 +82,50 @@ public class EnemyPatrol : PhysicsObject {
 		animator.SetBool("grounded", grounded);
 		animator.SetFloat("velocityX", Mathf.Abs(velocity.x) / maxSpeed);
 		targetVelocity = move * maxSpeed;
-
 	}
 
+
+	private bool aiAttack()
+	{
+		Debug.Log ("Running aiAttack");
+		foreach (Collider col in attackHitboxes) 
+		{
+			Collider[] cols = Physics.OverlapBox(col.bounds.center,col.bounds.extents,col.transform.rotation, LayerMask.GetMask("Hitbox"));
+			if (cols.Length > 0) 
+			{
+				return true;
+			}
+		}
+		Debug.Log ("Didn't find anything to attack");
+		return false; 
+	}
 	// Checks for keypress and calls launch attack with the corresponding attackHitBox 
 	// Needs to be called in update
 	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk 
 	protected override void CheckAttack()
 	{
-		//		if (spriteRenderer.flipX == false) {
-		//			Debug.Log ("Facing right"); 
-		//		} else {
-		//			Debug.Log ("Facing left");
-		//		}
-		if (Input.GetKey (KeyCode.H)) 
+		if (aiAttack()) 
 		{
 			if (spriteRenderer.flipX) //Checks the direction the sprite is facing and selects the correct arm side
 			{
-				Debug.Log ("left arm attack");
+				Debug.Log ("left enemy arm attack");
 				LaunchAttack (attackHitboxes [0]); 
 			} else 
 			{
-				Debug.Log ("right arm attack");
+				Debug.Log ("right enemy arm attack");
 				LaunchAttack (attackHitboxes[1]);	
 			}
 		}
 
-		if (Input.GetKey (KeyCode.G)) 
+		if (aiAttack()) 
 		{
 			if (spriteRenderer.flipX) //Checks the direction the sprite is facing and selects the correct kick side
 			{
-				Debug.Log ("left kick attack");
+				Debug.Log ("left enemy kick attack");
 				LaunchAttack (attackHitboxes[2]); 
 			} else 
 			{
-				Debug.Log ("right kick attack");
+				Debug.Log ("right enemy kick attack");
 				LaunchAttack (attackHitboxes[3]); 
 			}
 
@@ -141,14 +150,14 @@ public class EnemyPatrol : PhysicsObject {
 			{
 			case "Head": 
 				damage = 30;
-				Debug.Log ("Hit Head Damage = 30"); 
+				Debug.Log ("enemy Hit Head Damage = 30"); 
 				break;
 			case "Body":
 				damage = 10; 
-				Debug.Log ("Hit Body Damage = 10"); 
+				Debug.Log ("enemy Hit Body Damage = 10"); 
 				break;
 			default:
-				Debug.Log ("Unable to identify the body part, check the switch statement"); 
+				Debug.Log ("enemy Unable to identify the body part, check the switch statement"); 
 				break;
 			}
 
