@@ -14,7 +14,7 @@ public class EnemyPatrol : PhysicsObject {
 	Transform myTrans; 
 	float myWidth;
 	public bool attacking; 
-
+	private DummyScript player; // TODO:: Replace with actual player script 
 
 	public Collider[] attackHitboxes; // Assigned in Inspector with size of 4, to accomodate left/right arm, and left/right leg
 
@@ -26,6 +26,7 @@ public class EnemyPatrol : PhysicsObject {
 		myBody = this.GetComponent<Rigidbody2D> (); 
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x;
 		attacking = false;
+		player = (DummyScript)FindObjectOfType(typeof(DummyScript));// TODO:: Replace with actual player script
 	}
 
 	// Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w
@@ -43,25 +44,42 @@ public class EnemyPatrol : PhysicsObject {
 			// Debug.DrawLine (lineCastPosRight, lineCastPosRight + Vector2.down);
 			bool willBeGroundedRight = Physics2D.Linecast (lineCastPosRight, lineCastPosRight + Vector2.down, enemyMask);
 
-			if (facingRight == true) { //If the enemy is currently facing right continue moving right unless it will not be grounded
-				// Debug.Log ("entering right case");
+			if (myTrans.position.x < player.myTrans.position.x) { //If the enemy is currently facing right continue moving right unless it will not be grounded
 				if (!willBeGroundedRight) {
-					// Debug.Log ("Will not be grounded on right");
-					facingRight = false;//Face the left
+					// Debug.Log ("Will not be grounded on right, stopping ");
 					return 0f; 
 				} else {
 					return 0.1f;
 				}
 			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded
-				// Debug.Log ("entering left case");
 				if (!willBeGroundedLeft) {
-					// Debug.Log ("Will not be grounded on left");
-					facingRight = true;//Face the left
+					// Debug.Log ("Will not be grounded on left, stopping");
 					return 0; 
 				} else {
 					return -0.1f;
 				}
 			}
+
+			//This script will make enemy just flip back and forth. 
+			//			if (facingRight == true) { //If the enemy is currently facing right continue moving right unless it will not be grounded
+			//				// Debug.Log ("entering right case");
+			//				if (!willBeGroundedRight) {
+			//					// Debug.Log ("Will not be grounded on right");
+			//					facingRight = false;//Face the left
+			//					return 0f; 
+			//				} else {
+			//					return 0.1f;
+			//				}
+			//			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded
+			//				// Debug.Log ("entering left case");
+			//				if (!willBeGroundedLeft) {
+			//					// Debug.Log ("Will not be grounded on left");
+			//					facingRight = true;//Face the left
+			//					return 0; 
+			//				} else {
+			//					return -0.1f;
+			//				}
+			//			}
 		} else 
 		{
 			return 0;
