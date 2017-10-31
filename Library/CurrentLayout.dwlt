@@ -14,7 +14,7 @@ MonoBehaviour:
   m_PixelRect:
     serializedVersion: 2
     x: 0
-    y: 43
+    y: 44
     width: 1920
     height: 997
   m_ShowMode: 4
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 127
+  controlID: 122
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_MinSize: {x: 202, y: 442}
   m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 23
+  controlID: 123
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 65
+  controlID: 76
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 589
+    y: 590
     width: 1339
     height: 429
   m_MaximizeOnPlay: 0
@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 92
+    y: 93
     width: 1339
     height: 476
   m_SceneLighting: 1
@@ -422,9 +422,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 33.378723, y: -0.9143965, z: 0}
+    m_Target: {x: 44.60309, y: -0.6152414, z: 0.5800781}
     speed: 2
-    m_Value: {x: 33.378723, y: -0.9143965, z: 0}
+    m_Value: {x: 44.60309, y: -0.6152414, z: 0.5800781}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -451,13 +451,14 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 65.42601
+    m_Target: 7.43359
     speed: 2
-    m_Value: 65.42601
+    m_Value: 7.43359
   m_Ortho:
     m_Target: 1
     speed: 2
     m_Value: 1
+  m_ShowGlobalGrid: 1
   m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_LastSceneViewOrtho: 0
   m_ReplacementShader: {fileID: 0}
@@ -563,14 +564,14 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1343
-    y: 92
+    y: 93
     width: 286
     height: 404
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 20effaff6e03fbffb075fbff4680fbffd488fbfff093fbff5e98fbff6eabfbffd0acfbff3e20fcffb632fcffca56fcff3472fcff76b5fcfff8d3fcff12dbfcff3a29fdff3238fdffd644fdff0277fdff2c92fdffdc9dfdff5ac6fdffb0c6fdffe0cefdff58ddfdff80defdfface4fdffbc81feff4493feff5894feff7c9afeffae07ffff720dffff2c0fffff2a51ffff8e83ffff08c9ffff0ec9ffff1cc9ffff2ec9ffff30c9ffff46caffff4ccaffff5acaffff6ccaffff6ecaffff00cbffff06cbffff14cbffff26cbffff28cbfffff4cbfffffacbffff08ccffff1accffff1cccffffe8ccffffeeccfffffcccffff0ecdffff10cdffff22cdffff000000004c360000a43b0000b83b0000183e0000343e0000f63f00000e40000012400000c0420000c4420000
+    m_ExpandedIDs: a6fbffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -616,7 +617,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1343
-    y: 517
+    y: 518
     width: 286
     height: 501
   m_SearchFilter:
@@ -630,19 +631,18 @@ MonoBehaviour:
     m_ScenePaths: []
     m_ShowAllHits: 0
     m_SearchArea: 0
-    m_Folders:
-    - Assets/DemoLevel/Prefab/Enviornment/Forrest
+    m_Folders: []
   m_ViewMode: 0
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\Viewter\Documents\gritty-city-vigilante-committee
+  m_LastProjectPath: /Users/adi/github/gritty-city-vigilante-committee
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: ee240000
     m_LastClickedID: 9454
-    m_ExpandedIDs: 00000000762d0000a6330000e6340000a6350000dc350000e2350000e4350000e6350000
+    m_ExpandedIDs: 000000001e2700004e2900005a2900006e290000a8290000fc2a0000462b0000482b00004c2b00005a2b0000ca2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -670,7 +670,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a6330000e2340000e6340000e834000014350000dc350000e2350000e6350000a63600002e3d0000343d0000
+    m_ExpandedIDs: 000000001e2700004e2900005a2900006e290000a8290000fc2a0000462b0000482b00004c2b00005a2b0000ca2b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -748,7 +748,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 1633
-    y: 92
+    y: 93
     width: 287
     height: 926
   m_ScrollPosition: {x: 0, y: 0}
