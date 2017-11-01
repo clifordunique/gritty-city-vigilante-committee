@@ -81,6 +81,7 @@
      <Compile Include="Assets\Scripts\Shotmover.cs" />
      <None Include="Assets\Ninja Files\Read Me.txt" />
      <None Include="Assets\Anima2D\Version.txt" />
+     <None Include="Assets\demo sprites\ChromaKey.shader" />
      <None Include="Assets\Anima2D\Examples\Shaders\Unlit-Alpha-Cull-off.shader" />
      <None Include="Assets\Anima2D\Licenses.txt" />
      <None Include="Assets\Anima2D\Examples\Shaders\VertexLitOneDirectional.shader" />
