@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 175616159}
   m_Layer: 0
   m_Name: New Sprite
-  m_TagString: Untagged
+  m_TagString: city
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -665,9 +665,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 20328ecc1585e40459cad54726427cb9, type: 3}
-  m_Color: {r: 0, g: 1, b: 1, a: 1}
+  m_SortingOrder: 5
+  m_Sprite: {fileID: 21300000, guid: 6ad4b0a23e34b824bbeb5138f241fd1b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -683,8 +683,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 175616158}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.21, y: 0, z: 10}
-  m_LocalScale: {x: 465.5589, y: 253.23993, z: 1}
+  m_LocalPosition: {x: 6.17, y: -3.32, z: 10}
+  m_LocalScale: {x: 2.4832077, y: 1.7817136, z: 1}
   m_Children:
   - {fileID: 1137091290}
   m_Father: {fileID: 364698218}
@@ -966,9 +966,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1619005351
+  m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: 43b34345cfb2ac64db3782c95a13af2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1549,7 +1549,7 @@ VideoPlayer:
   m_RenderMode: 0
   m_AspectRatio: 2
   m_DataSource: 0
-  m_PlaybackSpeed: 2
+  m_PlaybackSpeed: 0.3
   m_AudioOutputMode: 1
   m_TargetAudioSources: []
   m_DirectAudioVolumes: []
@@ -1569,11 +1569,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 315913792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.03544125, y: -0.009367083, z: 8.4}
+  m_LocalScale: {x: 0.0024442242, y: 0.023417708, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_Father: {fileID: 1548207634}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362380984
 GameObject:
@@ -4060,7 +4060,7 @@ GameObject:
   - component: {fileID: 1137091291}
   m_Layer: 0
   m_Name: Eddy Wally wow meme
-  m_TagString: Untagged
+  m_TagString: video
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4072,8 +4072,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1137091289}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.014367411, y: -0.03226236, z: 0}
-  m_LocalScale: {x: 0.014085697, y: 0.01967217, z: 1}
+  m_LocalPosition: {x: -0.014367287, y: -0.03226234, z: 0}
+  m_LocalScale: {x: 0.014085698, y: 0.019672172, z: 1}
   m_Children: []
   m_Father: {fileID: 175616160}
   m_RootOrder: 0
@@ -4107,7 +4107,7 @@ VideoPlayer:
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 1
   m_SkipOnDrop: 1
-  m_Looping: 1
+  m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
 --- !u!1 &1156924548
@@ -4173,9 +4173,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1238693671
+  m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -10
   m_Sprite: {fileID: 21300000, guid: acdcf33b402dec744ad350abb6266532, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -5036,6 +5036,11 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!4 &1548207634 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4189190891866714, guid: 9b8656e9c9c9f3f40b2f03ae95ead93e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247610918}
 --- !u!1 &1622240482
 GameObject:
   m_ObjectHideFlags: 0
@@ -6498,6 +6503,11 @@ Prefab:
       propertyPath: m_Layer
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114438476663429274, guid: d6caf55158ef2954b8525eb792eee8b1,
+        type: 2}
+      propertyPath: videoPlayer
+      value: 
+      objectReference: {fileID: 1137091291}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6caf55158ef2954b8525eb792eee8b1, type: 2}
   m_IsPrefabParent: 0
