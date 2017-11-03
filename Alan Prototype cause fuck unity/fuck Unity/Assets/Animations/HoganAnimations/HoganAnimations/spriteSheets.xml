@@ -1,0 +1,51 @@
+<!DOCTYPE spritesheets>
+<spritesheets>
+ <spritesheet resolution="ipad" name="sheet_Top" filename="spriteSheets/sheet_Top-ipad.png">
+  <sprite scaleY="1.875" rect="3116,575,371,581" offsetX="0" offsetY="0" name="3-Hogan_BackFoot-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="2757,575,359,581" offsetX="0" offsetY="0" name="4-Hogan_BackHand-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="2433,575,324,581" offsetX="0" offsetY="0" name="7-Hogan_FrontArm-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="2126,575,307,581" offsetX="0" offsetY="0" name="2-Hogan_BackArm-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="1740,575,386,580" offsetX="0" offsetY="0" name="8-Hogan_FrontFoot-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="1076,575,664,579" offsetX="0" offsetY="0" name="11-Hogan_Head-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="735,575,341,578" offsetX="0" offsetY="-1" name="9-Hogan_FrontHand-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="358,575,377,577" offsetX="0" offsetY="1" name="10-Hogan_FrontLeg-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="0,575,358,577" offsetX="-1" offsetY="-1" name="5-Hogan_BackLeg-1.png" scaleX="1.875"/>
+  <sprite scaleY="1.875" rect="2970,0,517,575" offsetX="-7" offsetY="0" name="6-Hogan_Body-1.png" scaleX="1.875"/>
+ </spritesheet>
+ <spritesheet resolution="ipad-retina" name="sheet_Top" filename="spriteSheets/sheet_Top-ipad-retina.png">
+  <sprite scaleY="0.9375" rect="2731,2285,706,1151" offsetX="0" offsetY="0" name="4-Hogan_BackHand-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="2129,2285,602,1151" offsetX="0" offsetY="0" name="2-Hogan_BackArm-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="1398,2285,731,1150" offsetX="0" offsetY="0" name="3-Hogan_BackFoot-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="761,2285,637,1150" offsetX="0" offsetY="0" name="7-Hogan_FrontArm-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="0,2285,761,1148" offsetX="0" offsetY="1" name="8-Hogan_FrontFoot-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="2121,1138,1316,1147" offsetX="1" offsetY="0" name="11-Hogan_Head-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="1451,1138,670,1144" offsetX="0" offsetY="-2" name="9-Hogan_FrontHand-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="708,1138,743,1142" offsetX="0" offsetY="2" name="10-Hogan_FrontLeg-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="3,1138,705,1142" offsetX="-2" offsetY="-2" name="5-Hogan_BackLeg-1.png" scaleX="0.9375"/>
+  <sprite scaleY="0.9375" rect="2415,0,1022,1138" offsetX="-14" offsetY="0" name="6-Hogan_Body-1.png" scaleX="0.9375"/>
+ </spritesheet>
+ <spritesheet resolution="iphone" name="sheet_Top" filename="spriteSheets/sheet_Top-iphone.png">
+  <sprite scaleY="4" rect="1763,0,174,279" offsetX="0" offsetY="0" name="4-Hogan_BackHand-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="1613,0,150,279" offsetX="0" offsetY="0" name="2-Hogan_BackArm-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="1296,0,317,278" offsetX="0" offsetY="0" name="11-Hogan_Head-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="1109,0,187,278" offsetX="0" offsetY="0" name="8-Hogan_FrontFoot-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="929,0,180,278" offsetX="0" offsetY="0" name="3-Hogan_BackFoot-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="771,0,158,278" offsetX="0" offsetY="0" name="7-Hogan_FrontArm-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="588,0,183,277" offsetX="0" offsetY="0" name="10-Hogan_FrontLeg-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="422,0,166,277" offsetX="0" offsetY="0" name="9-Hogan_FrontHand-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="174,0,248,276" offsetX="-3" offsetY="0" name="6-Hogan_Body-1.png" scaleX="4"/>
+  <sprite scaleY="4" rect="0,0,174,276" offsetX="0" offsetY="0" name="5-Hogan_BackLeg-1.png" scaleX="4"/>
+ </spritesheet>
+ <spritesheet resolution="iphone-retina" name="sheet_Top" filename="spriteSheets/sheet_Top-iphone-retina.png">
+  <sprite scaleY="1.69014" rect="3460,637,397,644" offsetX="0" offsetY="0" name="4-Hogan_BackHand-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="3049,637,411,643" offsetX="0" offsetY="0" name="3-Hogan_BackFoot-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="2691,637,358,643" offsetX="0" offsetY="0" name="7-Hogan_FrontArm-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="2352,637,339,643" offsetX="0" offsetY="0" name="2-Hogan_BackArm-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="1925,637,427,642" offsetX="0" offsetY="0" name="8-Hogan_FrontFoot-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="1190,637,735,641" offsetX="0" offsetY="0" name="11-Hogan_Head-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="813,637,377,640" offsetX="0" offsetY="-1" name="9-Hogan_FrontHand-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="396,637,417,639" offsetX="0" offsetY="1" name="10-Hogan_FrontLeg-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="0,637,396,639" offsetX="-1" offsetY="-1" name="5-Hogan_BackLeg-1.png" scaleX="1.69014"/>
+  <sprite scaleY="1.69014" rect="3285,0,572,637" offsetX="-8" offsetY="0" name="6-Hogan_Body-1.png" scaleX="1.69014"/>
+ </spritesheet>
+</spritesheets>

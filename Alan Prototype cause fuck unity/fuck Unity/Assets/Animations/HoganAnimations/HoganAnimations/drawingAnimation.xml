@@ -1,0 +1,194 @@
+<drawingAnimations>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Idle_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="10" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="10" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="10" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="10" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="10" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="10" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="10" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="10" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="10" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="10" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Land_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="4" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="4" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="4" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="4" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="4" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="4" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="4" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="4" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="4" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="4" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Jump_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="8" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="8" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="8" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="8" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="8" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="8" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="8" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="8" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="8" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="8" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Dodge_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="6" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="6" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="6" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="6" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="6" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="6" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="6" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="6" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="6" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="6" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Punch_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="6" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="6" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="6" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="6" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="6" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="6" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="6" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="6" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="6" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="6" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+ <drawingAnimation spritesheet="sheet_Top" name="Hogan_Run_Top">
+  <drawing node="Hogan_FrontHand" name="9-Hogan_FrontHand">
+   <drw frame="1" repeat="24" name="9-Hogan_FrontHand-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontArm" name="7-Hogan_FrontArm">
+   <drw frame="1" repeat="24" name="7-Hogan_FrontArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontFoot" name="8-Hogan_FrontFoot">
+   <drw frame="1" repeat="24" name="8-Hogan_FrontFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_FrontLeg" name="10-Hogan_FrontLeg">
+   <drw frame="1" repeat="24" name="10-Hogan_FrontLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Head" name="11-Hogan_Head">
+   <drw frame="1" repeat="24" name="11-Hogan_Head-1.png"/>
+  </drawing>
+  <drawing node="Hogan_Body" name="6-Hogan_Body">
+   <drw frame="1" repeat="24" name="6-Hogan_Body-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackFoot" name="3-Hogan_BackFoot">
+   <drw frame="1" repeat="24" name="3-Hogan_BackFoot-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackLeg" name="5-Hogan_BackLeg">
+   <drw frame="1" repeat="24" name="5-Hogan_BackLeg-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackArm" name="2-Hogan_BackArm">
+   <drw frame="1" repeat="24" name="2-Hogan_BackArm-1.png"/>
+  </drawing>
+  <drawing node="Hogan_BackHand" name="4-Hogan_BackHand">
+   <drw frame="1" repeat="24" name="4-Hogan_BackHand-1.png"/>
+  </drawing>
+ </drawingAnimation>
+</drawingAnimations>
