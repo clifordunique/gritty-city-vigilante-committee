@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 61894838500001856}
   - component: {fileID: 114816056904613248}
   - component: {fileID: 95143769406095796}
-  - component: {fileID: 114868075503535872}
+  - component: {fileID: 114998051703431108}
   m_Layer: 1
   m_Name: newEnemy
   m_TagString: Player
@@ -157,7 +157,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   totalHorizontalRays: 8
   totalVerticalRays: 4
---- !u!114 &114868075503535872
+--- !u!114 &114998051703431108
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -165,9 +165,63 @@ MonoBehaviour:
   m_GameObject: {fileID: 1172543456845874}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: fe97348c5cbb84b41bd612c2a84dbe38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpTakeOffSpeed: 7
+  maxSpeed: 7
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 0
+  attacking: 0
+  attackHitboxes: []
+  walkSpeed: 6
+  jumpSpeed: 10
+  gravity: 20
+  doubleJumpSpeed: 16
+  wallJumpXAmount: 0.25
+  wallJumpYAmount: 1.5
+  wallRunAmount: 2
+  slopeSlideSpeed: 4
+  glideAmount: 2
+  glideTime: 2
+  crouchWalkSpeed: 3
+  powerJumpSpeed: 10
+  stompSpeed: 4
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  canWallRun: 1
+  canRunAfterWallJump: 1
+  canDoubleJump: 1
+  canWallJump: 1
+  canGlide: 1
+  canPowerJump: 1
+  canStomp: 1
+  canChangeLevel: 1
+  canShoot: 1
+  isGrounded: 0
+  isJumping: 0
+  isFacingRight: 0
+  doubleJumped: 0
+  wallJumped: 0
+  iswallRunning: 0
+  isSlopeSliding: 0
+  isGliding: 0
+  isCrouchWalking: 0
+  isCrouched: 0
+  isPowerJumping: 0
+  isStomping: 0
+  isChangingLevels: 0
+  boxTest: []
+  CityColliderBox: []
+  box: []
+  cityGameObject: []
+  boxy: []
+  citySprites: []
+  shot: {fileID: 0}
+  shotSpawn: {fileID: 0}
+  fireRate: 10
 --- !u!212 &212936667890991292
 SpriteRenderer:
   m_ObjectHideFlags: 1

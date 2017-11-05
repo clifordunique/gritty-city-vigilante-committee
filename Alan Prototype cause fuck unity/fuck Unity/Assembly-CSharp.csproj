@@ -78,6 +78,7 @@
      <Compile Include="Assets\HarmonySDK\Scripts\Zip\ZIP_Operations.cs" />
      <Compile Include="Assets\Scripts\cameraController.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
+     <Compile Include="Assets\Scripts\EnemyClass.cs" />
      <Compile Include="Assets\Scripts\playerController.cs" />
      <Compile Include="Assets\Scripts\Shotmover.cs" />
      <None Include="Assets\HarmonySDK\Shaders\LitTransparentPremultCutout.shader" />
