@@ -292,7 +292,7 @@ public class EnemyClass : MonoBehaviour {
 			{ 
 				_moveDirection = new Vector3(_slopeGradient.x * slopeSlideSpeed, -_slopeGradient.y * slopeSlideSpeed, 0f); 
 			} 
-			if (Input.GetButtonDown("Jump")) 
+			if (aiJump()) 
 			{ 
 				if(canPowerJump && isCrouched) 
 				{ 
@@ -539,71 +539,21 @@ public class EnemyClass : MonoBehaviour {
 	private float aiHorizontal() 
 	{ 
 		if (attacking == false) { 
-			//      //Checks if left side of the enemy is grounded  
-			//      Vector2 lineCastPosLeft = myTrans.position - myTrans.right * myWidth; 
-			//      Debug.DrawLine (lineCastPosLeft, lineCastPosLeft + Vector2.down); 
-			//      bool willBeGroundedLeft = Physics2D.Linecast (lineCastPosLeft, lineCastPosLeft + Vector2.down, enemyMask); 
-			// 
-			// 
-			//      //Checks if left side of the enemy is grounded  
-			//      Vector2 lineCastPosRight = myTrans.position + myTrans.right * myWidth; 
-			//      Debug.DrawLine (lineCastPosRight, lineCastPosRight + Vector2.down); 
-			//      bool willBeGroundedRight = Physics2D.Linecast (lineCastPosRight, lineCastPosRight + Vector2.down, enemyMask); 
-
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
 			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
 			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
-			Debug.DrawRay (_backBottomCorner, Vector2.down);  
-
-			//      if (myTrans.position.x < player.myTrans.position.x) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-			//        if (!willBeGroundedRight) { 
-			//          // Debug.Log ("Will not be grounded on right, stopping "); 
-			//          return 0f;  
-			//        } else { 
-			//          return 0.1f; 
-			//        } 
-			//      } else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-			//        if (!willBeGroundedLeft) { 
-			//          // Debug.Log ("Will not be grounded on left, stopping"); 
-			//          return 0;  
-			//        } else { 
-			//          return -0.1f; 
-			//        } 
-			//      } 
-			//      if (hitBackGround.collider && hitFrontGround.collider) { 
-			//        isFacingRight = true; 
-			//        return 1f; 
-			//      } 
-			//      if (hitBackGround.collider && !hitFrontGround.collider && isFacingRight) { 
-			//         
-			//        Debug.Log ("Front hit" + hitFrontGround.collider);  
-			//        Debug.Log ("Back hit" + hitBackGround.collider);  
-			//        Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on left"); 
-			//        isFacingRight = false;//Face the left 
-			//        StartCoroutine("faceRightTime"); 
-			//                  return -1f;  
-			// 
-			//      } 
-			//      /*if (hitFrontGround.collider && !hitBackGround.collider && !isFacingRight) { 
-			//        Debug.Log ("mother fucker"); 
-			//        Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on right"); 
-			//        //facingRight = true;//Face the left 
-			//        return 1f;  
-			// 
-			//      }*/ 
-
+			Debug.DrawRay (_backBottomCorner, Vector2.down);   
 
 			Debug.Log ("Left " + hitBackGround.collider + " Right " + hitFrontGround.collider);  
 
-			if (facingRight == true) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+			if (myTrans.position.x < 100) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				Debug.Log ("entering right case"); 
 				if(hitFrontGround.collider == null) 
 				{ 
 					Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on right"); 
-					facingRight = false;//Face the left 
-					return 0f;  
+					return 1f;  
 				} else { 
 					Debug.Log ("Will  be grounded on right"); 
 					return 1f; 
@@ -613,11 +563,10 @@ public class EnemyClass : MonoBehaviour {
 				if(hitBackGround.collider == null) 
 				{ 
 					Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
-					facingRight = true;//Face the left 
 					return 0f;  
 				} else { 
 					Debug.Log ("Will  be grounded on left"); 
-
+				
 					return -1f; 
 				} 
 			} 
@@ -629,7 +578,6 @@ public class EnemyClass : MonoBehaviour {
 
 	private bool aiAttack() 
 	{ 
-
 		// Debug.Log ("Running aiAttack"); 
 		foreach (Collider col in attackHitboxes)  
 		{ 
@@ -642,6 +590,38 @@ public class EnemyClass : MonoBehaviour {
 		// Debug.Log ("Didn't find anything to attack"); 
 		return false;  
 	} 
+
+	private bool aiJump()
+	{
+		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
+		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
+		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
+		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
+		Debug.DrawRay (_frontBottomCorner, Vector2.down);  
+		Debug.DrawRay (_backBottomCorner, Vector2.down);
+
+		if (myTrans.position.x < 100) { // TODO :: Replace the 100, with the player position  
+			// Debug.Log ("entering right case"); 
+			if(hitFrontGround.collider == null) 
+			{ 
+				// Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on right"); 
+				return true;  
+			} else { 
+				 
+			} 
+		} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+			// Debug.Log ("entering left case"); 
+			if(hitBackGround.collider == null) 
+			{ 
+				// Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
+				return true;  
+			} else { 
+				
+			} 
+		}
+		return false; 
+	}
+
 
 	// Checks for keypress and calls launch attack with the corresponding attackHitBox  
 	// Needs to be called in update 
@@ -716,6 +696,4 @@ public class EnemyClass : MonoBehaviour {
 		yield return new WaitForSeconds (5f); 
 		isFacingRight = false; 
 	} 
-
-
 }
