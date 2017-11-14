@@ -389,7 +389,7 @@ public class EnemyClass : MonoBehaviour {
 		RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask); 
 		RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask); 
 
-		if (Input.GetAxis("Vertical") < 0 && _moveDirection.x == 0) 
+		if (aiCrouch() < 0 && _moveDirection.x == 0) 
 		{ 
 			if(!isCrouched && !isCrouchWalking) 
 			{ 
@@ -401,7 +401,7 @@ public class EnemyClass : MonoBehaviour {
 			isCrouchWalking = false; 
 
 		} 
-		else if(Input.GetAxis("Vertical") < 0 && ( _moveDirection.x > 0 || _moveDirection.x < 0)) 
+		else if(aiCrouch() < 0 && ( _moveDirection.x > 0 || _moveDirection.x < 0)) 
 		{ 
 			if (!isCrouched && !isCrouchWalking) 
 			{ 
@@ -546,27 +546,18 @@ public class EnemyClass : MonoBehaviour {
 			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_backBottomCorner, Vector2.down);   
 
-			Debug.Log ("Left " + hitBackGround.collider + " Right " + hitFrontGround.collider);  
-
 			if (myTrans.position.x < 100) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-				Debug.Log ("entering right case"); 
 				if(hitFrontGround.collider == null) 
 				{ 
-					Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on right"); 
 					return 1f;  
 				} else { 
-					Debug.Log ("Will  be grounded on right"); 
 					return 1f; 
 				} 
 			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				Debug.Log ("entering left case"); 
 				if(hitBackGround.collider == null) 
 				{ 
-					Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
 					return 0f;  
 				} else { 
-					Debug.Log ("Will  be grounded on left"); 
-				
 					return -1f; 
 				} 
 			} 
@@ -575,6 +566,22 @@ public class EnemyClass : MonoBehaviour {
 			return 0; 
 		} 
 	} 
+
+	private float aiCrouch()
+	{
+		_frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
+		_backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
+		RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask); 
+		RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
+
+		if (hitFrontCeiling.collider || hitBackCeiling.collider) {
+			return -1f; 
+		} else {
+			return 0f; 
+		}
+
+	}
+
 
 	private bool aiAttack() 
 	{ 
