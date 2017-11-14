@@ -538,27 +538,34 @@ public class EnemyClass : MonoBehaviour {
 	// Takes the place of Input.GetAxis("Horizontal"), and returns a float < 1 and > -1  
 	private float aiHorizontal() 
 	{ 
+		float jumpDistance = 5f; 
 		if (attacking == false) { 
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
 			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
-			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
-			Debug.DrawRay (_backBottomCorner, Vector2.down);   
+
+			Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
+			Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
+			RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
+			RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
+
+			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
+			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
 
 			if (myTrans.position.x < 100) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-				if(hitFrontGround.collider == null) 
-				{ 
-					return 1f;  
-				} else { 
+				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
+					Debug.Log ((hitFrontGround != null) +" "+ (jumpHitFrontGround.collider != null) + "moving");
 					return 1f; 
-				} 
+				} else {
+					return 0f; 
+				}
 			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if(hitBackGround.collider == null) 
+				if(hitBackGround.collider == null && jumpHitBackGround.collider == null || isJumping) 
 				{ 
 					return -1f;  
 				} else { 
-					return -1f; 
+					return 0f; 
 				} 
 			} 
 		} else  
@@ -579,7 +586,6 @@ public class EnemyClass : MonoBehaviour {
 		} else {
 			return 0f; 
 		}
-
 	}
 
 
@@ -600,25 +606,29 @@ public class EnemyClass : MonoBehaviour {
 
 	private bool aiJump()
 	{
+		float jumpDistance = 5f; 
 		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
 		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
-		Debug.DrawRay (_frontBottomCorner, Vector2.down);  
-		Debug.DrawRay (_backBottomCorner, Vector2.down);
+
+		Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
+		Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
+		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
+		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
+
+
 
 		if (myTrans.position.x < 100) { // TODO :: Replace the 100, with the player position  
-			// Debug.Log ("entering right case"); 
-			if(hitFrontGround.collider == null) 
+			if(jumpHitFrontGround.collider != null && hitFrontGround.collider == null) 
 			{ 
-				// Debug.Log ("Will nnnnnnnnnnnnnnnnnnnnnnnnot be grounded on right"); 
 				return true;  
 			} else { 
 				 
 			} 
 		} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 			// Debug.Log ("entering left case"); 
-			if(hitBackGround.collider == null) 
+			if(jumpHitBackGround.collider != null && hitBackGround.collider == null) 
 			{ 
 				// Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
 				return true;  
