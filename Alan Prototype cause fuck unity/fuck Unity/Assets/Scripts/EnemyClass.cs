@@ -556,7 +556,7 @@ public class EnemyClass : MonoBehaviour {
 			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 				if(hitBackGround.collider == null) 
 				{ 
-					return 0f;  
+					return -1f;  
 				} else { 
 					return -1f; 
 				} 
