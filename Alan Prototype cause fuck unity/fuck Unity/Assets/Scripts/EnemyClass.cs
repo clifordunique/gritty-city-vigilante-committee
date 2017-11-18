@@ -555,7 +555,6 @@ public class EnemyClass : MonoBehaviour {
 
 			if (myTrans.position.x < 100) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
-					Debug.Log ((hitFrontGround != null) +" "+ (jumpHitFrontGround.collider != null) + "moving");
 					return 1f; 
 				} else {
 					return 0f; 
