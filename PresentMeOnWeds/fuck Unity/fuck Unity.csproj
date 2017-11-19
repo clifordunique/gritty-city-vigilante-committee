@@ -221,12 +221,16 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\cameraController.cs" />
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
+    <Compile Include="Assets\Scripts\EnemyClass.cs" />
+    <Compile Include="Assets\Scripts\IgnoreCollions.cs" />
     <Compile Include="Assets\Scripts\playerController.cs" />
     <Compile Include="Assets\Scripts\Shotmover.cs" />
+    <Compile Include="Assets\trigger.cs" />
+    <Compile Include="Assets\triggerMan.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Materials\ChromaKey.shader" />
     <None Include="Assets\Ninja Files\Read Me.txt" />
-    <None Include="Assets\demo sprites\ChromaKey.shader" />
     <None Include="Assets\demo sprites\Multi_Platformer_Tileset\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

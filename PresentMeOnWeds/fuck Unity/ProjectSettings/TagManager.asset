@@ -10,6 +10,10 @@ TagManager:
   - outworld
   - outworld_background
   - music
+  - mothaFuckin_shot
+  - shotDestroyer!
+  - killme
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -19,8 +23,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Player
+  - Level
   - 
   - 
   - 

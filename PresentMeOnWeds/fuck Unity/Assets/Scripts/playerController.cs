@@ -72,9 +72,8 @@ public class playerController : MonoBehaviour {
     public GameObject shot;
     public Transform shotSpawn;
     
-    public float fireRate = 10;
-    private float _nextFire;
-
+    public float fireRate = .5f;
+    
     //private variables
     private Vector3 _moveDirection = Vector3.zero;
     private CharacterController2D _CharacterController;
@@ -169,10 +168,12 @@ public class playerController : MonoBehaviour {
             if (Input.GetButton("Fire3"))
             {
                 // 
-                //Debug.Log("pew pew");
-                //_nextFire = Time.deltaTime + fireRate;
+                Debug.Log("pew pew");
 
-                Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+                StartCoroutine("Fire");
+                
+                
+                //_nextFire = Time.time + fireRate;
             }
         }
             
@@ -546,7 +547,17 @@ public class playerController : MonoBehaviour {
         yield return new WaitForSeconds(6f);
         outworld_background.enabled = false;
         videos[1].Stop();
-
-
+        
+    }
+    //controls firing and the rate of fire
+    IEnumerator Fire()
+    {
+        Debug.Log(fireRate);
+        canShoot = false;
+        //position needs to change after we figure out where he's shooting from
+        //or how the character is shooting
+        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
     }
 }
