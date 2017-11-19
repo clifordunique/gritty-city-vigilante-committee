@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 95376911816492912}
   - component: {fileID: 114446087866853194}
   m_Layer: 9
-  m_Name: EnemyToKepp
+  m_Name: EnemyWithHitDetection
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
