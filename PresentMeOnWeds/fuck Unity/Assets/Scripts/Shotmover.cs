@@ -6,7 +6,6 @@ public class Shotmover : playerController
 {
     public float speed;
     private GameObject Player;
-    private GameObject Shot;
     private Vector3 velo;
    
     private bool alive = false;
@@ -16,7 +15,6 @@ public class Shotmover : playerController
         //connects to the player/object to find direction 
         // that they are facing.
         Player = GameObject.FindWithTag("Player");
-        Shot = GameObject.FindWithTag("mothaFuckin_shot");
         Vector3 velo = Vector3.zero;
         speed = .5f;
 	}
@@ -60,9 +58,8 @@ public class Shotmover : playerController
         
         //Debug.Log("what");
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-        if (other.gameObject.CompareTag("killme") && gameObject.CompareTag("mothaFuckin_shot") == true)
+        if (other.gameObject.CompareTag("killme"))
         {
-            //other = transform.parent.gameObject;
             //destroys enemy
             Destroy(other.transform.parent.gameObject);
 
