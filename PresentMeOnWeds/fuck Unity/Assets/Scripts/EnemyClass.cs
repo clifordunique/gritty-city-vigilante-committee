@@ -9,12 +9,11 @@ public class EnemyClass : MonoBehaviour {
 	public float maxSpeed = 7; 
 	private SpriteRenderer spriteRenderer; 
 	private bool facingRight = false; //Always tries to move right at the begining when set to true  
-	public LayerMask enemyMask;  
 	Rigidbody2D myBody;  
 	Transform myTrans;  
 	float myWidth; 
 	public bool attacking;  
-	// private DummyScript player; // TODO:: Replace with actual player script  
+	private GameObject player; // TODO:: Replace with actual player script  
 
 	public Collider[] attackHitboxes;
 
@@ -108,6 +107,8 @@ public class EnemyClass : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
+		player = GameObject.Find ("Player"); 
+
 		//grabs the character attached to the script
 		_CharacterController = GetComponent<CharacterController2D>();
 		_currentGlideTime = glideTime;
@@ -608,17 +609,19 @@ public class EnemyClass : MonoBehaviour {
 			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
 
-			if (myTrans.position.x < 100) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+			if (myTrans.position.x < player.transform.position.x) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
 					return 1f; 
 				} else {
 					return 0f; 
 				}
 			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if(hitBackGround.collider == null && jumpHitBackGround.collider == null || isJumping) 
+				if(hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) 
 				{ 
+					Debug.Log ("Returning -1"); 
 					return -1f;  
 				} else { 
+					Debug.Log ("Returning 0"); 
 					return 0f; 
 				} 
 			} 
@@ -669,7 +672,7 @@ public class EnemyClass : MonoBehaviour {
 		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
 		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
 
-		if (myTrans.position.x < 100) { // TODO :: Replace the 100, with the player position  
+		if (myTrans.position.x < player.transform.position.x) { // TODO :: Replace the 100, with the player position  
 			if(jumpHitFrontGround.collider != null && hitFrontGround.collider == null) 
 			{ 
 				return true;  
