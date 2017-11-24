@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{93FDA6B2-70C3-C7E3-00B8-3BA81DB5C15A}</ProjectGuid>
+    <ProjectGuid>{B2B00967-BED0-FCE5-72D7-82AD05391E9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -54,6 +54,8 @@
      <Compile Include="Assets\Scripts\cameraController.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\EnemyClass.cs" />
+     <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
+     <Compile Include="Assets\Scripts\EnemyShooter.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\IgnoreCollions.cs" />
      <Compile Include="Assets\Scripts\playerController.cs" />

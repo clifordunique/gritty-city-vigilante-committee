@@ -14,7 +14,7 @@ public class EnemyClass : MonoBehaviour {
 	float myWidth; 
 	public bool attacking;  
 	private GameObject player; // TODO:: Replace with actual player script  
-
+	private float followCenterRadius = 3; //Radius in which the enemy will not move. 
 	public Collider[] attackHitboxes;
 
 
@@ -609,22 +609,24 @@ public class EnemyClass : MonoBehaviour {
 			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
 
-			if (myTrans.position.x < player.transform.position.x) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
 					return 1f; 
 				} else {
 					return 0f; 
 				}
-			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if(hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) 
-				{ 
+			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
 					Debug.Log ("Returning -1"); 
 					return -1f;  
 				} else { 
 					Debug.Log ("Returning 0"); 
 					return 0f; 
 				} 
-			} 
+			} else 
+			{
+				return 0f;
+			}
 		} else  
 		{ 
 			return 0; 
