@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Level
+  - Enemy
+  - Usable
+  - Pickup
+  - IgnorePlayer
+  - Player
+  - Hitbox
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - PlayerDrop
+  - PlateformThrought
+  m_SortingLayers:
+  - name: sky
+    uniqueID: 1619005351
+    locked: 0
+  - name: clouds&Stars
+    uniqueID: 3466536183
+    locked: 0
+  - name: backCity
+    uniqueID: 3056273625
+    locked: 0
+  - name: frontCity
+    uniqueID: 3032405787
+    locked: 0
+  - name: backDecoration
+    uniqueID: 1592948371
+    locked: 0
+  - name: frontDecoration
+    uniqueID: 3144369847
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0

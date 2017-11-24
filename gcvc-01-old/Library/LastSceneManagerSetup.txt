@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/DemoLevel/Scenes/ForrestLevel.unity
+  isLoaded: 1
+  isActive: 1
