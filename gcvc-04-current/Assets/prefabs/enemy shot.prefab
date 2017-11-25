@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4114469905764754}
   - component: {fileID: 212537787408783120}
   - component: {fileID: 50988208738046648}
-  - component: {fileID: 114219844032431786}
   - component: {fileID: 70235443536346542}
+  - component: {fileID: 114726678968165442}
   m_Layer: 0
   m_Name: enemy shot
   m_TagString: enemy shot
@@ -78,7 +78,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.01, y: -0.03}
   m_Size: {x: 0.14, y: 0.14}
   m_Direction: 1
---- !u!114 &114219844032431786
+--- !u!114 &114726678968165442
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1793569461445286}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62a7e8a0be822a0458d6e8ea36c30f05, type: 3}
+  m_Script: {fileID: 11500000, guid: 85f9d211957d24a79ae8578c27d161b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 6
@@ -113,7 +113,7 @@ MonoBehaviour:
   canPowerJump: 1
   canStomp: 1
   canChangeLevel: 1
-  canShoot: 0
+  canShoot: 1
   isGrounded: 0
   isJumping: 0
   isFacingRight: 0
@@ -142,8 +142,8 @@ MonoBehaviour:
   animator: {fileID: 0}
   shot: {fileID: 0}
   shotSpawn: {fileID: 0}
-  fireRate: 0
-  speed: 2
+  fireRate: 0.5
+  speed: 0
 --- !u!212 &212537787408783120
 SpriteRenderer:
   m_ObjectHideFlags: 1

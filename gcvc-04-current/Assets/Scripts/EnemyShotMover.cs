@@ -60,13 +60,10 @@ public class EnemyShotMover : playerController
 	// store a reference to that collider in a variable named 'other'..
 	void OnTriggerEnter2D(Collider2D other)
 	{
-
 		//Debug.Log("what");
 		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-		if (other.gameObject.CompareTag("Player"))
+		if (other.gameObject.CompareTag("player hurt box"))
 		{
-			//destroys enemy
-			// Destroy(other.transform.parent.gameObject);
 			Debug.Log("Player take damage"); 
 			//destroys bullet
 			Destroy(gameObject);

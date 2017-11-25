@@ -14,6 +14,8 @@ TagManager:
   - shotDestroyer!
   - killme
   - enemy
+  - enemy shot
+  - player hurt box
   layers:
   - Default
   - TransparentFX

@@ -623,10 +623,8 @@ public class EnemyShooter : MonoBehaviour {
 				}
 			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
-					Debug.Log ("Returning -1"); 
 					return -1f;  
 				} else { 
-					Debug.Log ("Returning 0"); 
 					return 0f; 
 				} 
 			} else 
