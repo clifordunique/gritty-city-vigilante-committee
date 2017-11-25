@@ -185,6 +185,9 @@ public class EnemyShooter : MonoBehaviour {
 		{
 			if (aiShoot())
 			{
+				// 
+				Debug.Log("pew pew");
+
 				StartCoroutine("Fire");
 
 
@@ -567,6 +570,7 @@ public class EnemyShooter : MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
+		Debug.Log(fireRate);
 		canShoot = false;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
@@ -588,11 +592,12 @@ public class EnemyShooter : MonoBehaviour {
 
 	private bool aiShoot()
 	{
-		if (Random.Range (0, 100) % 3 == 0) {
+		Debug.Log ("running aiShoot");
+		if (Random.Range (0, 1) == 1) {
 			return true; 
-		} else 
+		} else
 		{
-			return false; 
+			return false;
 		}
 	}
 
@@ -623,8 +628,10 @@ public class EnemyShooter : MonoBehaviour {
 				}
 			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
+					Debug.Log ("Returning -1"); 
 					return -1f;  
 				} else { 
+					Debug.Log ("Returning 0"); 
 					return 0f; 
 				} 
 			} else 

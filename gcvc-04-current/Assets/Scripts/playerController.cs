@@ -32,7 +32,10 @@ public class playerController : MonoBehaviour {
     public bool canStomp = true;
     public bool canChangeLevel = true;
     public bool canShoot = true;
-
+    public bool canMove = true;
+    public bool canCrouch = false;
+    public bool canChangeWep = true;
+   
     //player states
     public bool isGrounded;
     public bool isJumping;
@@ -69,7 +72,10 @@ public class playerController : MonoBehaviour {
     //public BoxCollider2D
     public Animator animator;
 
-    public GameObject shot;
+    public GameObject[] horizshot;
+    public GameObject[] diagShot;
+    public GameObject[] vertShot;
+    public int wepNum;
     public Transform shotSpawn;
     
     public float fireRate = .5f;
@@ -91,6 +97,10 @@ public class playerController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        wepNum = 0;
+        //horizshot = (GameObject)Resources.Load("prefabs/horiz_shot", typeof(GameObject));
+        Debug.Log(horizshot);
+        //horizshot = vert_shot.prefab;
         //grabs the character attached to the script
         _CharacterController = GetComponent<CharacterController2D>();
         _currentGlideTime = glideTime;
@@ -159,75 +169,93 @@ public class playerController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-
-        //shoooting mechanics
-        //needs to change to be one bullet at a time
-        //probably by coroutine. and in bool isShooting
-        if (canShoot)
-        {
-            if (Input.GetButton("Fire3"))
-            {
-                // 
-                Debug.Log("pew pew");
-
-                StartCoroutine("Fire");
-                
-                
-                //_nextFire = Time.time + fireRate;
-            }
-        }
-            
         
-        //makes things disapear or change up the level
-        //so far this make it where you can just make one
-        //sprite disapear. can be exapanded to the whole level
-        // isChangingLevels is there to tell the animator to do it's thing
-        //probably put code in to save position of character or not... would
-        //be cool to have a free fall on change.
-        if (canChangeLevel)
+        if (canMove)
         {
-            //changes to the alternate level
-            //should program to return state with the same button
-            // put in a cooroutine to do this
-            if (Input.GetButton("Fire1") && !isChangingLevels)
+            if (canShoot)
             {
-                    for (int i = 0; i < box.Length ; i++)
+                //horizontal shot
+                if (Input.GetButton("Fire3"))
+                {
+                    StartCoroutine("Fire");
+                }
+                //vertical shot
+                if (Input.GetButton("Fire5"))
+                {
+                    StartCoroutine("vFire");
+                }
+                //diagshot
+                if(Input.GetButton("Fire6"))
+                {
+                    StartCoroutine("dFire");
+                }
+                //change weapons set
+                if (canChangeWep)
+                {
+
+
+                    if (Input.GetButton("LeftBump"))
                     {
-                      boxTest[i].enabled = false;
-                      boxy[i].enabled = false;
+                        StartCoroutine("wepSelLeft");
+                    }
+                    if (Input.GetButton("RightBump"))
+                    {
+                        StartCoroutine("wepSelRight");
+                    }
+                }
+            }
+
+
+            //makes things disapear or change up the level
+            //so far this make it where you can just make one
+            //sprite disapear. can be exapanded to the whole level
+            // isChangingLevels is there to tell the animator to do it's thing
+            //probably put code in to save position of character or not... would
+            //be cool to have a free fall on change.
+            if (canChangeLevel)
+            {
+                //changes to the alternate level
+                //should program to return state with the same button
+                // put in a cooroutine to do this
+                if (Input.GetButton("Fire1") && !isChangingLevels)
+                {
+                    for (int i = 0; i < box.Length; i++)
+                    {
+                        boxTest[i].enabled = false;
+                        boxy[i].enabled = false;
 
                     }
-                    for ( var i = 0; i < cityGameObject.Length; i += 1)
+                    for (var i = 0; i < cityGameObject.Length; i += 1)
                     {
-                                        
-                    citySprites[i].enabled = true;
-                    
+
+                        citySprites[i].enabled = true;
+
                     }
                     for (var i = 0; i < CityColliderBox.Length; i++)
                     {
-                    
+
                         if (CityColliderBox[i] != null)
                         {
                             CityColliderBox[i].enabled = true;
                         }
 
                     }
-                videos[0].Stop();
-                music[0].Stop();
-                music[1].Play();
-                outworld_background.enabled = false;
-                isChangingLevels = true;
+                    videos[0].Stop();
+                    music[0].Stop();
+                    music[1].Play();
+                    outworld_background.enabled = false;
+                    isChangingLevels = true;
 
-            }
+                }
 
-            //this changes it back to original level
-            else if (Input.GetButton("Fire2") && isChangingLevels)
-            {
+                //this changes it back to original level
+                else if (Input.GetButton("Fire2") && isChangingLevels)
+                {
                     for (var i = 0; i < cityGameObject.Length; i += 1)
                     {
-                                            
-                    citySprites[i].enabled = false;
-                   
+
+                        citySprites[i].enabled = false;
+
                     }
                     for (var i = 0; i < CityColliderBox.Length; i++)
                     {
@@ -236,283 +264,283 @@ public class playerController : MonoBehaviour {
                             CityColliderBox[i].enabled = false;
                         }
                     }
-                
-                for (var i = 0; i < box.Length; i++)
-                {
 
-                     boxTest[i].enabled = true;
-                     boxy[i].enabled = true;
+                    for (var i = 0; i < box.Length; i++)
+                    {
 
+                        boxTest[i].enabled = true;
+                        boxy[i].enabled = true;
+
+                    }
+                    outworld_background.enabled = true;
+                    videos[0].Play();
+                    music[1].Stop();
+                    music[0].time = 20f;
+                    music[0].Play();
+                    StartCoroutine("WallyWowPlay");
+
+                    isChangingLevels = false;
                 }
-                outworld_background.enabled = true;
-                videos[0].Play();
-                music[1].Stop();
-                music[0].time = 20f;
-                music[0].Play();
-                StartCoroutine("WallyWowPlay");
-                               
-                isChangingLevels = false;
             }
-        }
-        if (!wallJumped)
-        {
-            _moveDirection.x = Input.GetAxis("Horizontal");
-            _moveDirection.x *= walkSpeed;
-        }
-
-        //next few lines detect the slope of the ground and determines if they will slide
-        //down the hill or not
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector3.up, 2f, layerMask);
-
-        if (hit)
-        {
-            _slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
-            _slopeGradient = hit.normal;
-
-            if(_slopeAngle > _CharacterController.slopeLimit)
+            if (!wallJumped)
             {
-                isSlopeSliding = true;
-
-            }
-            else
-            {
-                isSlopeSliding = false;
-            }
-        }
-        //handles jumping
-        //player on the ground
-        if (isGrounded)
-        {
-            _moveDirection.y = 0;
-            isJumping = false;
-            doubleJumped = false;
-            isStomping = false;
-            _currentGlideTime = glideTime;
-            //testing disapearing objects
-            
-            if (_moveDirection.x < 0)
-            {
-                //rotates player
-                
-                transform.eulerAngles = new Vector3(0, 180, 0);
-                isFacingRight = false;
-            }
-            else if(_moveDirection.x > 0)
-            {
-                transform.eulerAngles = new Vector3(0, 0, 0);
-                isFacingRight = true;
+                _moveDirection.x = Input.GetAxis("Horizontal");
+                _moveDirection.x *= walkSpeed;
             }
 
-            if (isSlopeSliding)
+            //next few lines detect the slope of the ground and determines if they will slide
+            //down the hill or not
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector3.up, 2f, layerMask);
+
+            if (hit)
             {
-                _moveDirection = new Vector3(_slopeGradient.x * slopeSlideSpeed, -_slopeGradient.y * slopeSlideSpeed, 0f);
-            }
-            if (Input.GetButtonDown("Jump"))
-            {
-                if(canPowerJump && isCrouched)
+                _slopeAngle = Vector2.Angle(hit.normal, Vector2.up);
+                _slopeGradient = hit.normal;
+
+                if (_slopeAngle > _CharacterController.slopeLimit)
                 {
-                    _moveDirection.y = jumpSpeed + powerJumpSpeed;
-                    //isPowerJumping = true;
-                    StartCoroutine("PowerJumpTimer");    
-                //mebbe add in a timer to wait a bit.
+                    isSlopeSliding = true;
+
                 }
                 else
                 {
-                    _moveDirection.y = jumpSpeed;
-                    isJumping = true;
+                    isSlopeSliding = false;
                 }
-                
-
-                //puts it here to be able to wall run
-                                iswallRunning = true;
             }
-        }
-        //player is in the air
-        else
-        {
-            if (Input.GetButtonUp("Jump"))
+            //handles jumping
+            //player on the ground
+            if (isGrounded)
             {
-                if(_moveDirection.y > 0)
+                _moveDirection.y = 0;
+                isJumping = false;
+                doubleJumped = false;
+                isStomping = false;
+                _currentGlideTime = glideTime;
+                //testing disapearing objects
+
+                if (_moveDirection.x < 0)
                 {
-                    _moveDirection.y = _moveDirection.y * .5f;
+                    //rotates player
+
+                    transform.eulerAngles = new Vector3(0, 180, 0);
+                    isFacingRight = false;
                 }
-            }
-            //sets up double jump
-            if (Input.GetButtonDown("Jump"))
-            {//make sure you ahve the ability to do so
-                if (canDoubleJump)
+                else if (_moveDirection.x > 0)
                 {
-                    //make sure you ahven't already
-                    if (!doubleJumped)
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    isFacingRight = true;
+                }
+
+                if (isSlopeSliding)
+                {
+                    _moveDirection = new Vector3(_slopeGradient.x * slopeSlideSpeed, -_slopeGradient.y * slopeSlideSpeed, 0f);
+                }
+                if (Input.GetButtonDown("Jump"))
+                {
+                    if (canPowerJump && Input.GetAxis("Vertical") < 0)
                     {
-                        _moveDirection.y = doubleJumpSpeed;
-                        doubleJumped = true;
+                        _moveDirection.y = jumpSpeed + powerJumpSpeed;
+                        //isPowerJumping = true;
+                        StartCoroutine("PowerJumpTimer");
+                        //mebbe add in a timer to wait a bit.
                     }
-                }
-            }
-        }
-
-        //gravity calculations
-        //glide will create it's own gravity
-        //to create the effect
-        //makes it to taht you can glide immediately
-        if (canGlide && Input.GetAxis("Vertical") > 0.5f && _CharacterController.velocity.y < 0.2f)
-        {
-            if (_currentGlideTime > 0)//makes glide not be infinite
-            {
-
-
-                isGliding = true;
-                if (_startGlide)
-                {
-                    _moveDirection.y = 0;
-                    _startGlide = false;
-                }
-                _moveDirection.y -= glideAmount * Time.deltaTime;
-                _currentGlideTime -= glideAmount - Time.deltaTime;
-            }
-            else
-            {
-                isGliding = false;
-               
-                _moveDirection.y -= gravity * Time.deltaTime;
-            }
-        }
-        else if (canStomp && isCrouched && !isPowerJumping)
-        {
-            _moveDirection.y -= gravity * Time.deltaTime + stompSpeed;
-            isStomping = true;
-        }
-        else
-        { //when stop gliding
-            isGliding = false;
-            _startGlide = true;
-            
-            _moveDirection.y -= gravity * Time.deltaTime;
-        }
-        
-        _CharacterController.move(_moveDirection * Time.deltaTime);
-        
-        //checks what is being collided with our character
-        flags = _CharacterController.collisionState;
-
-        isGrounded = flags.below;
-
-        //crouched and crouch f
-        _frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0);
-        _backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0);
-        RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask);
-        RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
-
-        if (Input.GetAxis("Vertical") < 0 && _moveDirection.x == 0)
-        {
-            if(!isCrouched && !isCrouchWalking)
-            {
-                _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y / 2);
-                transform.position = new Vector3(transform.position.x, transform.position.y - (_originalBoxColliderSize.y / 4), 0);
-                _CharacterController.recalculateDistanceBetweenRays();
-            }
-            isCrouched = true;
-            isCrouchWalking = false;
-
-        }
-        else if(Input.GetAxis("Vertical") < 0 && ( _moveDirection.x > 0 || _moveDirection.x < 0))
-        {
-            if (!isCrouched && !isCrouchWalking)
-            {
-                _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y / 2);
-                transform.position = new Vector3(transform.position.x, transform.position.y - (_originalBoxColliderSize.y / 4), 0);
-                _CharacterController.recalculateDistanceBetweenRays();
-            }
-            isCrouched = false;
-            isCrouchWalking = true;
-        }
-        else
-        {
-            if(!hitFrontCeiling.collider && !hitBackCeiling && (isCrouched || isCrouchWalking))
-            {
-                
-                _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y);
-                transform.position = new Vector3(transform.position.x, transform.position.y + (_originalBoxColliderSize.y / 4), 0);
-                _CharacterController.recalculateDistanceBetweenRays();
-                isCrouched = false;
-                isCrouchWalking = false;
-            }
-        }
-        //check above us so we don't go through a ceiling
-        if (flags.above)
-        {
-            //normal gravity calculation
-            _moveDirection.y -= gravity * Time.deltaTime;
-        }
-        //wall jumping code
-        //checks collsion left and right
-        if (flags.left || flags.right)
-        {
-
-            if (canWallRun)
-            {
-                if (Input.GetAxis("Vertical") > 0 && iswallRunning)
-                {
-                    _moveDirection.y = jumpSpeed / wallRunAmount;
-                    StartCoroutine(WallRunTimer());
-                }
-            }
-            //checks if can wall jump
-            if (canWallJump)
-            {
-                if (Input.GetButtonDown("Jump") && !wallJumped && !isGrounded)
-                {
-                    if(_moveDirection.x < 0)
+                    else
                     {
-                        //moving right
-                        _moveDirection.x = jumpSpeed * wallJumpXAmount;
-                        _moveDirection.y = jumpSpeed * wallJumpYAmount;
-                        transform.eulerAngles = new Vector3(0, 180, 0);
-                        _lastJumpedWasLeft = false;
+                        _moveDirection.y = jumpSpeed;
+                        isJumping = true;
                     }
-                    else if(_moveDirection.x > 0)
-                    {
-                        //moving left
-                        _moveDirection.x = -jumpSpeed * wallJumpXAmount;
-                        _moveDirection.y = jumpSpeed * wallJumpYAmount;
-                        transform.eulerAngles = new Vector3(0, 0, 0);
-                        _lastJumpedWasLeft = true;
-                    }
-                    StartCoroutine(WallJumpTimer());
-                }
-            }
-            else
-            {
-                if (canRunAfterWallJump)
-                {
-                    StopCoroutine(WallRunTimer());
+
+                    //puts it here to be able to wall run
                     iswallRunning = true;
                 }
             }
+            //player is in the air
+            else
+            {
+                if (Input.GetButtonUp("Jump"))
+                {
+                    if (_moveDirection.y > 0)
+                    {
+                        _moveDirection.y = _moveDirection.y * .5f;
+                    }
+                }
+                //sets up double jump
+                if (Input.GetButtonDown("Jump"))
+                {//make sure you ahve the ability to do so
+                    if (canDoubleJump)
+                    {
+                        //make sure you ahven't already
+                        if (!doubleJumped)
+                        {
+                            _moveDirection.y = doubleJumpSpeed;
+                            doubleJumped = true;
+                        }
+                    }
+                }
+            }
+
+            //gravity calculations
+            //glide will create it's own gravity
+            //to create the effect
+            //makes it to taht you can glide immediately
+            if (canGlide && Input.GetAxis("Vertical") > 0.5f && _CharacterController.velocity.y < 0.2f)
+            {
+                if (_currentGlideTime > 0)//makes glide not be infinite
+                {
+
+
+                    isGliding = true;
+                    if (_startGlide)
+                    {
+                        _moveDirection.y = 0;
+                        _startGlide = false;
+                    }
+                    _moveDirection.y -= glideAmount * Time.deltaTime;
+                    _currentGlideTime -= glideAmount - Time.deltaTime;
+                }
+                else
+                {
+                    isGliding = false;
+
+                    _moveDirection.y -= gravity * Time.deltaTime;
+                }
+            }
+            else if (canStomp && Input.GetAxis("Vertical") < 0 && !isPowerJumping)
+            {
+                _moveDirection.y -= gravity * Time.deltaTime + stompSpeed;
+                isStomping = true;
+            }
+            else
+            { //when stop gliding
+                isGliding = false;
+                _startGlide = true;
+
+                _moveDirection.y -= gravity * Time.deltaTime;
+            }
+
+            _CharacterController.move(_moveDirection * Time.deltaTime);
+
+            //checks what is being collided with our character
+            flags = _CharacterController.collisionState;
+
+            isGrounded = flags.below;
+            if (canCrouch)
+            {     //crouched and crouch f
+                _frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0);
+            _backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0);
+            RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask);
+            RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
+            
+                if (Input.GetAxis("Vertical") < 0 && _moveDirection.x == 0)
+                {
+                    if (!isCrouched && !isCrouchWalking)
+                    {
+                        _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y / 2);
+                        transform.position = new Vector3(transform.position.x, transform.position.y - (_originalBoxColliderSize.y / 4), 0);
+                        _CharacterController.recalculateDistanceBetweenRays();
+                    }
+                    isCrouched = true;
+                    isCrouchWalking = false;
+
+                }
+                else if (Input.GetAxis("Vertical") < 0 && (_moveDirection.x > 0 || _moveDirection.x < 0))
+                {
+                    if (!isCrouched && !isCrouchWalking)
+                    {
+                        _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y / 2);
+                        transform.position = new Vector3(transform.position.x, transform.position.y - (_originalBoxColliderSize.y / 4), 0);
+                        _CharacterController.recalculateDistanceBetweenRays();
+                    }
+                    isCrouched = false;
+                    isCrouchWalking = true;
+                }
+                else
+                {
+                    if (!hitFrontCeiling.collider && !hitBackCeiling && (isCrouched || isCrouchWalking))
+                    {
+
+                        _boxCollider.size = new Vector2(_boxCollider.size.x, _originalBoxColliderSize.y);
+                        transform.position = new Vector3(transform.position.x, transform.position.y + (_originalBoxColliderSize.y / 4), 0);
+                        _CharacterController.recalculateDistanceBetweenRays();
+                        isCrouched = false;
+                        isCrouchWalking = false;
+                    }
+                }
+            }
+            //check above us so we don't go through a ceiling
+            if (flags.above)
+            {
+                //normal gravity calculation
+                _moveDirection.y -= gravity * Time.deltaTime;
+            }
+            //wall jumping code
+            //checks collsion left and right
+            if (flags.left || flags.right)
+            {
+
+                if (canWallRun)
+                {
+                    if (Input.GetAxis("Vertical") > 0 && iswallRunning)
+                    {
+                        _moveDirection.y = jumpSpeed / wallRunAmount;
+                        StartCoroutine(WallRunTimer());
+                    }
+                }
+                //checks if can wall jump
+                if (canWallJump)
+                {
+                    if (Input.GetButtonDown("Jump") && !wallJumped && !isGrounded)
+                    {
+                        if (_moveDirection.x < 0)
+                        {
+                            //moving right
+                            _moveDirection.x = jumpSpeed * wallJumpXAmount;
+                            _moveDirection.y = jumpSpeed * wallJumpYAmount;
+                            transform.eulerAngles = new Vector3(0, 180, 0);
+                            _lastJumpedWasLeft = false;
+                        }
+                        else if (_moveDirection.x > 0)
+                        {
+                            //moving left
+                            _moveDirection.x = -jumpSpeed * wallJumpXAmount;
+                            _moveDirection.y = jumpSpeed * wallJumpYAmount;
+                            transform.eulerAngles = new Vector3(0, 0, 0);
+                            _lastJumpedWasLeft = true;
+                        }
+                        StartCoroutine(WallJumpTimer());
+                    }
+                }
+                else
+                {
+                    if (canRunAfterWallJump)
+                    {
+                        StopCoroutine(WallRunTimer());
+                        iswallRunning = true;
+                    }
+                }
+            }
+            //animator states
+            animator.SetBool("isJumping", isJumping);
+            animator.SetBool("isGrounded", isGrounded);
+            //animator.SetBool("isFacingRight", isFacingRight);
+            animator.SetFloat("movementX", _moveDirection.x);
+            animator.SetFloat("movementY", _moveDirection.y);
+
+
+            //public bool isGrounded;
+            //public bool isJumping;
+            //public bool isFacingRight;
+            //public bool doubleJumped;
+            //public bool wallJumped;
+            //public bool iswallRunning;
+            //public bool isSlopeSliding;
+            //public bool isGliding;
+            //public bool isCrouchWalking;
+            //public bool isCrouched;
+            //public bool isPowerJumping;
+            //public bool isStomping;
+            //public bool isChangingLevels;
         }
-        //animator states
-        animator.SetBool("isJumping", isJumping);
-        animator.SetBool("isGrounded", isGrounded);
-        //animator.SetBool("isFacingRight", isFacingRight);
-        animator.SetFloat("movementX", _moveDirection.x);
-        animator.SetFloat("movementY", _moveDirection.y);
-
-
-    //public bool isGrounded;
-    //public bool isJumping;
-    //public bool isFacingRight;
-    //public bool doubleJumped;
-    //public bool wallJumped;
-    //public bool iswallRunning;
-    //public bool isSlopeSliding;
-    //public bool isGliding;
-    //public bool isCrouchWalking;
-    //public bool isCrouched;
-    //public bool isPowerJumping;
-    //public bool isStomping;
-    //public bool isChangingLevels;
-
 }//end of update
 
 
@@ -552,13 +580,56 @@ public class playerController : MonoBehaviour {
     //controls firing and the rate of fire
     IEnumerator Fire()
     {
-        Debug.Log(fireRate);
+       
         canShoot = false;
-        //position needs to change after we figure out where he's shooting from
-        //or how the character is shooting
-        //add in negative for facing a certain way... easy peasy
-        Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+        Instantiate(horizshot[wepNum], shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         canShoot = true;
     }
+    IEnumerator vFire()
+    {
+
+        canShoot = false;
+        Instantiate(vertShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
+    }
+    IEnumerator dFire()
+    {
+
+        canShoot = false;
+        Instantiate(diagShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+        yield return new WaitForSeconds(fireRate);
+        canShoot = true;
+    }
+
+    IEnumerator wepSelLeft()
+    {
+        canChangeWep = false;
+        if (wepNum == 0)
+        {
+            wepNum = 2;
+        }
+        else
+        {
+            wepNum--;
+        }
+        yield return new WaitForSeconds(1f);
+        canChangeWep = true;
+    }
+    IEnumerator wepSelRight()
+    {
+        canChangeWep = false;
+        if (wepNum == 2)
+        {
+            wepNum = 0;
+        }
+        else
+        {
+            wepNum++;
+        }
+        yield return new WaitForSeconds(1f);
+        canChangeWep = true;
+    }
+
 }

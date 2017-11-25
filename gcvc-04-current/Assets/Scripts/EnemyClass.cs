@@ -3,25 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using Prime31;
 using UnityEngine.Video;
-using System; 
 
 public class EnemyClass : MonoBehaviour {
 	public float jumpTakeOffSpeed = 7; 
 	public float maxSpeed = 7; 
 	private SpriteRenderer spriteRenderer; 
+	private bool facingRight = false; //Always tries to move right at the begining when set to true  
 	Rigidbody2D myBody;  
 	Transform myTrans;  
 	float myWidth; 
 	public bool attacking;  
 	private GameObject player; // TODO:: Replace with actual player script  
 	private float followCenterRadius = 3; //Radius in which the enemy will not move. 
-	public Collider2D[] attackHitboxes;
-<<<<<<< Updated upstream
-	public bool canAttack = true; 
-	public float attackRate = 1f; 
-=======
+	public Collider[] attackHitboxes;
 
->>>>>>> Stashed changes
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -106,15 +101,13 @@ public class EnemyClass : MonoBehaviour {
 	private Vector3 _backTopCorner;
 	private Vector3 _frontBottomCorner; 
 	private Vector3 _backBottomCorner; 
-	private float attackRadius; 
+
 
 
 	// Use this for initialization
 	void Start ()
 	{
 		player = GameObject.Find ("Player"); 
-		attackRadius = 3;
-
 
 		//grabs the character attached to the script
 		_CharacterController = GetComponent<CharacterController2D>();
@@ -516,8 +509,6 @@ public class EnemyClass : MonoBehaviour {
 				}
 			}
 		}
-		CheckAttack (); 
-
 		//animator states
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
@@ -604,9 +595,7 @@ public class EnemyClass : MonoBehaviour {
 	private float aiHorizontal() 
 	{ 
 		float jumpDistance = 5f; 
-		//if (attacking == false) { 
-		if(true)
-		{
+		if (attacking == false) { 
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
@@ -622,17 +611,16 @@ public class EnemyClass : MonoBehaviour {
 
 			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
-					Debug.Log ("Returning 1"); 
 					return 1f; 
 				} else {
-					Debug.Log ("Returning 0"); 
-
 					return 0f; 
 				}
 			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
+					Debug.Log ("Returning -1"); 
 					return -1f;  
 				} else { 
+					Debug.Log ("Returning 0"); 
 					return 0f; 
 				} 
 			} else 
@@ -643,6 +631,34 @@ public class EnemyClass : MonoBehaviour {
 		{ 
 			return 0; 
 		} 
+	} 
+
+	private float aiCrouch()
+	{
+		_frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
+		_backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
+		RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask); 
+		RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
+		if (hitFrontCeiling.collider || hitBackCeiling.collider) {
+			return -1f; 
+		} else {
+			return 0f; 
+		}
+	}
+
+
+	private bool aiAttack() 
+	{ 
+		foreach (Collider col in attackHitboxes)  
+		{ 
+			Collider[] cols = Physics.OverlapBox(col.bounds.center,col.bounds.extents,col.transform.rotation, LayerMask.GetMask("Hitbox")); 
+			if (cols.Length > 0)  
+			{ 
+				return true; 
+			} 
+		} 
+		// Debug.Log ("Didn't find anything to attack"); 
+		return false;  
 	} 
 
 	private bool aiJump()
@@ -677,90 +693,72 @@ public class EnemyClass : MonoBehaviour {
 		}
 		return false; 
 	}
-		
-
-	private float aiCrouch()
-	{
-		_frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
-		_backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
-		RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask); 
-		RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
-		if (hitFrontCeiling.collider || hitBackCeiling.collider) {
-			return -1f; 
-		} else {
-			return 0f; 
-		}
-	}
-
-	private bool aiAttack() 
-	{ 
-		
-		if (Math.Abs (player.transform.position.x - myTrans.position.x) < attackRadius) {
-<<<<<<< Updated upstream
-=======
-			Debug.Log ("in range"); 
->>>>>>> Stashed changes
-			return true; 	
-		} else 
-		{
-			return false; 
-		}
-	} 
 
 	// Checks for keypress and calls launch attack with the corresponding attackHitBox  
 	// Needs to be called in update 
 	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
 	protected void CheckAttack() 
 	{ 
-	    if (aiAttack())  
-	    { 
-	      	attacking = true; 
-<<<<<<< Updated upstream
-			LaunchAttack (); 
-=======
-			LaunchAttack (attackHitboxes [0]); 
->>>>>>> Stashed changes
-	    } 
+		//    if (aiAttack())  
+		//    { 
+		//      attacking = true; 
+		//      if (spriteRenderer.flipX) //Checks the direction the sprite is facing and selects the correct arm side 
+		//      { 
+		//        // Debug.Log ("left enemy arm attack"); 
+		//        LaunchAttack (attackHitboxes [0]);  
+		//      } else  
+		//      { 
+		//        // Debug.Log ("right enemy arm attack"); 
+		//        LaunchAttack (attackHitboxes[1]);   
+		//      } 
+		//    } 
+		// 
+		//    if (aiAttack())  
+		//    { 
+		//      if (spriteRenderer.flipX) //Checks the direction the sprite is facing and selects the correct kick side 
+		//      { 
+		//        // Debug.Log ("left enemy kick attack"); 
+		//        LaunchAttack (attackHitboxes[2]);  
+		//      } else  
+		//      { 
+		//        // Debug.Log ("right enemy kick attack"); 
+		//        LaunchAttack (attackHitboxes[3]);  
+		//      } 
+		// 
+		//    } 
 	} 
 
 	// Checks if the attack hit box overlaps with a targethitbox and designates the damage amount 
 	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
-<<<<<<< Updated upstream
-	private void LaunchAttack() 
-	{ 
-		if (canAttack) {
-			// animator.SetBool ("attacking", attacking); 
-			StartCoroutine ("Attack"); 
-		} else 
-		{
-		}
-=======
-	private void LaunchAttack(Collider2D col) 
+	private void LaunchAttack(Collider col) 
 	{ 
 		animator.SetBool("attacking", attacking); 
-		Debug.Log ("Launching attack");  
-
-
-		col.enabled = false;
-
->>>>>>> Stashed changes
+		//    Debug.Log ("Launching attack");  
+		Collider[] cols = Physics.OverlapBox(col.bounds.center,col.bounds.extents,col.transform.rotation, LayerMask.GetMask("Hitbox"));  
+		foreach(Collider c in cols) 
+		{ 
+			if (c.transform.parent.parent == transform)  
+			{ 
+				continue;  
+			} 
+			float damage = 0;  
+			//      Debug.Log (c.name); 
+			switch (c.name)  
+			{ 
+			case "Head":  
+				damage = 30; 
+				Debug.Log ("enemy Hit Head Damage = 30");  
+				break; 
+			case "Body": 
+				damage = 10;  
+				Debug.Log ("enemy Hit Body Damage = 10");  
+				break; 
+			default: 
+				Debug.Log ("enemy Unable to identify the body part, check the switch statement");  
+				break; 
+			} 
+		} 
 	} 
-
-	IEnumerator Attack()
-	{
-<<<<<<< Updated upstream
-		canAttack = false;
-		//position needs to change after we figure out where he's shooting from
-		//or how the character is shooting
-		attackHitboxes[0].enabled = true;
-		yield return new WaitForSeconds(attackRate);
-		attackHitboxes[0].enabled = false;
-		canAttack = true; 
-=======
-		yield return new WaitForSeconds (5f); 
->>>>>>> Stashed changes
-	}
-
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 

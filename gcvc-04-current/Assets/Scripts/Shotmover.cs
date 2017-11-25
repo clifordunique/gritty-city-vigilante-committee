@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shotmover : playerController
 {
     public float speed;
-    private GameObject Player;
+    private GameObject player;
     private Vector3 velo;
    
     private bool alive = false;
@@ -14,40 +14,43 @@ public class Shotmover : playerController
     void Start () {
         //connects to the player/object to find direction 
         // that they are facing.
-        Player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
         Vector3 velo = Vector3.zero;
         speed = .5f;
+        //Debug.Log(gameObject);
 	}
 	
 	
 	void Update () {
-        
-        //checks the direction of player then gives the bullet a velocity
-        if (isFacingRight && !alive)
-         {
-            //Debug.Log(isFacingRight);
-            //velo = new Vector3(0, -1f * speed, 0);
-            velo = new Vector3(-1f * speed, 0, 0);
-            transform.Translate(velo);
-             alive = true;
 
-         }
-         else if (!isFacingRight && !alive)
-         {
-            //Debug.Log(isFacingRight);
-            //velo = new Vector3(0, speed, 0);
-            velo = new Vector3(speed, 0, 0);
-            transform.Translate(velo);
+             //horizontal
+            if (isFacingRight && !alive)
+            {
+                //if(gameObject = "horiz_shot")
+                velo = new Vector3(-1f * speed, 0, 0);
+                transform.Translate(velo);
+                alive = true;
+                
 
-             alive = true;
-         }
-          else
-         {
-             //this ensures the bullets doesn't change direction 
-             //after being fired.
-             transform.Translate(velo);
-             
-         }
+            }
+            else if (!isFacingRight && !alive)
+            {
+                //Debug.Log(isFacingRight);
+                //velo = new Vector3(0, speed, 0);
+                velo = new Vector3(speed, 0, 0);
+                transform.Translate(velo);
+
+                alive = true;
+            }
+            else
+            {
+                //this ensures the bullets doesn't change direction 
+                //after being fired.
+                transform.Translate(velo);
+                
+
+            }
+      
     }
     void OnBecameInvisible()
     {

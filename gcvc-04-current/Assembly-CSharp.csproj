@@ -56,7 +56,6 @@
      <Compile Include="Assets\Scripts\EnemyClass.cs" />
      <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
      <Compile Include="Assets\Scripts\EnemyShooter.cs" />
-     <Compile Include="Assets\Scripts\EnemyShotMover.cs" />
      <Compile Include="Assets\Scripts\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\IgnoreCollions.cs" />
      <Compile Include="Assets\Scripts\playerController.cs" />

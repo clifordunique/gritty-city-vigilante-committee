@@ -14,8 +14,9 @@ TagManager:
   - shotDestroyer!
   - killme
   - enemy
-  - enemy shot
-  - player hurt box
+  - player_hurt
+  - city
+  - horzShot
   layers:
   - Default
   - TransparentFX
