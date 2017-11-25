@@ -185,9 +185,6 @@ public class EnemyShooter : MonoBehaviour {
 		{
 			if (aiShoot())
 			{
-				// 
-				Debug.Log("pew pew");
-
 				StartCoroutine("Fire");
 
 
@@ -570,7 +567,6 @@ public class EnemyShooter : MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
-		Debug.Log(fireRate);
 		canShoot = false;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
@@ -592,12 +588,11 @@ public class EnemyShooter : MonoBehaviour {
 
 	private bool aiShoot()
 	{
-		Debug.Log ("running aiShoot");
-		if (Random.Range (0, 1) == 1) {
+		if (Random.Range (0, 100) % 3 == 0) {
 			return true; 
-		} else
+		} else 
 		{
-			return false;
+			return false; 
 		}
 	}
 
