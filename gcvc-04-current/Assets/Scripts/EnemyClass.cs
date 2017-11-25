@@ -511,6 +511,8 @@ public class EnemyClass : MonoBehaviour {
 				}
 			}
 		}
+		CheckAttack (); 
+
 		//animator states
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
@@ -689,7 +691,9 @@ public class EnemyClass : MonoBehaviour {
 
 	private bool aiAttack() 
 	{ 
+		
 		if (Math.Abs (player.transform.position.x - myTrans.position.x) < attackRadius) {
+			Debug.Log ("in range"); 
 			return true; 	
 		} else 
 		{
@@ -702,19 +706,11 @@ public class EnemyClass : MonoBehaviour {
 	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
 	protected void CheckAttack() 
 	{ 
-//	    if (aiAttack())  
-//	    { 
-//	      attacking = true; 
-//	      if (isFacingRight == false) //Checks the direction the sprite is facing and selects the correct arm side 
-//	      { 
-//	        Debug.Log ("left enemy arm attack"); 
-//	        LaunchAttack (attackHitboxes [0]);  
-//	      } else  
-//	      { 
-//	        Debug.Log ("right enemy arm attack"); 
-//	        LaunchAttack (attackHitboxes[1]);   
-//	      } 
-//	    } 
+	    if (aiAttack())  
+	    { 
+	      	attacking = true; 
+			LaunchAttack (attackHitboxes [0]); 
+	    } 
 	} 
 
 	// Checks if the attack hit box overlaps with a targethitbox and designates the damage amount 
@@ -724,8 +720,9 @@ public class EnemyClass : MonoBehaviour {
 		animator.SetBool("attacking", attacking); 
 		Debug.Log ("Launching attack");  
 
-		//StartCoroutine("Attack");
-		col.enabled = true;
+
+		col.enabled = false;
+
 	} 
 
 	IEnumerator Attack()
