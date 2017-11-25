@@ -16,8 +16,12 @@ public class EnemyClass : MonoBehaviour {
 	private GameObject player; // TODO:: Replace with actual player script  
 	private float followCenterRadius = 3; //Radius in which the enemy will not move. 
 	public Collider2D[] attackHitboxes;
+<<<<<<< Updated upstream
 	public bool canAttack = true; 
 	public float attackRate = 1f; 
+=======
+
+>>>>>>> Stashed changes
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -618,8 +622,11 @@ public class EnemyClass : MonoBehaviour {
 
 			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
+					Debug.Log ("Returning 1"); 
 					return 1f; 
 				} else {
+					Debug.Log ("Returning 0"); 
+
 					return 0f; 
 				}
 			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
@@ -689,6 +696,10 @@ public class EnemyClass : MonoBehaviour {
 	{ 
 		
 		if (Math.Abs (player.transform.position.x - myTrans.position.x) < attackRadius) {
+<<<<<<< Updated upstream
+=======
+			Debug.Log ("in range"); 
+>>>>>>> Stashed changes
 			return true; 	
 		} else 
 		{
@@ -704,12 +715,17 @@ public class EnemyClass : MonoBehaviour {
 	    if (aiAttack())  
 	    { 
 	      	attacking = true; 
+<<<<<<< Updated upstream
 			LaunchAttack (); 
+=======
+			LaunchAttack (attackHitboxes [0]); 
+>>>>>>> Stashed changes
 	    } 
 	} 
 
 	// Checks if the attack hit box overlaps with a targethitbox and designates the damage amount 
 	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
+<<<<<<< Updated upstream
 	private void LaunchAttack() 
 	{ 
 		if (canAttack) {
@@ -718,10 +734,21 @@ public class EnemyClass : MonoBehaviour {
 		} else 
 		{
 		}
+=======
+	private void LaunchAttack(Collider2D col) 
+	{ 
+		animator.SetBool("attacking", attacking); 
+		Debug.Log ("Launching attack");  
+
+
+		col.enabled = false;
+
+>>>>>>> Stashed changes
 	} 
 
 	IEnumerator Attack()
 	{
+<<<<<<< Updated upstream
 		canAttack = false;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
@@ -729,6 +756,9 @@ public class EnemyClass : MonoBehaviour {
 		yield return new WaitForSeconds(attackRate);
 		attackHitboxes[0].enabled = false;
 		canAttack = true; 
+=======
+		yield return new WaitForSeconds (5f); 
+>>>>>>> Stashed changes
 	}
 
 	//facing Right Timer 
