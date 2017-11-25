@@ -41,11 +41,17 @@ public class PlayerStatsAndStates : playerController
     void OnTriggerEnter2D(Collider2D tag)
     {
 
-        if (tag.gameObject.tag == "enemy")
+		if (tag.gameObject.tag == "enemy")
+		{
+			HP--;
+			SetUItext();
+			// StartCoroutine("KnockBack");
+		}
+        if (tag.gameObject.tag == "enemy shot")
         {
             HP--;
             SetUItext();
-            StartCoroutine("KnockBack");
+            // StartCoroutine("KnockBack");
         }
         if (tag.gameObject.tag == "Hrecovery")
         {

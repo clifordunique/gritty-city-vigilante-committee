@@ -593,6 +593,8 @@ public class EnemyClass : MonoBehaviour {
 		myTrans = this.transform; 
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x; 
 		attacking = false; 
+		attackHitboxes[0].enabled = false;
+		canAttack = true;
 	} 
 
 	// Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w 
@@ -695,25 +697,22 @@ public class EnemyClass : MonoBehaviour {
 			return false; 
 		}
 	} 
-
-	// Checks for keypress and calls launch attack with the corresponding attackHitBox  
-	// Needs to be called in update 
-	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
+		  
 	protected void CheckAttack() 
 	{ 
 	    if (aiAttack())  
 	    { 
+			// Debug.Log ("trying to launch attack"); 
 	      	attacking = true; 
 			LaunchAttack (); 
 	    } 
 	} 
-
-	// Checks if the attack hit box overlaps with a targethitbox and designates the damage amount 
-	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
+		
 	private void LaunchAttack() 
 	{ 
 		if (canAttack) {
 			// animator.SetBool ("attacking", attacking); 
+			Debug.Log("starting routine"); 
 			StartCoroutine ("Attack"); 
 		} else 
 		{
@@ -723,11 +722,11 @@ public class EnemyClass : MonoBehaviour {
 	IEnumerator Attack()
 	{
 		canAttack = false;
-		//position needs to change after we figure out where he's shooting from
-		//or how the character is shooting
 		attackHitboxes[0].enabled = true;
+		Debug.Log ("Launching attack"); 
 		yield return new WaitForSeconds(attackRate);
 		attackHitboxes[0].enabled = false;
+		Debug.Log ("Turning off attack");
 		canAttack = true; 
 	}
 

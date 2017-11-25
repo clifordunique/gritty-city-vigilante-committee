@@ -33,7 +33,7 @@ public class IgnoreCollions : playerController {
             Debug.Log("enemy collision");
             //Destroy(enemy.gameObject);
             HP--;
-            Debug.Log(HP);
+            // Debug.Log(HP);
             StartCoroutine("KnockBack");
             //Physics2D.IgnoreCollision(enemy, _hurtBox, test);
         }
@@ -43,7 +43,7 @@ public class IgnoreCollions : playerController {
     IEnumerator KnockBack()
     {
         kbTime = 1f;
-        Debug.Log(kbTime);
+        // Debug.Log(kbTime);
         //canMove = false;
         //position needs to change after we figure out where he's shooting from
         //or how the character is shooting
