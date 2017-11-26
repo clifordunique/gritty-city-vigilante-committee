@@ -65,10 +65,8 @@ public class playerController : MonoBehaviour {
     public SpriteRenderer[] citySprites;
     public GameObject owB;
     public SpriteRenderer outworld_background;
-    public VideoPlayer[] videos;
-    public GameObject[] videoPlayers;
-    public AudioSource[] music;
-    public GameObject[] musicPlayers;
+
+    
     //public BoxCollider2D
     public Animator animator;
 
@@ -81,8 +79,8 @@ public class playerController : MonoBehaviour {
     public float fireRate = .5f;
     
     //private variables
-    private Vector3 _moveDirection = Vector3.zero;
-    private CharacterController2D _CharacterController;
+    public Vector3 _moveDirection = Vector3.zero;
+    public CharacterController2D _CharacterController;
     private bool _lastJumpedWasLeft;
     private float _slopeAngle;
     private Vector3 _slopeGradient = Vector3.zero;
@@ -149,20 +147,7 @@ public class playerController : MonoBehaviour {
         outworld_background = owB.GetComponent<SpriteRenderer>();
         outworld_background.enabled = false;
 
-        videoPlayers = GameObject.FindGameObjectsWithTag("video");
-        videos = new VideoPlayer[videoPlayers.Length];
-
-        videos[0] = videoPlayers[0].GetComponent<VideoPlayer>();
-        videos[1] = videoPlayers[1].GetComponent<VideoPlayer>();
-        videos[0].playOnAwake = true;
-        videos[1].playOnAwake = false;
-
-        musicPlayers = GameObject.FindGameObjectsWithTag("music");
-        music = new AudioSource[musicPlayers.Length];
-        music[0] = musicPlayers[0].GetComponent<AudioSource>();
-        music[1] = musicPlayers[1].GetComponent<AudioSource>();
-        music[0].playOnAwake = false;
-        music[1].playOnAwake = true;
+        
         isChangingLevels = true;
         canShoot = true;
     }//end of start
@@ -240,9 +225,7 @@ public class playerController : MonoBehaviour {
                         }
 
                     }
-                    videos[0].Stop();
-                    music[0].Stop();
-                    music[1].Play();
+                    
                     outworld_background.enabled = false;
                     isChangingLevels = true;
 
@@ -273,10 +256,7 @@ public class playerController : MonoBehaviour {
 
                     }
                     outworld_background.enabled = true;
-                    videos[0].Play();
-                    music[1].Stop();
-                    music[0].time = 20f;
-                    music[0].Play();
+                    
                     StartCoroutine("WallyWowPlay");
 
                     isChangingLevels = false;
@@ -570,11 +550,11 @@ public class playerController : MonoBehaviour {
     }
     IEnumerator WallyWowPlay()
     {
-        videos[1].Play();
+        //videos[1].Play();
         //outworld_background.enabled = true;
         yield return new WaitForSeconds(6f);
         outworld_background.enabled = false;
-        videos[1].Stop();
+       // videos[1].Stop();
         
     }
     //controls firing and the rate of fire

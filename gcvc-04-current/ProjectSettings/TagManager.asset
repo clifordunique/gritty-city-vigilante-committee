@@ -17,6 +17,8 @@ TagManager:
   - player_hurt
   - city
   - horzShot
+  - enemy shot
+  - save
   layers:
   - Default
   - TransparentFX
