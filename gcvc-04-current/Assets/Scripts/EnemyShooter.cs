@@ -16,7 +16,7 @@ public class EnemyShooter : MonoBehaviour {
 	private GameObject player; // TODO:: Replace with actual player script  
 	public float followCenterRadius; //Radius in which the enemy will not move. 
 	public Collider[] attackHitboxes;
-
+	private bool canMove = true;
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -186,7 +186,7 @@ public class EnemyShooter : MonoBehaviour {
 			if (aiShoot())
 			{
 				StartCoroutine("Fire");
-
+				StartCoroutine ("stopMoving");
 
 				//_nextFire = Time.time + fireRate;
 			}
@@ -574,7 +574,13 @@ public class EnemyShooter : MonoBehaviour {
 		yield return new WaitForSeconds(fireRate);
 		canShoot = true;
 	}
-
+	//controls firing and the rate of fire
+	IEnumerator stopMoving()
+	{
+		canMove = false;
+		yield return new WaitForSeconds(1f);
+		canMove = true;
+	}
 
 
 	//****************************************************************************************AI STUFF******************************************************************************************** 
@@ -601,7 +607,7 @@ public class EnemyShooter : MonoBehaviour {
 	private float aiHorizontal() 
 	{ 
 		float jumpDistance = 5f; 
-		if (attacking == false) { 
+		if (attacking == false && canMove) { 
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 

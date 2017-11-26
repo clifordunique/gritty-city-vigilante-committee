@@ -62,9 +62,8 @@ public class EnemyShotMover : playerController
 	{
 		//Debug.Log("what");
 		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-		if (other.gameObject.CompareTag("player hurt box"))
+		if (other.gameObject.CompareTag("player_hurt"))
 		{
-			Debug.Log("Player take damage"); 
 			//destroys bullet
 			Destroy(gameObject);
 
