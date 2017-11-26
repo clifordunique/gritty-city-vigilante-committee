@@ -87,7 +87,7 @@ public class PlayerStatsAndStates : playerController
         return HP / maxHP;
     }
 
-<<<<<<< HEAD
+
     //returns Health % for health bars
     float wpPercent()
     {
@@ -99,19 +99,14 @@ public class PlayerStatsAndStates : playerController
         if (tag.gameObject.tag == "enemy")
         {
             StartCoroutine("KnockBack");
-=======
-		if (tag.gameObject.tag == "enemy")
-		{
-			HP--;
-			SetUItext();
-			// StartCoroutine("KnockBack");
+
 		}
         if (tag.gameObject.tag == "enemy shot")
         {
             HP--;
             SetUItext();
             // StartCoroutine("KnockBack");
->>>>>>> 2b1ec3fd6344a69046716e2b245dc9dbffc13198
+
         }
         //save collider boxes
         if (tag.gameObject.tag == "save")
