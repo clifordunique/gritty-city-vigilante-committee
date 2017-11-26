@@ -5,7 +5,7 @@ using UnityEngine;
 public class Vshotmover : playerController
 {
     public float speed;
-    private GameObject player;
+    //private GameObject player;
     private Vector3 velo;
 
     private bool alive = false;
@@ -15,7 +15,6 @@ public class Vshotmover : playerController
     {
         //connects to the player/object to find direction 
         // that they are facing.
-        player = GameObject.FindWithTag("Player");
         Vector3 velo = Vector3.zero;
         speed = .5f;
         //Debug.Log(gameObject);
