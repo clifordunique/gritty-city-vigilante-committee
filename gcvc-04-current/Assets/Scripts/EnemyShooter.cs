@@ -640,16 +640,16 @@ public class EnemyShooter : MonoBehaviour {
 
 	private float checkTurn() 
 	{
-		if (myTrans.position.x < player.transform.position.x && facingRight) 
-		{
+		if (myTrans.position.x < player.transform.position.x && facingRight) {
 			Debug.Log ("on the right"); 
-			facingRight = true;
+			facingRight = false;
 			return 0.1f; 
-		}else
-		{
-			facingRight = false; 
+		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
+			facingRight = true; 
 			Debug.Log ("on the left"); 
 			return -0.1f; 
+		} else {
+			return 0; 
 		}
 	}
 
