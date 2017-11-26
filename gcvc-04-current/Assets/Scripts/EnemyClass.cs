@@ -606,9 +606,12 @@ public class EnemyClass : MonoBehaviour {
 		if(true)
 		{
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
+			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0 ); 
+			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, _boxCollider.size.y * 10 , layerMask); 
+			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask); 
+
+			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
+			Debug.DrawRay (_backBottomCorner, Vector2.down);
 
 			Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
 			Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
@@ -645,13 +648,13 @@ public class EnemyClass : MonoBehaviour {
 		float jumpDistance = 5f; 
 		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
 		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
+		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, _boxCollider.size.y * 10 , layerMask); 
+		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask);  
 
 		Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
 		Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
+		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask); 
+		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask);
 
 		if (myTrans.position.x < player.transform.position.x) { // TODO :: Replace the 100, with the player position  
 			if(jumpHitFrontGround.collider != null && hitFrontGround.collider == null) 
@@ -661,10 +664,8 @@ public class EnemyClass : MonoBehaviour {
 				 
 			} 
 		} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-			// Debug.Log ("entering left case"); 
 			if(jumpHitBackGround.collider != null && hitBackGround.collider == null) 
 			{ 
-				// Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
 				return true;  
 			} else { 
 				
@@ -712,8 +713,7 @@ public class EnemyClass : MonoBehaviour {
 	{ 
 		if (canAttack) {
 			// animator.SetBool ("attacking", attacking); 
-			Debug.Log("starting routine"); 
-			StartCoroutine ("Attack"); 
+			StartCoroutine ("Attack"); 		
 		} else 
 		{
 		}
@@ -721,7 +721,7 @@ public class EnemyClass : MonoBehaviour {
 
 	IEnumerator Attack()
 	{
-		canAttack = false;
+		canAttack = false;	
 		attackHitboxes[0].enabled = true;
 		Debug.Log ("Launching attack"); 
 		yield return new WaitForSeconds(attackRate);
@@ -729,6 +729,9 @@ public class EnemyClass : MonoBehaviour {
 		Debug.Log ("Turning off attack");
 		canAttack = true; 
 	}
+
+
+
 
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
