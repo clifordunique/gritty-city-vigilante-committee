@@ -53,7 +53,7 @@ public class playerController : MonoBehaviour {
     //public bool isWallSliding
     //public bool isDashing
     //public bool isAirDashing
-    //public bool isShooting  //for animation
+    public bool isShooting;  //for animation
 
     //some stuff to make the level disapear for the "gimmick"
     //public bool isGone = false;
@@ -337,6 +337,19 @@ public class playerController : MonoBehaviour {
             //player is in the air
             else
             {
+                
+                if (_moveDirection.x < 0)
+                {
+                    //rotates player
+
+                    transform.eulerAngles = new Vector3(0, 180, 0);
+                    isFacingRight = false;
+                }
+                else if (_moveDirection.x > 0)
+                {
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    isFacingRight = true;
+                }
                 if (Input.GetButtonUp("Jump"))
                 {
                     if (_moveDirection.y > 0)
@@ -502,6 +515,8 @@ public class playerController : MonoBehaviour {
             //animator states
             animator.SetBool("isJumping", isJumping);
             animator.SetBool("isGrounded", isGrounded);
+            animator.SetBool("canMove", canMove);
+            animator.SetBool("isShooting", isShooting);
             //animator.SetBool("isFacingRight", isFacingRight);
             animator.SetFloat("movementX", _moveDirection.x);
             animator.SetFloat("movementY", _moveDirection.y);
@@ -560,26 +575,36 @@ public class playerController : MonoBehaviour {
     //controls firing and the rate of fire
     IEnumerator Fire()
     {
-       
+        canMove = false; //mebbe change this midair to be able to move or change when walking and shooting
         canShoot = false;
+        isShooting = true;
         Instantiate(horizshot[wepNum], shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
+        isShooting = false;
+        canMove = true;
         canShoot = true;
     }
     IEnumerator vFire()
     {
 
-        canShoot = false;
+        canShoot = false; //mebbe change this midair to be able to move
+        isShooting = true;
+        canMove = false;
         Instantiate(vertShot[wepNum], shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
+        canMove = true;
+        isShooting = false;
         canShoot = true;
     }
     IEnumerator dFire()
     {
-
+        canMove = false; //mebbe change this midair to be able to move
         canShoot = false;
+        isShooting = true;
         Instantiate(diagShot[wepNum], shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
+        isShooting = false;
+        canMove = true;
         canShoot = true;
     }
 

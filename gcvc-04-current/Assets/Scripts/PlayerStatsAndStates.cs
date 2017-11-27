@@ -32,6 +32,13 @@ public class PlayerStatsAndStates : playerController
     public Text weaponSelcText;
     public Vector3 knockback;
     public float kbTime;
+   
+
+    private bool _isStarting;
+    private bool _isSavePosition;
+    private bool _isDead;
+    private bool _isKnockBack;
+
 
     private bool _enemyTrigger;
     // Use this for initialization
@@ -48,6 +55,7 @@ public class PlayerStatsAndStates : playerController
         Saveposition = player.GetComponent<Transform>().position;
         //Debug.Log(Saveposition);
         StartCoroutine("StartUP");
+        
     }
 
     
@@ -56,6 +64,7 @@ public class PlayerStatsAndStates : playerController
     {
         HPdiff = maxHP - HP;
         wnum = player.GetComponent<playerController>().wepNum;
+        SetAnimator();
         SetUItext();
        
     }
@@ -65,7 +74,10 @@ public class PlayerStatsAndStates : playerController
     IEnumerator deathCheck()
     {
         StopCoroutine("KnockBack");
+        _isKnockBack = false;
+        _isDead = true;
         death_image.enabled = true;
+        player.GetComponent<playerController>()._moveDirection = Vector3.zero;
         player.GetComponent<playerController>().canMove = false;
         //play death animation and assosiated sounds
         //Debug.Log("you are dead");
@@ -75,6 +87,7 @@ public class PlayerStatsAndStates : playerController
         yield return new WaitForSeconds(5f);
         death_image.enabled = false;
         player.GetComponent<Transform>().position = Saveposition;
+        _isDead = false;
         StartCoroutine("StartUP");
         
         
@@ -113,7 +126,10 @@ public class PlayerStatsAndStates : playerController
         {
             //saves to the center point of the tagged object
             Saveposition = tag.GetComponent<Transform>().position;
-            Debug.Log("Saved position" + Saveposition.ToString());
+            //have some words pop up at the bottom left of screen 
+            //to notify check point.
+            //Debug.Log("Saved position" + Saveposition.ToString());
+            StartCoroutine("SaveTimer");
         }
         //recover hp items
         if (tag.gameObject.tag == "Hrecovery")
@@ -150,6 +166,8 @@ public class PlayerStatsAndStates : playerController
     }
     IEnumerator StartUP()
     {
+          
+        _isStarting = true;
         //assosiated start up animation and sound
         HP = maxHP;
         WP = maxWP;
@@ -162,13 +180,25 @@ public class PlayerStatsAndStates : playerController
         player.GetComponent<playerController>()._moveDirection = Vector3.zero;
         yield return new WaitForSeconds(5f);
         //fancy intro screen
+        _isStarting = false;
         player.GetComponent<playerController>().canMove = true;
-    }
 
+    }
+    IEnumerator SaveTimer()
+    {
+        _isSavePosition = true;
+
+
+        
+
+        yield return new WaitForSeconds(1f);
+        _isSavePosition = false;
+
+    }
     //controls firing and the rate of fire
     IEnumerator KnockBack()
     {
-        
+        _isKnockBack = true;
         kbTime = .25f;
         //Debug.Log(kbTime);
         //position needs to change after we figure out where he's shooting from
@@ -205,12 +235,24 @@ public class PlayerStatsAndStates : playerController
         player.transform.Translate(knockback);
         //turn off hit hurt box for invcible frames.
         yield return new WaitForSeconds(kbTime);
+        _isKnockBack = false;
         player.GetComponent<playerController>().canMove = true;
     }
     void SetUItext()
     {
         wpText.text = WP.ToString();
         weaponSelcText.text = "Weapon: " + wnum.ToString();
+        
+    }
+    void SetAnimator()
+    {
+        player.GetComponent<playerController>().animator.SetBool("isStarting", _isStarting);
+        player.GetComponent<playerController>().animator.SetBool("isSaving", _isSavePosition);
+        player.GetComponent<playerController>().animator.SetBool("isKnockbacked", _isKnockBack);
+        player.GetComponent<playerController>().animator.SetBool("isDead", _isDead);
+        player.GetComponent<playerController>().animator.SetBool("canMove", player.GetComponent<playerController>().canMove);
+
+
         
     }
 }
