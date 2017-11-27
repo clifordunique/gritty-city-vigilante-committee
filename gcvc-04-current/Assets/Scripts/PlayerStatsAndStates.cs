@@ -60,7 +60,7 @@ public class PlayerStatsAndStates : playerController
 
     
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         HPdiff = maxHP - HP;
         wnum = player.GetComponent<playerController>().wepNum;
