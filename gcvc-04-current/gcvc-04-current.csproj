@@ -236,7 +236,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Materials\ChromaKey.shader" />
-    <None Include="Assets\Ninja Files\Read Me.txt" />
     <None Include="Assets\demo sprites\Multi_Platformer_Tileset\ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

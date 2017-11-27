@@ -60,7 +60,7 @@ public class PlayerStatsAndStates : playerController
 
     
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         HPdiff = maxHP - HP;
         wnum = player.GetComponent<playerController>().wepNum;
@@ -79,7 +79,7 @@ public class PlayerStatsAndStates : playerController
         death_image.enabled = true;
         player.GetComponent<playerController>()._moveDirection = Vector3.zero;
         player.GetComponent<playerController>().canMove = false;
-        //play death animation and assosiated sounds
+        //play assosiated sounds
         //Debug.Log("you are dead");
         DeathSong.Play();
         
@@ -117,8 +117,7 @@ public class PlayerStatsAndStates : playerController
         if (tag.gameObject.tag == "enemy shot")
         {
             HP--;
-            SetUItext();
-            // StartCoroutine("KnockBack");
+            StartCoroutine("KnockBack");
 
         }
         //save collider boxes
