@@ -106,6 +106,10 @@ public class PlayerStatsAndStates : playerController
     {
         return WP / maxWP;
     }
+
+    //this deals with all triggers
+    //from pickups to enemy collisions
+    //save spots and spawn points
     void OnTriggerEnter2D(Collider2D tag)
     {
         //enemy hit boxes

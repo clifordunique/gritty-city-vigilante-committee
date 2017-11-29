@@ -14,7 +14,7 @@ MonoBehaviour:
   m_PixelRect:
     serializedVersion: 2
     x: 74
-    y: 51
+    y: 43
     width: 1161
     height: 780
   m_ShowMode: 4
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 442}
   m_MaxSize: {x: 12008, y: 8042}
   vertical: 0
-  controlID: 47
+  controlID: 69
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -153,8 +153,8 @@ MonoBehaviour:
     y: 0
     width: 680
     height: 328
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -208,8 +208,8 @@ MonoBehaviour:
     y: 0
     width: 204
     height: 730
-  m_MinSize: {x: 204, y: 221}
-  m_MaxSize: {x: 4004, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -233,8 +233,8 @@ MonoBehaviour:
     y: 0
     width: 277
     height: 730
-  m_MinSize: {x: 277, y: 71}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 74
-    y: 428
+    y: 420
     width: 678
     height: 381
   m_MaximizeOnPlay: 0
@@ -384,18 +384,18 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 74
-    y: 100
+    y: 92
     width: 678
     height: 307
   m_SceneLighting: 1
-  lastFramingTime: 15756.622423810995
+  lastFramingTime: 2478.7110036206195
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -81.597084, y: -19.731209, z: 11.28125}
+    m_Target: {x: 27.189146, y: -23.733807, z: -0.38086525}
     speed: 2
-    m_Value: {x: -81.597084, y: -19.731209, z: 11.28125}
+    m_Value: {x: 27.189146, y: -23.733807, z: -0.38086525}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -422,9 +422,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 157.20088
+    m_Target: 73.19935
     speed: 2
-    m_Value: 157.20088
+    m_Value: 73.19935
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -538,21 +538,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 84370000
     m_LastClickedID: 14212
-    m_ExpandedIDs: 00000000dc35000052390000a2390000b23b00001a3d0000b4400000cc440000ce440000d0440000d2440000ffffff7f
+    m_ExpandedIDs: 000000000236000080390000d2390000ea3b0000543d0000f040000092460000944600009646000098460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Sprites
-      m_OriginalName: Sprites
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 15642
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 8}
     m_SearchString: 
@@ -566,7 +566,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000dc3500007436000052390000a23900001c3a0000d43c00001a3d0000b4400000cc440000ce440000d0440000d2440000
+    m_ExpandedIDs: 000000000236000080390000d2390000ea3b0000543d0000f040000092460000944600009646000098460000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -672,28 +672,28 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 756
-    y: 100
+    y: 92
     width: 200
     height: 709
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 4a9aebff
-    m_LastClickedID: -1336758
-    m_ExpandedIDs: 6832ecff1040ecff441eedff1048edffe8f3eeffaa68efffaccdf1ff406df4ffe211f5ffc0a5fdff2eb9fdff5ebafdff18bcfdff48bdfdffbebefdffdcbffdffbec2fdff44cffdffb6d0fdff1ad2fdff7ed3fdffbae0fdff2ce2fdffb0e4fdff36d2ffffd4d3ffff76d5ffffb2d8ffffa4dcffff6edeffffe4dfffffeee9ffff000000001e5000003e50000068500000c650000036510000b2510000665a00008c5a00002e5b000086630000306e0000506e0000d86e0000486f000030700000467000006670000070700000ee7000005e71000066710000da710000f2710000
+    m_SelectedIDs: 
+    m_LastClickedID: 0
+    m_ExpandedIDs: 20a6feffb0a6feffe6a7fefffaa6ffff8aa7ffffc0a8ffff66e9ffff000000007e430000a64300000c440000e2440000204500001446000038460000a6520000f45200002654000050540000a254000062550000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: cityForeground_6
+      m_OriginalName: cityForeground_6
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 21428
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
@@ -725,7 +725,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 960
-    y: 100
+    y: 92
     width: 275
     height: 709
   m_ScrollPosition: {x: 0, y: 0}
