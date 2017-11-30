@@ -17,6 +17,9 @@ public class EnemyShooter : MonoBehaviour {
 	public float followCenterRadius; //Radius in which the enemy will not move. 
 	public Collider[] attackHitboxes;
 	private bool canMove = true;
+	public bool isShooting; 
+
+
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -562,16 +565,18 @@ public class EnemyShooter : MonoBehaviour {
 		yield return new WaitForSeconds(6f);
 		outworld_background.enabled = false;
 		videos[1].Stop();
-
 	}
+
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
 		canShoot = false;
+		isShooting = true;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
 		Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		yield return new WaitForSeconds(fireRate);
+		isShooting = false;
 		canShoot = true;
 	}
 	//controls firing and the rate of fire
@@ -673,20 +678,6 @@ public class EnemyShooter : MonoBehaviour {
 	}
 
 
-	private bool aiAttack() 
-	{ 
-		foreach (Collider col in attackHitboxes)  
-		{ 
-			Collider[] cols = Physics.OverlapBox(col.bounds.center,col.bounds.extents,col.transform.rotation, LayerMask.GetMask("Hitbox")); 
-			if (cols.Length > 0)  
-			{ 
-				return true; 
-			} 
-		} 
-		// Debug.Log ("Didn't find anything to attack"); 
-		return false;  
-	} 
-
 	private bool aiJump()
 	{
 		float jumpDistance = 5f; 
@@ -719,22 +710,7 @@ public class EnemyShooter : MonoBehaviour {
 		}
 		return false; 
 	}
-
-	// Checks for keypress and calls launch attack with the corresponding attackHitBox  
-	// Needs to be called in update 
-	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
-
-	protected void CheckAttack() 
-	{ 
 		
-	} 
-
-	// Checks if the attack hit box overlaps with a targethitbox and designates the damage amount 
-	// Following tutorial found at https://www.youtube.com/watch?v=mvVM1RB4HXk  
-	private void LaunchAttack(Collider col) 
-	{ 
-		
-	} 
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 

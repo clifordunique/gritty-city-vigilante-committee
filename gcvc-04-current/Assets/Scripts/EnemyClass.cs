@@ -18,6 +18,8 @@ public class EnemyClass : MonoBehaviour {
 	public Collider2D[] attackHitboxes;
 	public bool canAttack = true; 
 	public float attackRate = 1f; 
+	public bool isAttacking; 
+
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -723,10 +725,12 @@ public class EnemyClass : MonoBehaviour {
 	IEnumerator Attack()
 	{
 		canAttack = false;	
+		isAttacking = true;
 		attackHitboxes[0].enabled = true;
 		Debug.Log ("Launching attack"); 
 		yield return new WaitForSeconds(attackRate);
 		attackHitboxes[0].enabled = false;
+		isAttacking = false;
 		Debug.Log ("Turning off attack");
 		canAttack = true; 
 	}
