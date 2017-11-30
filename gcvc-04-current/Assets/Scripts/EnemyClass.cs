@@ -108,7 +108,7 @@ public class EnemyClass : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.Find ("Player"); 
+		player = GameObject.FindWithTag ("Player"); 
 		attackRadius = 3;
 
 
@@ -620,6 +620,7 @@ public class EnemyClass : MonoBehaviour {
 
 			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
+
 
 			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {

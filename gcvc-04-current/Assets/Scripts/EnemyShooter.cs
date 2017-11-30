@@ -107,7 +107,7 @@ public class EnemyShooter : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.Find ("Player"); 
+		player = GameObject.FindWithTag ("Player");
 
 		//grabs the character attached to the script
 		_CharacterController = GetComponent<CharacterController2D>();
