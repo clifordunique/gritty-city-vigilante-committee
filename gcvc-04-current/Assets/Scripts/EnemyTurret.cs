@@ -647,16 +647,12 @@ public class EnemyTurret : MonoBehaviour {
 	private float checkTurn() 
 	{
 		if (myTrans.position.x < player.transform.position.x && facingRight) {
-			Debug.Log ("on the right"); 
 			facingRight = false;
 			return 1f; 
 		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
 			facingRight = true; 
-			Debug.Log ("on the left"); 
 			return -1f; 
 		} else {
-			Debug.Log ("Facing the right way"); 
-
 			return 0; 
 		}
 	}
