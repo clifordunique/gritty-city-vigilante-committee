@@ -7,8 +7,6 @@ public class EnemyHurtBox : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		//Debug.Log("what");
-		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
 		if (other.gameObject.CompareTag("horzShot"))
 		{
 			Debug.Log ("Found player's shot"); 
@@ -16,13 +14,6 @@ public class EnemyHurtBox : MonoBehaviour {
 			if (enemyHealth <= 0) {
 				Destroy(transform.parent.gameObject);
 			}
-//			GameObject enemySpawner = GameObject.FindWithTag ("enemy_spawner");
-//			enemySpawner.GetComponent<EnemySpawner>().enemyKilled (); 
-//			//destroys enemy
-//			Destroy(other.transform.parent.gameObject);
-//			//destroys bullet
-//			Destroy(gameObject);
-
 		}
 	}
 }

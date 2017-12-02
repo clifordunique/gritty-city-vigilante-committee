@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212484102842555914}
   - component: {fileID: 61497094476667212}
   - component: {fileID: 50258275261991892}
-  - component: {fileID: 114710736652781404}
+  - component: {fileID: 114886141367952374}
   m_Layer: 1
   m_Name: hurt_box
   m_TagString: killme
@@ -256,17 +256,6 @@ MonoBehaviour:
   shot: {fileID: 1793569461445286, guid: 2aec7b7015b2d4fdfa259738b186f345, type: 2}
   shotSpawn: {fileID: 4311967974877134}
   fireRate: 0.5
---- !u!114 &114710736652781404
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1126907378762396}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114734214940839356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -317,6 +306,17 @@ MonoBehaviour:
     m_RotationOrder: 4
   totalHorizontalRays: 8
   totalVerticalRays: 4
+--- !u!114 &114886141367952374
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1126907378762396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d75564809caf4de68714c16e609a552, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212484102842555914
 SpriteRenderer:
   m_ObjectHideFlags: 1

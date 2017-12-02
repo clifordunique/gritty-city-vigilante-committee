@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 212828839671071150}
   - component: {fileID: 61759074557282526}
   - component: {fileID: 50770021489970690}
-  - component: {fileID: 114475510126948610}
+  - component: {fileID: 114615696362335032}
   m_Layer: 1
   m_Name: hurt_box
   m_TagString: killme
@@ -235,7 +235,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   totalHorizontalRays: 8
   totalVerticalRays: 4
---- !u!114 &114475510126948610
+--- !u!114 &114615696362335032
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1863224699233300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c38a6d4e231174908a3647496f397922, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d75564809caf4de68714c16e609a552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114975330813865966
