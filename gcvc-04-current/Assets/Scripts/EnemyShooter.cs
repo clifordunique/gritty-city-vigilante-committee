@@ -163,17 +163,6 @@ public class EnemyShooter : MonoBehaviour {
 		videoPlayers = GameObject.FindGameObjectsWithTag("video");
 		videos = new VideoPlayer[videoPlayers.Length];
 
-		videos[0] = videoPlayers[0].GetComponent<VideoPlayer>();
-		videos[1] = videoPlayers[1].GetComponent<VideoPlayer>();
-		videos[0].playOnAwake = true;
-		videos[1].playOnAwake = false;
-
-		musicPlayers = GameObject.FindGameObjectsWithTag("music");
-		music = new AudioSource[musicPlayers.Length];
-		music[0] = musicPlayers[0].GetComponent<AudioSource>();
-		music[1] = musicPlayers[1].GetComponent<AudioSource>();
-		music[0].playOnAwake = false;
-		music[1].playOnAwake = true;
 		isChangingLevels = true;
 		canShoot = true;
 	}//end of start
