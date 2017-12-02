@@ -13,6 +13,8 @@ public class EnemyHurtBox : MonoBehaviour {
 			enemyHealth--; 
 			if (enemyHealth <= 0) {
 				Destroy(transform.parent.gameObject);
+				GameObject enemySpawner = GameObject.FindWithTag ("enemy_spawner");
+				enemySpawner.GetComponent<EnemySpawner>().enemyKilled ();
 			}
 		}
 	}
