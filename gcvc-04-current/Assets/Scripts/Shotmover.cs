@@ -30,8 +30,6 @@ public class Shotmover : playerController
                 velo = new Vector3(-1f * speed, 0, 0);
                 transform.Translate(velo);
                 alive = true;
-                
-
             }
             else if (!isFacingRight && !alive)
             {
@@ -62,18 +60,23 @@ public class Shotmover : playerController
     // When this game object intersects a collider with 'is trigger' checked, 
     // store a reference to that collider in a variable named 'other'..
     void OnTriggerEnter2D(Collider2D other)
-    {
-        
-        //Debug.Log("what");
-        // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
-        if (other.gameObject.CompareTag("killme"))
-        {
-            //destroys enemy
-            Destroy(other.transform.parent.gameObject);
+	{
+		//Enemy Destruction is now handled in the the enemy hurt box; 
+		        // ..and if the game object we intersect has the tag 'P	ick Up' assigned to it..
+		//        if (other.gameObject.CompareTag("killme"))
+		//        {
+		//			GameObject enemySpawner = GameObject.FindWithTag ("enemy_spawner");
+		//			enemySpawner.GetComponent<EnemySpawner>().enemyKilled (); 
+		//            //destroys enemy
+		//            Destroy(other.transform.parent.gameObject);
+		//            //destroys bullet
+		//            Destroy(gameObject);
+		//            
+		//        }
 
-            //destroys bullet
-            Destroy(gameObject);
-            
-        }
+		if(other.gameObject.CompareTag("killme") || other.gameObject.CompareTag("enemy"))
+		{
+	         Destroy(gameObject);
+		}
     }
 }

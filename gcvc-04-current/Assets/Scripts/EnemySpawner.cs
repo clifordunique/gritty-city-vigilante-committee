@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour {
 	public bool stop; 
 	private Quaternion originalRot = Quaternion.Euler(0, 0, 0);
 	private Transform myTransform;
-
+	private int enemiesKilled = 0; 
 
 	void Start () 
 	{
@@ -20,9 +20,15 @@ public class EnemySpawner : MonoBehaviour {
 		StartCoroutine (waitSpawner()); 
 	}
 
+
 	void Update () 
 	{
 		spawnWait = Random.Range (spawnLeastWait, spawnMostWait); 
+	}
+
+	public void enemyKilled ()
+	{
+		enemiesKilled++;
 	}
 
 	IEnumerator waitSpawner()

@@ -1,0 +1,28 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class EnemyHurtBox : MonoBehaviour {
+	private int enemyHealth = 3; 
+
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		//Debug.Log("what");
+		// ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
+		if (other.gameObject.CompareTag("horzShot"))
+		{
+			Debug.Log ("Found player's shot"); 
+			enemyHealth--; 
+			if (enemyHealth <= 0) {
+				Destroy(transform.parent.gameObject);
+			}
+//			GameObject enemySpawner = GameObject.FindWithTag ("enemy_spawner");
+//			enemySpawner.GetComponent<EnemySpawner>().enemyKilled (); 
+//			//destroys enemy
+//			Destroy(other.transform.parent.gameObject);
+//			//destroys bullet
+//			Destroy(gameObject);
+
+		}
+	}
+}
