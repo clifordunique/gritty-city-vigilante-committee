@@ -13,13 +13,15 @@ public class EnemyBoss: MonoBehaviour {
 	Transform myTrans;  
 	float myWidth; 
 	public bool attacking;  
-	private GameObject player; // TODO:: Replace with actual player script  
+	private GameObject player; 
 	private float followCenterRadius = 3; //Radius in which the enemy will not move. 
 	public Collider2D[] attackHitboxes;
 	public bool canAttack = true; 
 	public float attackRate = 1f; 
 	public bool isAttacking; 
 	public bool facingRight = true; 
+	public bool goingRight = true; 
+	public bool turned = false; 
 	private bool stop = false; 
 
 	//tells what our collision state is
@@ -173,13 +175,7 @@ public class EnemyBoss: MonoBehaviour {
 		{
 			if (aiShoot())
 			{
-				// 
-				Debug.Log("pew pew");
-
 				StartCoroutine("Fire");
-
-
-				//_nextFire = Time.time + fireRate;
 			}
 		}
 
@@ -560,7 +556,7 @@ public class EnemyBoss: MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
-		Debug.Log(fireRate);
+//		Debug.Log(fireRate);
 		canShoot = false;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
@@ -577,111 +573,113 @@ public class EnemyBoss: MonoBehaviour {
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x; 
 		attacking = false; 
 		canAttack = true;
-		StartCoroutine ("randomDirection");
-		StartCoroutine ("randomStop");
+		StartCoroutine ("stopAtEdge");
 	} 
 
-	private void checkIfGameOver()
-	{
-		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
-		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
-			Destroy (gameObject);
-		}
-	}
 
-	IEnumerator randomStop()
+	IEnumerator stopAtEdge()
 	{
 		while (true) 
 		{
-			yield return new WaitForSeconds (4f); 
-			stop = true; 
-			yield return new WaitForSeconds (2f); 
-			stop = false; 
+			if (stop) {
+//				Debug.Log ("stop"); 
+				yield return new WaitForSeconds (2f); 
+				stop = false;
+			} else {
+//				Debug.Log ("not stop"); 
+				yield return new WaitForSeconds (0.1f); 
+			}
 		}
+	}
+
+	IEnumerator shotWait()
+	{
+		yield return new WaitForSeconds (1f);
 	}
 
 	private bool aiShoot()
 	{
 		if (stop) {
-			Debug.Log ("shotting"); 
+//			Debug.Log ("shotting"); 
 			return true; 
 		} else 
 		{
+//			Debug.Log ("not shotting"); 
+
 			return false; 
 		}
 	}
 
 
-	IEnumerator randomDirection()
-	{
-		while (true) 
-		{
-			
-			if (UnityEngine.Random.Range(0,100) <= 50) {
-				Debug.Log ("flipping"); 
-				if (facingRight) {
-					facingRight = false; 
-					yield return new WaitForSeconds (1f); 
-					facingRight = true; 
-					yield return new WaitForSeconds (1f); 
-					facingRight = false; 
-				} else {
-					facingRight = true; 
-					yield return new WaitForSeconds (1f); 
-					facingRight = false; 
-					yield return new WaitForSeconds (1f); 
-					facingRight = true; 
-				}
-			}
-			yield return new WaitForSeconds (1f); 
-		}
-	}
+//	IEnumerator randomDirection()
+//	{
+//		while (true) 
+//		{
+//			
+//			if (UnityEngine.Random.Range(0,100) <= 50) {
+//				Debug.Log ("flipping"); 
+//				if (facingRight) {
+//					facingRight = false; 
+//					yield return new WaitForSeconds (1f); 
+//					facingRight = true; 
+//					yield return new WaitForSeconds (1f); 
+//					facingRight = false; 
+//				} else {
+//					facingRight = true; 
+//					yield return new WaitForSeconds (1f); 
+//					facingRight = false; 
+//					yield return new WaitForSeconds (1f); 
+//					facingRight = true; 
+//				}
+//			}
+//			yield return new WaitForSeconds (1f); 
+//		}
+//	}
 
 	private float aiHorizontal() 
 	{ 
-		if(true)
-		{
-			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0 ); 
-			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, _boxCollider.size.y * 10 , layerMask); 
-			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask); 
 
-			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
-			Debug.DrawRay (_backBottomCorner, Vector2.down);
-			if (!stop) {
-				if (facingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-					if (hitFrontGround.collider != null) {
-						return 1f; 
-					} else {
-						facingRight = false; 
-						return 0f; 
-					}
-				} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-					if (hitBackGround.collider != null) { 
-						return -1f;  
-					} else { 
-						facingRight = true; 
-						return 0f; 
-					} 
+		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
+		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0 ); 
+		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, _boxCollider.size.y * 10 , layerMask); 
+		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask); 
+
+		Debug.DrawRay (_frontBottomCorner, Vector2.down);  
+		Debug.DrawRay (_backBottomCorner, Vector2.down);
+		if (!stop) {
+			if (goingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+				if (hitFrontGround.collider != null) {
+					facingRight = true; 
+					return 1f; 
+				} else {
+					goingRight = false; 
+					stop = true; 
+					return 0f; 
 				}
-			} else 
-			{
-				return checkTurn ();
+			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+				if (hitBackGround.collider != null) { 
+					facingRight = false; 
+					return -1f;  
+				} else { 
+					goingRight = true; 
+					stop = true; 
+					return 0f; 
+				} 
 			}
-		} else  
-		{ 
-			return 0; 
-		} 
+		} else 
+		{
+			return checkTurn ();
+		}
+		
 	} 
-
 
 	private float checkTurn() 
 	{
-		if (myTrans.position.x < player.transform.position.x && facingRight) {
-			facingRight = false;
-			return 0.1f; 
-		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
+		if (myTrans.position.x < player.transform.position.x && facingRight==false) {
 			facingRight = true; 
+			return 0.1f; 
+		} else if (myTrans.position.x > player.transform.position.x && facingRight == true) {
+			facingRight = false; 
 			return -0.1f; 
 		} else {
 			return 0; 
@@ -745,10 +743,18 @@ public class EnemyBoss: MonoBehaviour {
 		canAttack = true; 
 	}
 
+
+	private void checkIfGameOver()
+	{
+		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
+		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
+			Destroy (gameObject);
+		}
+	}
+
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 
-		//isFacingRight = true; 
 		yield return new WaitForSeconds (5f); 
 		isFacingRight = false; 
 	} 		
