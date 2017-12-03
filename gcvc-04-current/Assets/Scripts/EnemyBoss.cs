@@ -20,6 +20,7 @@ public class EnemyBoss: MonoBehaviour {
 	public float attackRate = 1f; 
 	public bool isAttacking; 
 	public bool facingRight = true; 
+	private bool stop = false; 
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -571,43 +572,53 @@ public class EnemyBoss: MonoBehaviour {
 
 
 	//****************************************************************************************AI STUFF******************************************************************************************** 
-
-
 	void Awake () { 
 		myTrans = this.transform; 
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x; 
 		attacking = false; 
 		canAttack = true;
 		StartCoroutine ("randomDirection");
+		StartCoroutine ("randomStop");
+
 	} 
+
+	IEnumerator randomStop()
+	{
+		while (true) 
+		{
+			yield return new WaitForSeconds (4f); 
+			stop = true; 
+			yield return new WaitForSeconds (2f); 
+			stop = false; 
+		}
+	}
+
 
 	IEnumerator randomDirection()
 	{
 		while (true) 
 		{
 			
-			Debug.Log (myTrans.position.x); 
-//			if (myTrans.position.x < player.transform.position.x + 10 && myTrans.position.x > player.transform.position.x - 10) {
-//				Debug.Log ("flipping"); 
-//				if (facingRight) {
-//					facingRight = false; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = true; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = false; 
-//				} else {
-//					facingRight = true; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = false; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = true; 
-//				}
-		}
+			if (UnityEngine.Random.Range(0,100) <= 50) {
+				Debug.Log ("flipping"); 
+				if (facingRight) {
+					facingRight = false; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = true; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = false; 
+				} else {
+					facingRight = true; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = false; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = true; 
+				}
+			}
 			yield return new WaitForSeconds (1f); 
 		}
+	}
 
-	// Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w 
-	// Takes the place of Input.GetAxis("Horizontal"), and returns a float < 1 and > -1  
 	private float aiHorizontal() 
 	{ 
 		if(true)
@@ -619,26 +630,47 @@ public class EnemyBoss: MonoBehaviour {
 
 			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_backBottomCorner, Vector2.down);
-			if (facingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-				if (hitFrontGround.collider != null) {
-					return 1f; 
-				} else {
-					facingRight = false; 
-					return 0f; 
+			if (!stop) {
+				if (facingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+					if (hitFrontGround.collider != null) {
+						return 1f; 
+					} else {
+						facingRight = false; 
+						return 0f; 
+					}
+				} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+					if (hitBackGround.collider != null) { 
+						return -1f;  
+					} else { 
+						facingRight = true; 
+						return 0f; 
+					} 
 				}
-			} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if (hitBackGround.collider != null) { 
-					return -1f;  
-				} else { 
-					facingRight = true; 
-					return 0f; 
-				} 
+			} else 
+			{
+				return checkTurn ();
 			}
 		} else  
 		{ 
 			return 0; 
 		} 
 	} 
+
+
+	private float checkTurn() 
+	{
+		if (myTrans.position.x < player.transform.position.x && facingRight) {
+			Debug.Log ("on the right"); 
+			facingRight = false;
+			return 0.1f; 
+		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
+			facingRight = true; 
+			Debug.Log ("on the left"); 
+			return -0.1f; 
+		} else {
+			return 0; 
+		}
+	}
 
 	private bool aiJump()
 	{
@@ -674,7 +706,6 @@ public class EnemyBoss: MonoBehaviour {
 	{ 
 		if (aiAttack())  
 		{ 
-			// Debug.Log ("trying to launch attack"); 
 			attacking = true; 
 			LaunchAttack (); 
 		} 
@@ -683,7 +714,6 @@ public class EnemyBoss: MonoBehaviour {
 	private void LaunchAttack() 
 	{ 
 		if (canAttack) {
-			// animator.SetBool ("attacking", attacking); 
 			StartCoroutine ("Attack"); 		
 		} else 
 		{
@@ -698,9 +728,6 @@ public class EnemyBoss: MonoBehaviour {
 		isAttacking = false;
 		canAttack = true; 
 	}
-
-
-
 
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
