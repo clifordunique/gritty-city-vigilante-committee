@@ -22,8 +22,8 @@ GameObject:
   - component: {fileID: 212101986570365018}
   - component: {fileID: 50805927111466832}
   - component: {fileID: 114064795592958130}
-  - component: {fileID: 70719281861842210}
   - component: {fileID: 95665329434524272}
+  - component: {fileID: 61118139546006296}
   m_Layer: 0
   m_Name: dp_shot
   m_TagString: mothaFuckin_shot
@@ -64,8 +64,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!70 &70719281861842210
-CapsuleCollider2D:
+--- !u!61 &61118139546006296
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -76,9 +76,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -0.03}
-  m_Size: {x: 0.14, y: 0.14}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.21, y: 0.83}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.21, y: 0.83}
+  m_EdgeRadius: 0
 --- !u!95 &95665329434524272
 Animator:
   serializedVersion: 3
@@ -135,8 +145,9 @@ MonoBehaviour:
   canMove: 1
   canCrouch: 0
   canChangeWep: 1
+  canSuperShot: 1
+  shotadjustment: {x: 0, y: 0, z: 0}
   isGrounded: 0
-  isJumping: 0
   isFacingRight: 0
   doubleJumped: 0
   wallJumped: 0
@@ -156,13 +167,13 @@ MonoBehaviour:
   boxy: []
   citySprites: []
   owB: {fileID: 0}
-  outworld_background: {fileID: 0}
   animator: {fileID: 0}
-  horizshot: []
-  diagShot: []
-  vertShot: []
+  horizshot: {fileID: 0}
+  superShot: {fileID: 0}
+  vShot: []
   wepNum: 0
   shotSpawn: {fileID: 0}
+  superSpawn: {fileID: 0}
   fireRate: 0.5
   _moveDirection: {x: 0, y: 0, z: 0}
   _CharacterController: {fileID: 0}

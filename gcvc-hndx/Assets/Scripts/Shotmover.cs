@@ -85,11 +85,11 @@ public class Shotmover : playerController
         if (other.gameObject.CompareTag("killme"))
         {
             // Handled in the EnemyHurtBox Now
-            // alive = false;
+            alive = false;
             // destorys or change to hitpoint --
-            // hasHit = true;
+            hasHit = true;
             // alive = false;
-            // Destroy(other.transform.parent.gameObject);
+            Destroy(other.transform.parent.gameObject);
             //yield return new WaitForSeconds(3f);
             
             //destroys bullet

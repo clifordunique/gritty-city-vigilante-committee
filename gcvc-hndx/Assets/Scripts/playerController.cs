@@ -37,6 +37,7 @@ public class playerController : MonoBehaviour {
     public bool canCrouch = false;
     public bool canChangeWep = true;
     public bool canSuperShot = true;
+    private bool canMoveHorizontal = true;
     public Vector3 shotadjustment;
    
     //player states
@@ -53,6 +54,7 @@ public class playerController : MonoBehaviour {
     public bool isPowerJumping;
     public bool isStomping;
     public bool isChangingLevels;
+
     //public bool isWallSliding
     //public bool isDashing
     //public bool isAirDashing
@@ -74,6 +76,8 @@ public class playerController : MonoBehaviour {
     public Animator animator;
 
     public GameObject horizshot;
+    //public GameObject superShot;
+    public GameObject[] SuperMove;
     public GameObject[] vShot;
     public int wepNum;
     public Transform shotSpawn;
@@ -108,14 +112,16 @@ public class playerController : MonoBehaviour {
         gimmickSetup();
         animator = GetComponent<Animator>();
         
+
         canShoot = true;
     }//end of start
 
     // Update is called once per frame
     void Update() {
-        
+        SetAnimation();
         if (canMove)
         {
+           
             if (canShoot)
             {
                 //horizontal shot
@@ -129,10 +135,10 @@ public class playerController : MonoBehaviour {
                     StartCoroutine("vFire");
                 }
                 //supershot
-                if(canSuperShot && Input.GetButton("Fire6"))
+                if (canSuperShot && Input.GetButton("Fire6"))
                 {
-                   // _moveDirection.y = 100;
-                   StartCoroutine("SuperShot");
+                    // _moveDirection.y = 100;
+                    StartCoroutine("SuperShot");
                 }
                 //change vigilante
                 if (canChangeWep)
@@ -308,7 +314,11 @@ public class playerController : MonoBehaviour {
                 _moveDirection.y -= gravity * Time.deltaTime;
             }
 
-            _CharacterController.move(_moveDirection * Time.deltaTime);
+            if (canMoveHorizontal)
+            {
+                _CharacterController.move(_moveDirection * Time.deltaTime);
+            }
+            
 
             //checks what is being collided with our character
             flags = _CharacterController.collisionState;
@@ -409,38 +419,47 @@ public class playerController : MonoBehaviour {
                     }
                 }
             }
-            //animator states
-            animator.SetBool("isJumping", isJumping);
-            animator.SetBool("isGrounded", isGrounded);
-            animator.SetBool("canMove", canMove);
-            animator.SetBool("isShooting", isShooting);
-            //animator.SetBool("isFacingRight", isFacingRight);
-            animator.SetFloat("movementX", _moveDirection.x);
-            animator.SetFloat("movementY", _moveDirection.y);
-
-
-            //public bool isGrounded;
-            //public bool isJumping;
-            //public bool isFacingRight;
-            //public bool doubleJumped;
-            //public bool wallJumped;
-            //public bool iswallRunning;
-            //public bool isSlopeSliding;
-            //public bool isGliding;
-            //public bool isCrouchWalking;
-            //public bool isCrouched;
-            //public bool isPowerJumping;
-            //public bool isStomping;
-            //public bool isChangingLevels;
+            
         }
 }//end of update
+    void SetAnimation()
+    {
+        //animator states
+        animator.SetBool("isJumping", isJumping);
+        animator.SetBool("isGrounded", isGrounded);
+        animator.SetBool("canMove", canMove);
+        animator.SetBool("isShooting", isShooting);
+        //animator.SetBool("isFacingRight", isFacingRight);
+        animator.SetFloat("movementX", _moveDirection.x);
+        animator.SetFloat("movementY", _moveDirection.y);
 
+
+        //public bool isGrounded;
+        //public bool isJumping;
+        //public bool isFacingRight;
+        //public bool doubleJumped;
+        //public bool wallJumped;
+        //public bool iswallRunning;
+        //public bool isSlopeSliding;
+        //public bool isGliding;
+        //public bool isCrouchWalking;
+        //public bool isCrouched;
+        //public bool isPowerJumping;
+        //public bool isStomping;
+        //public bool isChangingLevels;
+    }
     //makes it start with just objects with "level" tag
     void gimmickSetup()
     {
         box = GameObject.FindGameObjectsWithTag("outworld");
         cityGameObject = GameObject.FindGameObjectsWithTag("regular");
+        SuperMove = GameObject.FindGameObjectsWithTag("super_shot");
+        for(int i = 0; i < SuperMove.Length; i++)
+        {
+            SuperMove[i].SetActive(false);
+        }
         
+
         //all red boxes disabled
         for (int i = 0; i < box.Length; i++)
         {
@@ -515,46 +534,68 @@ public class playerController : MonoBehaviour {
     //controls firing and the rate of fire
     IEnumerator Fire()
     {
-        canMove = false; //mebbe change this midair to be able to move or change when walking and shooting
+        if (isGrounded)
+        {
+            canMoveHorizontal = false;
+        }
+         //mebbe change this midair to be able to move or change when walking and shooting
         canShoot = false;
         isShooting = true;
         
         Instantiate(horizshot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
-        canMove = true;
+        canMoveHorizontal = true;
         canShoot = true;
     }
 
     //vigilante shot
     IEnumerator vFire()
     {
-
-        canShoot = false; //mebbe change this midair to be able to move
+        //isShooting = false;
+        if (isGrounded)
+        {
+            canMoveHorizontal = false;
+        }
+        canShoot = false;
         isShooting = true;
-        canMove = false;
-        Instantiate(vShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+
+        Instantiate(horizshot, shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
-        canMove = true;
         isShooting = false;
+        canMoveHorizontal = true;
         canShoot = true;
     }
-    //vigilante shot
+    //super shot
     IEnumerator SuperShot()
     {
-       
-        canShoot = false; //mebbe change this midair to be able to move
+        //make can SuperShot public and tie it to a 
+        //max number of points you have to have
+        if (isGrounded)
+        {
+            canMoveHorizontal = false;
+        }
+        //mebbe change this midair to be able to move or change when walking and shooting
+        canShoot = false;
         isShooting = true;
-        canMove = false;
-        //work smarter... just play animation and set all enemy hp to -10 or something
-        //GameObject.FindGameObjectWithTag ("Main Camera").transform.position;
-        //instantiate it in the middle of the screen and then have an 
-        //animation play.
-        Instantiate(vShot[wepNum], superSpawn.position, superSpawn.rotation);
-        yield return new WaitForSeconds(fireRate);
-        canMove = true;
+        for (int i = 0; i < SuperMove.Length; i++)
+        {
+            SuperMove[i].SetActive(true);
+        }
+        //SuperMove.SetActive(true);
+        //Instantiate(superShot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
+        yield return new WaitForSeconds(2f);
+        //SuperMove.SetActive(false);
+        for (int i = 0; i < SuperMove.Length; i++)
+        {
+            SuperMove[i].SetActive(false);
+        }
+        canSuperShot = false;
         isShooting = false;
+        canMoveHorizontal = true;
         canShoot = true;
+
+
     }
 
     //weapon select

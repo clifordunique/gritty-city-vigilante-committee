@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4114469905764754}
   - component: {fileID: 212537787408783120}
   - component: {fileID: 50988208738046648}
-  - component: {fileID: 70235443536346542}
   - component: {fileID: 114957045091888200}
+  - component: {fileID: 61336617569301830}
   m_Layer: 0
   m_Name: enemy shot
   m_TagString: enemy shot
@@ -37,8 +37,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793569461445286}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58.531082, y: 2.7042398, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -81.604, y: -24.018, z: 0}
+  m_LocalScale: {x: 9.383001, y: 8.429803, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -63,8 +63,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!70 &70235443536346542
-CapsuleCollider2D:
+--- !u!61 &61336617569301830
+BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -75,9 +75,19 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.01, y: -0.03}
-  m_Size: {x: 0.14, y: 0.14}
-  m_Direction: 1
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.5, y: 0.5}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!114 &114957045091888200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,6 +151,7 @@ MonoBehaviour:
   owB: {fileID: 0}
   animator: {fileID: 0}
   horizshot: {fileID: 0}
+  superShot: {fileID: 0}
   vShot: []
   wepNum: 0
   shotSpawn: {fileID: 0}

@@ -223,11 +223,15 @@
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Scripts\coin.cs" />
     <Compile Include="Assets\Scripts\Dshotmover.cs" />
+    <Compile Include="Assets\Scripts\EnemyBoss.cs" />
+    <Compile Include="Assets\Scripts\EnemyBossHurtBox.cs" />
     <Compile Include="Assets\Scripts\EnemyClass.cs" />
+    <Compile Include="Assets\Scripts\EnemyHurtBox.cs" />
     <Compile Include="Assets\Scripts\EnemyPatrol.cs" />
     <Compile Include="Assets\Scripts\EnemyShooter.cs" />
     <Compile Include="Assets\Scripts\EnemyShotMover.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
+    <Compile Include="Assets\Scripts\EnemyTurret.cs" />
     <Compile Include="Assets\Scripts\playerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStatsAndStates.cs" />
     <Compile Include="Assets\Scripts\Shotmover.cs" />
