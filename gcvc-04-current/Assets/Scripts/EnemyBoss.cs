@@ -171,7 +171,7 @@ public class EnemyBoss: MonoBehaviour {
 		//probably by coroutine. and in bool isShooting
 		if (canShoot)
 		{
-			if (aiShoot())
+			if (false)
 			{
 				// 
 				Debug.Log("pew pew");
@@ -593,17 +593,6 @@ public class EnemyBoss: MonoBehaviour {
 		}
 	}
 
-	private bool aiShoot()
-	{
-		if (stop) {
-			Debug.Log ("shotting"); 
-			return true; 
-		} else 
-		{
-			return false; 
-		}
-	}
-
 
 	IEnumerator randomDirection()
 	{
@@ -670,7 +659,6 @@ public class EnemyBoss: MonoBehaviour {
 
 	private float checkTurn() 
 	{
-		Debug.Log ("running check turn"); 
 		if (myTrans.position.x < player.transform.position.x && facingRight) {
 			Debug.Log ("on the right"); 
 			facingRight = false;
