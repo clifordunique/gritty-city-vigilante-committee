@@ -21,6 +21,7 @@ public class playerController : MonoBehaviour {
     public float powerJumpSpeed = 10.0f;
     public float stompSpeed = 4.0f;
     public LayerMask layerMask;
+     
     
     //player ability toggle
     public bool canWallRun = true;
@@ -35,10 +36,12 @@ public class playerController : MonoBehaviour {
     public bool canMove = true;
     public bool canCrouch = false;
     public bool canChangeWep = true;
+    public bool canSuperShot = true;
+    public Vector3 shotadjustment;
    
     //player states
     public bool isGrounded;
-    public bool isJumping;
+    private bool isJumping;
     public bool isFacingRight;
     public bool doubleJumped;
     public bool wallJumped;
@@ -64,17 +67,17 @@ public class playerController : MonoBehaviour {
     public SpriteRenderer[] boxy;
     public SpriteRenderer[] citySprites;
     public GameObject owB;
-    public SpriteRenderer outworld_background;
+    //public SpriteRenderer outworld_background;
 
     
     //public BoxCollider2D
     public Animator animator;
 
-    public GameObject[] horizshot;
-    public GameObject[] diagShot;
-    public GameObject[] vertShot;
+    public GameObject horizshot;
+    public GameObject[] vShot;
     public int wepNum;
     public Transform shotSpawn;
+    public Transform superSpawn;
     
     public float fireRate = .5f;
     
@@ -93,62 +96,18 @@ public class playerController : MonoBehaviour {
     
     
 	// Use this for initialization
-	void Start ()
+	void Awake()
     {
         wepNum = 0;
-        //horizshot = (GameObject)Resources.Load("prefabs/horiz_shot", typeof(GameObject));
-        Debug.Log(horizshot);
-        //horizshot = vert_shot.prefab;
+        shotadjustment = new Vector3(0, -1, 0);
         //grabs the character attached to the script
         _CharacterController = GetComponent<CharacterController2D>();
         _currentGlideTime = glideTime;
         _boxCollider = GetComponent<BoxCollider2D>();
         _originalBoxColliderSize = _boxCollider.size;
-        box = GameObject.FindGameObjectsWithTag("outworld");
-        cityGameObject = GameObject.FindGameObjectsWithTag("regular");
+        gimmickSetup();
         animator = GetComponent<Animator>();
-        CityColliderBox = new BoxCollider2D[cityGameObject.Length];
-        citySprites = new SpriteRenderer[cityGameObject.Length];
         
-
-        boxy = new SpriteRenderer[box.Length];
-        boxTest = new BoxCollider2D[box.Length];
-
-        //stores data for "level" tagged data
-        for (var i = 0; i < box.Length; i += 1)
-        {
-            boxTest[i] = box[i].GetComponent<BoxCollider2D>();
-            boxy[i] = box[i].GetComponent<SpriteRenderer>();
-           
-        }
-
-        //stores all the data for "city" tagged items
-        for (var i = 0; i < cityGameObject.Length; i += 1)
-        {
-            //Debug.Log(cityGameObject.Length);
-
-            CityColliderBox[i] = cityGameObject[i].GetComponent<BoxCollider2D>();
-            if(cityGameObject[i].GetComponent<SpriteRenderer>() != null)
-            {
-                citySprites[i] = cityGameObject[i].GetComponent<SpriteRenderer>();
-            }
-                
-         
-         }
-
-        //makes it start with just objects with "level" tag
-        for (int i = 0; i < box.Length; i++)
-        {
-            boxTest[i].enabled = false;
-            boxy[i].enabled = false;
-            //GameObject.FindGameObjectsWithTag("outworld_background").enabled = true;
-        }
-        owB = GameObject.FindGameObjectWithTag("outworld_background");
-        outworld_background = owB.GetComponent<SpriteRenderer>();
-        outworld_background.enabled = false;
-
-        
-        isChangingLevels = true;
         canShoot = true;
     }//end of start
 
@@ -164,21 +123,20 @@ public class playerController : MonoBehaviour {
                 {
                     StartCoroutine("Fire");
                 }
-                //vertical shot
+                //vigilante help shot
                 if (Input.GetButton("Fire5"))
                 {
                     StartCoroutine("vFire");
                 }
-                //diagshot
-                if(Input.GetButton("Fire6"))
+                //supershot
+                if(canSuperShot && Input.GetButton("Fire6"))
                 {
-                    StartCoroutine("dFire");
+                   // _moveDirection.y = 100;
+                   StartCoroutine("SuperShot");
                 }
-                //change weapons set
+                //change vigilante
                 if (canChangeWep)
                 {
-
-
                     if (Input.GetButton("LeftBump"))
                     {
                         StartCoroutine("wepSelLeft");
@@ -188,79 +146,20 @@ public class playerController : MonoBehaviour {
                         StartCoroutine("wepSelRight");
                     }
                 }
+
+                
             }
 
-            //makes things disapear or change up the level
-            //so far this make it where you can just make one
-            //sprite disapear. can be exapanded to the whole level
-            // isChangingLevels is there to tell the animator to do it's thing
-            //probably put code in to save position of character or not... would
-            //be cool to have a free fall on change.
+            //changes to the alternate level
             if (canChangeLevel)
-            {
-                //changes to the alternate level
-                //should program to return state with the same button
-                // put in a cooroutine to do this
-                if (Input.GetButton("Fire1") && !isChangingLevels)
+            {   
+                if (Input.GetButton("Fire1"))
                 {
-                    for (int i = 0; i < box.Length; i++)
-                    {
-                        boxTest[i].enabled = false;
-                        boxy[i].enabled = false;
-
-                    }
-                    for (var i = 0; i < cityGameObject.Length; i += 1)
-                    {
-
-                        citySprites[i].enabled = true;
-
-                    }
-                    for (var i = 0; i < CityColliderBox.Length; i++)
-                    {
-
-                        if (CityColliderBox[i] != null)
-                        {
-                            CityColliderBox[i].enabled = true;
-                        }
-
-                    }
-                    
-                    outworld_background.enabled = false;
-                    isChangingLevels = true;
-
-                }
-
-                //this changes it back to original level
-                else if (Input.GetButton("Fire2") && isChangingLevels)
-                {
-                    for (var i = 0; i < cityGameObject.Length; i += 1)
-                    {
-
-                        citySprites[i].enabled = false;
-
-                    }
-                    for (var i = 0; i < CityColliderBox.Length; i++)
-                    {
-                        if (CityColliderBox[i] != null)
-                        {
-                            CityColliderBox[i].enabled = false;
-                        }
-                    }
-
-                    for (var i = 0; i < box.Length; i++)
-                    {
-
-                        boxTest[i].enabled = true;
-                        boxy[i].enabled = true;
-
-                    }
-                    outworld_background.enabled = true;
-                    
-                    StartCoroutine("WallyWowPlay");
-
-                    isChangingLevels = false;
+                    StartCoroutine("SwitchGimmick");
                 }
             }
+
+            //wall jump mechanic
             if (!wallJumped)
             {
                 _moveDirection.x = Input.GetAxis("Horizontal");
@@ -536,7 +435,20 @@ public class playerController : MonoBehaviour {
         }
 }//end of update
 
-
+    //makes it start with just objects with "level" tag
+    void gimmickSetup()
+    {
+        box = GameObject.FindGameObjectsWithTag("outworld");
+        cityGameObject = GameObject.FindGameObjectsWithTag("regular");
+        
+        //all red boxes disabled
+        for (int i = 0; i < box.Length; i++)
+        {
+            box[i].SetActive(false);
+        }
+        
+        isChangingLevels = true;
+    }
     //wall jump time
     IEnumerator WallJumpTimer()
     {
@@ -545,6 +457,7 @@ public class playerController : MonoBehaviour {
         wallJumped = false;
     }
 
+   
     //wall run time
     IEnumerator WallRunTimer()
     {
@@ -561,14 +474,43 @@ public class playerController : MonoBehaviour {
         isPowerJumping = false;
 
     }
-    IEnumerator WallyWowPlay()
+    IEnumerator SwitchGimmick()
     {
-        //videos[1].Play();
-        //outworld_background.enabled = true;
-        yield return new WaitForSeconds(6f);
-        outworld_background.enabled = false;
-       // videos[1].Stop();
-        
+        //changes to red platforms
+        if (!isChangingLevels)
+        {
+            for (int i = 0; i < box.Length; i++)
+            {
+                box[i].SetActive(false);
+            }
+            for (var i = 0; i < cityGameObject.Length; i++)
+            {
+                cityGameObject[i].SetActive(true);
+            }
+            //stop anything else playing (music wise)
+            //play music here for this level or mebbe don't need it
+            yield return new WaitForSeconds(.35f);
+            isChangingLevels = true;
+            
+        }
+
+        //changes to blue
+        else if (isChangingLevels)
+        {
+            for (var i = 0; i < cityGameObject.Length; i++)
+            {
+                cityGameObject[i].SetActive(false);
+            }
+            for (var i = 0; i < box.Length; i++)
+            {
+                box[i].SetActive(true);
+            }
+            //stop music (optional)
+            //play new mucsic (optional)
+            yield return new WaitForSeconds(.35f);
+            isChangingLevels = false;
+        }
+               
     }
     //controls firing and the rate of fire
     IEnumerator Fire()
@@ -576,36 +518,46 @@ public class playerController : MonoBehaviour {
         canMove = false; //mebbe change this midair to be able to move or change when walking and shooting
         canShoot = false;
         isShooting = true;
-        Instantiate(horizshot[wepNum], shotSpawn.position, shotSpawn.rotation);
+        
+        Instantiate(horizshot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
         canMove = true;
         canShoot = true;
     }
+
+    //vigilante shot
     IEnumerator vFire()
     {
 
         canShoot = false; //mebbe change this midair to be able to move
         isShooting = true;
         canMove = false;
-        Instantiate(vertShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+        Instantiate(vShot[wepNum], shotSpawn.position, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         canMove = true;
         isShooting = false;
         canShoot = true;
     }
-    IEnumerator dFire()
+    //vigilante shot
+    IEnumerator SuperShot()
     {
-        canMove = false; //mebbe change this midair to be able to move
-        canShoot = false;
+       
+        canShoot = false; //mebbe change this midair to be able to move
         isShooting = true;
-        Instantiate(diagShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+        canMove = false;
+        //work smarter... just play animation and set all enemy hp to -10 or something
+        //GameObject.FindGameObjectWithTag ("Main Camera").transform.position;
+        //instantiate it in the middle of the screen and then have an 
+        //animation play.
+        Instantiate(vShot[wepNum], superSpawn.position, superSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
-        isShooting = false;
         canMove = true;
+        isShooting = false;
         canShoot = true;
     }
 
+    //weapon select
     IEnumerator wepSelLeft()
     {
         canChangeWep = false;
@@ -617,7 +569,7 @@ public class playerController : MonoBehaviour {
         {
             wepNum--;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.25f);
         canChangeWep = true;
     }
     IEnumerator wepSelRight()
@@ -631,7 +583,7 @@ public class playerController : MonoBehaviour {
         {
             wepNum++;
         }
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.25f);
         canChangeWep = true;
     }
 

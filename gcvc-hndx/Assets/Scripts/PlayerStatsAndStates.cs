@@ -82,16 +82,11 @@ public class PlayerStatsAndStates : playerController
         //play assosiated sounds
         //Debug.Log("you are dead");
         DeathSong.Play();
-        
-        
         yield return new WaitForSeconds(5f);
         death_image.enabled = false;
         player.GetComponent<Transform>().position = Saveposition;
         _isDead = false;
         StartCoroutine("StartUP");
-        
-        
-
         
     }
     //returns health % for health bars
@@ -189,12 +184,9 @@ public class PlayerStatsAndStates : playerController
     }
     IEnumerator SaveTimer()
     {
-        _isSavePosition = true;
-
-
         
-
-        yield return new WaitForSeconds(1f);
+        _isSavePosition = true;
+         yield return new WaitForSeconds(1f);
         _isSavePosition = false;
 
     }
@@ -230,7 +222,7 @@ public class PlayerStatsAndStates : playerController
         }
         else //otherwise
         {
-            knockback = new Vector3(-5, 0, 0);
+            knockback = new Vector3(0, 0, 0);
 
         }
         //player.animate hit animation
@@ -254,9 +246,6 @@ public class PlayerStatsAndStates : playerController
         player.GetComponent<playerController>().animator.SetBool("isKnockbacked", _isKnockBack);
         player.GetComponent<playerController>().animator.SetBool("isDead", _isDead);
         player.GetComponent<playerController>().animator.SetBool("canMove", player.GetComponent<playerController>().canMove);
-
-
-        
     }
 }
 
