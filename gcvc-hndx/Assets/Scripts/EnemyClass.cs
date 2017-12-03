@@ -18,6 +18,8 @@ public class EnemyClass : MonoBehaviour {
 	public Collider2D[] attackHitboxes;
 	public bool canAttack = true; 
 	public float attackRate = 1f; 
+	public bool isAttacking; 
+
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -108,7 +110,7 @@ public class EnemyClass : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.Find ("Player"); 
+		player = GameObject.FindWithTag ("Player"); 
 		attackRadius = 3;
 
 
@@ -156,24 +158,6 @@ public class EnemyClass : MonoBehaviour {
 			boxy[i].enabled = false;
 			//GameObject.FindGameObjectsWithTag("outworld_background").enabled = true;
 		}
-		owB = GameObject.FindGameObjectWithTag("outworld_background");
-		outworld_background = owB.GetComponent<SpriteRenderer>();
-		outworld_background.enabled = false;
-
-		videoPlayers = GameObject.FindGameObjectsWithTag("video");
-		videos = new VideoPlayer[videoPlayers.Length];
-
-		videos[0] = videoPlayers[0].GetComponent<VideoPlayer>();
-		videos[1] = videoPlayers[1].GetComponent<VideoPlayer>();
-		videos[0].playOnAwake = true;
-		videos[1].playOnAwake = false;
-
-		musicPlayers = GameObject.FindGameObjectsWithTag("music");
-		music = new AudioSource[musicPlayers.Length];
-		music[0] = musicPlayers[0].GetComponent<AudioSource>();
-		music[1] = musicPlayers[1].GetComponent<AudioSource>();
-		music[0].playOnAwake = false;
-		music[1].playOnAwake = true;
 		isChangingLevels = true;
 		canShoot = true;
 	}//end of start
@@ -621,6 +605,7 @@ public class EnemyClass : MonoBehaviour {
 			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
 
+
 			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
 					return 1f; 
@@ -722,10 +707,12 @@ public class EnemyClass : MonoBehaviour {
 	IEnumerator Attack()
 	{
 		canAttack = false;	
+		isAttacking = true;
 		attackHitboxes[0].enabled = true;
 		Debug.Log ("Launching attack"); 
 		yield return new WaitForSeconds(attackRate);
 		attackHitboxes[0].enabled = false;
+		isAttacking = false;
 		Debug.Log ("Turning off attack");
 		canAttack = true; 
 	}

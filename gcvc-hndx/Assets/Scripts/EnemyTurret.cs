@@ -4,7 +4,7 @@ using UnityEngine;
 using Prime31;
 using UnityEngine.Video;
 
-public class EnemyShooter : MonoBehaviour {
+public class EnemyTurret : MonoBehaviour {
 	public float jumpTakeOffSpeed = 7; 
 	public float maxSpeed = 7; 
 	private SpriteRenderer spriteRenderer; 
@@ -14,7 +14,7 @@ public class EnemyShooter : MonoBehaviour {
 	float myWidth; 
 	public bool attacking;  
 	private GameObject player; // TODO:: Replace with actual player script  
-	public float followCenterRadius; //Radius in which the enemy will not move. 
+	public float shootRadius; //Radius in which the enemy will not move. 
 	public Collider[] attackHitboxes;
 	private bool canMove = true;
 	public bool isShooting; 
@@ -163,6 +163,12 @@ public class EnemyShooter : MonoBehaviour {
 		videoPlayers = GameObject.FindGameObjectsWithTag("video");
 		videos = new VideoPlayer[videoPlayers.Length];
 
+		videos[0] = videoPlayers[0].GetComponent<VideoPlayer>();
+		videos[1] = videoPlayers[1].GetComponent<VideoPlayer>();
+		videos[0].playOnAwake = true;
+		videos[1].playOnAwake = false;
+
+	
 		isChangingLevels = true;
 		canShoot = true;
 	}//end of start
@@ -615,15 +621,15 @@ public class EnemyShooter : MonoBehaviour {
 			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
 			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
 
-			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+			if (myTrans.position.x < player.transform.position.x - shootRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
-					return 1f; 
+					return checkTurn(); 
 				} else {
-					return 0f; 
+					return checkTurn(); 
 				}
-			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+			} else if (myTrans.position.x > player.transform.position.x + shootRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
 				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
-					return -1f;  
+					return checkTurn();  
 				} else {  
 					return 0f; 
 				} 
@@ -634,72 +640,28 @@ public class EnemyShooter : MonoBehaviour {
 		} else  
 		{ 
 			return 0f; 
-		} 
+		}  
 	} 
 
 
 	private float checkTurn() 
 	{
 		if (myTrans.position.x < player.transform.position.x && facingRight) {
-			Debug.Log ("on the right"); 
 			facingRight = false;
-			return 0.1f; 
+			return 1f; 
 		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
 			facingRight = true; 
-			Debug.Log ("on the left"); 
-			return -0.1f; 
+			return -1f; 
 		} else {
 			return 0; 
 		}
 	}
 
-	private float aiCrouch()
-	{
-		_frontTopCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
-		_backTopCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y + _boxCollider.size.y / 2, 0); 
-		RaycastHit2D hitFrontCeiling = Physics2D.Raycast(_frontTopCorner, Vector2.up, 2f, layerMask); 
-		RaycastHit2D hitBackCeiling = Physics2D.Raycast(_backTopCorner, Vector2.up, 2f, layerMask);
-		if (hitFrontCeiling.collider || hitBackCeiling.collider) {
-			return -1f; 
-		} else {
-			return 0f; 
-		}
-	}
-
-
 	private bool aiJump()
 	{
-		float jumpDistance = 5f; 
-		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
-
-		Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
-		Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
-
-		if (myTrans.position.x < player.transform.position.x) { // TODO :: Replace the 100, with the player position  
-			if(jumpHitFrontGround.collider != null && hitFrontGround.collider == null) 
-			{ 
-				return true;  
-			} else { 
-
-			} 
-		} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-			// Debug.Log ("entering left case"); 
-			if(jumpHitBackGround.collider != null && hitBackGround.collider == null) 
-			{ 
-				// Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
-				return true;  
-			} else { 
-
-			} 
-		}
 		return false; 
 	}
-		
+
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 
