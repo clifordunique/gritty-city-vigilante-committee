@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212537787408783120}
   - component: {fileID: 50988208738046648}
   - component: {fileID: 70235443536346542}
-  - component: {fileID: 114726678968165442}
+  - component: {fileID: 114957045091888200}
   m_Layer: 0
   m_Name: enemy shot
   m_TagString: enemy shot
@@ -78,7 +78,7 @@ CapsuleCollider2D:
   m_Offset: {x: -0.01, y: -0.03}
   m_Size: {x: 0.14, y: 0.14}
   m_Direction: 1
---- !u!114 &114726678968165442
+--- !u!114 &114957045091888200
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -114,8 +114,12 @@ MonoBehaviour:
   canStomp: 1
   canChangeLevel: 1
   canShoot: 1
+  canMove: 1
+  canCrouch: 0
+  canChangeWep: 1
+  canSuperShot: 1
+  shotadjustment: {x: 0, y: 0, z: 0}
   isGrounded: 0
-  isJumping: 0
   isFacingRight: 0
   doubleJumped: 0
   wallJumped: 0
@@ -127,6 +131,7 @@ MonoBehaviour:
   isPowerJumping: 0
   isStomping: 0
   isChangingLevels: 0
+  isShooting: 0
   boxTest: []
   CityColliderBox: []
   box: []
@@ -134,15 +139,15 @@ MonoBehaviour:
   boxy: []
   citySprites: []
   owB: {fileID: 0}
-  outworld_background: {fileID: 0}
-  videos: []
-  videoPlayers: []
-  music: []
-  musicPlayers: []
   animator: {fileID: 0}
-  shot: {fileID: 0}
+  horizshot: {fileID: 0}
+  vShot: []
+  wepNum: 0
   shotSpawn: {fileID: 0}
+  superSpawn: {fileID: 0}
   fireRate: 0.5
+  _moveDirection: {x: 0, y: 0, z: 0}
+  _CharacterController: {fileID: 0}
   speed: 0
 --- !u!212 &212537787408783120
 SpriteRenderer:

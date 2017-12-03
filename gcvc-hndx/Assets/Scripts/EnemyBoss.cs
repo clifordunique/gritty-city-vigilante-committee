@@ -3,23 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Prime31;
 using UnityEngine.Video;
+using System;
 
-public class EnemyShooter : MonoBehaviour {
+public class EnemyBoss: MonoBehaviour {
 	public float jumpTakeOffSpeed = 7; 
 	public float maxSpeed = 7; 
 	private SpriteRenderer spriteRenderer; 
-	private bool facingRight = false; //Always tries to move right at the begining when set to true  
 	Rigidbody2D myBody;  
 	Transform myTrans;  
 	float myWidth; 
 	public bool attacking;  
 	private GameObject player; // TODO:: Replace with actual player script  
-	public float followCenterRadius; //Radius in which the enemy will not move. 
-	public Collider[] attackHitboxes;
-	private bool canMove = true;
-	public bool isShooting; 
-
-
+	private float followCenterRadius = 3; //Radius in which the enemy will not move. 
+	public Collider2D[] attackHitboxes;
+	public bool canAttack = true; 
+	public float attackRate = 1f; 
+	public bool isAttacking; 
+	public bool facingRight = true; 
+	private bool stop = false; 
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -104,13 +105,15 @@ public class EnemyShooter : MonoBehaviour {
 	private Vector3 _backTopCorner;
 	private Vector3 _frontBottomCorner; 
 	private Vector3 _backBottomCorner; 
-
+	private float attackRadius; 
 
 
 	// Use this for initialization
 	void Start ()
 	{
-		player = GameObject.FindWithTag ("Player");
+		player = GameObject.FindWithTag ("Player"); 
+		attackRadius = 3;
+
 
 		//grabs the character attached to the script
 		_CharacterController = GetComponent<CharacterController2D>();
@@ -156,13 +159,6 @@ public class EnemyShooter : MonoBehaviour {
 			boxy[i].enabled = false;
 			//GameObject.FindGameObjectsWithTag("outworld_background").enabled = true;
 		}
-		owB = GameObject.FindGameObjectWithTag("outworld_background");
-		outworld_background = owB.GetComponent<SpriteRenderer>();
-		outworld_background.enabled = false;
-
-		videoPlayers = GameObject.FindGameObjectsWithTag("video");
-		videos = new VideoPlayer[videoPlayers.Length];
-
 		isChangingLevels = true;
 		canShoot = true;
 	}//end of start
@@ -177,8 +173,11 @@ public class EnemyShooter : MonoBehaviour {
 		{
 			if (aiShoot())
 			{
+				// 
+				Debug.Log("pew pew");
+
 				StartCoroutine("Fire");
-				StartCoroutine ("stopMoving");
+
 
 				//_nextFire = Time.time + fireRate;
 			}
@@ -498,6 +497,8 @@ public class EnemyShooter : MonoBehaviour {
 				}
 			}
 		}
+		CheckAttack (); 
+
 		//animator states
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
@@ -519,7 +520,7 @@ public class EnemyShooter : MonoBehaviour {
 		//public bool isPowerJumping;
 		//public bool isStomping;
 		//public bool isChangingLevels;
-
+		checkIfGameOver (); 
 	}//end of update
 
 
@@ -554,41 +555,55 @@ public class EnemyShooter : MonoBehaviour {
 		yield return new WaitForSeconds(6f);
 		outworld_background.enabled = false;
 		videos[1].Stop();
-	}
 
+	}
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
+		Debug.Log(fireRate);
 		canShoot = false;
-		isShooting = true;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
 		Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		yield return new WaitForSeconds(fireRate);
-		isShooting = false;
 		canShoot = true;
 	}
-	//controls firing and the rate of fire
-	IEnumerator stopMoving()
-	{
-		canMove = false;
-		yield return new WaitForSeconds(1f);
-		canMove = true;
-	}
+
 
 
 	//****************************************************************************************AI STUFF******************************************************************************************** 
-
-
 	void Awake () { 
 		myTrans = this.transform; 
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x; 
 		attacking = false; 
+		canAttack = true;
+		StartCoroutine ("randomDirection");
+		StartCoroutine ("randomStop");
 	} 
+
+	private void checkIfGameOver()
+	{
+		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
+		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
+			Destroy (gameObject);
+		}
+	}
+
+	IEnumerator randomStop()
+	{
+		while (true) 
+		{
+			yield return new WaitForSeconds (4f); 
+			stop = true; 
+			yield return new WaitForSeconds (2f); 
+			stop = false; 
+		}
+	}
 
 	private bool aiShoot()
 	{
-		if (Random.Range (0, 100) % 3 == 0) {
+		if (stop) {
+			Debug.Log ("shotting"); 
 			return true; 
 		} else 
 		{
@@ -596,44 +611,66 @@ public class EnemyShooter : MonoBehaviour {
 		}
 	}
 
-	// Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w 
-	// Takes the place of Input.GetAxis("Horizontal"), and returns a float < 1 and > -1  
+
+	IEnumerator randomDirection()
+	{
+		while (true) 
+		{
+			
+			if (UnityEngine.Random.Range(0,100) <= 50) {
+				Debug.Log ("flipping"); 
+				if (facingRight) {
+					facingRight = false; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = true; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = false; 
+				} else {
+					facingRight = true; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = false; 
+					yield return new WaitForSeconds (1f); 
+					facingRight = true; 
+				}
+			}
+			yield return new WaitForSeconds (1f); 
+		}
+	}
+
 	private float aiHorizontal() 
 	{ 
-		float jumpDistance = 5f; 
-		if (attacking == false && canMove) { 
+		if(true)
+		{
 			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
+			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0 ); 
+			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, _boxCollider.size.y * 10 , layerMask); 
+			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, _boxCollider.size.y * 10, layerMask); 
 
-			Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
-			Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
-			RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
-
-			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
-			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
-
-			if (myTrans.position.x < player.transform.position.x - followCenterRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
-					return 1f; 
-				} else {
-					return 0f; 
+			Debug.DrawRay (_frontBottomCorner, Vector2.down);  
+			Debug.DrawRay (_backBottomCorner, Vector2.down);
+			if (!stop) {
+				if (facingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
+					if (hitFrontGround.collider != null) {
+						return 1f; 
+					} else {
+						facingRight = false; 
+						return 0f; 
+					}
+				} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
+					if (hitBackGround.collider != null) { 
+						return -1f;  
+					} else { 
+						facingRight = true; 
+						return 0f; 
+					} 
 				}
-			} else if (myTrans.position.x > player.transform.position.x + followCenterRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
-					return -1f;  
-				} else {  
-					return 0f; 
-				} 
 			} else 
 			{
-				return checkTurn();
+				return checkTurn ();
 			}
 		} else  
 		{ 
-			return 0f; 
+			return 0; 
 		} 
 	} 
 
@@ -641,17 +678,21 @@ public class EnemyShooter : MonoBehaviour {
 	private float checkTurn() 
 	{
 		if (myTrans.position.x < player.transform.position.x && facingRight) {
-			Debug.Log ("on the right"); 
 			facingRight = false;
 			return 0.1f; 
 		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
 			facingRight = true; 
-			Debug.Log ("on the left"); 
 			return -0.1f; 
 		} else {
 			return 0; 
 		}
 	}
+
+	private bool aiJump()
+	{
+		return false;
+	}
+
 
 	private float aiCrouch()
 	{
@@ -666,40 +707,44 @@ public class EnemyShooter : MonoBehaviour {
 		}
 	}
 
+	private bool aiAttack() 
+	{ 
 
-	private bool aiJump()
-	{
-		float jumpDistance = 5f; 
-		_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
-
-		Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
-		Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-		RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
-		RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
-
-		if (myTrans.position.x < player.transform.position.x) { // TODO :: Replace the 100, with the player position  
-			if(jumpHitFrontGround.collider != null && hitFrontGround.collider == null) 
-			{ 
-				return true;  
-			} else { 
-
-			} 
-		} else { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-			// Debug.Log ("entering left case"); 
-			if(jumpHitBackGround.collider != null && hitBackGround.collider == null) 
-			{ 
-				// Debug.Log ("Will nnnnnnnnnnnnnnnnnot be grounded on left"); 
-				return true;  
-			} else { 
-
-			} 
+		if (Math.Abs (player.transform.position.x - myTrans.position.x) < attackRadius) {
+			return true; 	
+		} else 
+		{
+			return false; 
 		}
-		return false; 
+	} 
+
+	protected void CheckAttack() 
+	{ 
+		if (aiAttack())  
+		{ 
+			attacking = true; 
+			LaunchAttack (); 
+		} 
+	} 
+
+	private void LaunchAttack() 
+	{ 
+		if (canAttack) {
+			StartCoroutine ("Attack"); 		
+		} else 
+		{
+		}
+	} 
+
+	IEnumerator Attack()
+	{
+		canAttack = false;	
+		isAttacking = true;
+		yield return new WaitForSeconds(attackRate);
+		isAttacking = false;
+		canAttack = true; 
 	}
-		
+
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 

@@ -36,7 +36,7 @@ public class PlayerStatsAndStates : playerController
 
     private bool _isStarting;
     private bool _isSavePosition;
-    private bool _isDead;
+    public bool _isDead;
     private bool _isKnockBack;
 
 
