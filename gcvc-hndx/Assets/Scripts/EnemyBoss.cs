@@ -607,36 +607,9 @@ public class EnemyBoss: MonoBehaviour {
 			{
 				startShooting = false; 
 				yield return new WaitForSeconds (0.5f); 
-
 			}
 		}
 	}
-		
-
-//	IEnumerator randomDirection()
-//	{
-//		while (true) 
-//		{
-//			
-//			if (UnityEngine.Random.Range(0,100) <= 50) {
-//				Debug.Log ("flipping"); 
-//				if (facingRight) {
-//					facingRight = false; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = true; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = false; 
-//				} else {
-//					facingRight = true; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = false; 
-//					yield return new WaitForSeconds (1f); 
-//					facingRight = true; 
-//				}
-//			}
-//			yield return new WaitForSeconds (1f); 
-//		}
-//	}
 
 	private float aiHorizontal() 
 	{ 
