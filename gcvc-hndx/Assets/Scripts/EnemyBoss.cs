@@ -23,6 +23,8 @@ public class EnemyBoss: MonoBehaviour {
 	public bool goingRight = true; 
 	public bool turned = false; 
 	private bool stop = false; 
+	private bool startShooting = false; 
+
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -173,7 +175,7 @@ public class EnemyBoss: MonoBehaviour {
 		//probably by coroutine. and in bool isShooting
 		if (canShoot)
 		{
-			if (aiShoot())
+			if (startShooting)
 			{
 				StartCoroutine("Fire");
 			}
@@ -574,6 +576,8 @@ public class EnemyBoss: MonoBehaviour {
 		attacking = false; 
 		canAttack = true;
 		StartCoroutine ("stopAtEdge");
+		StartCoroutine ("aiShoot");
+
 	} 
 
 
@@ -592,24 +596,22 @@ public class EnemyBoss: MonoBehaviour {
 		}
 	}
 
-	IEnumerator shotWait()
+	IEnumerator aiShoot()
 	{
-		yield return new WaitForSeconds (1f);
-	}
-
-	private bool aiShoot()
-	{
-		if (stop) {
-//			Debug.Log ("shotting"); 
-			return true; 
-		} else 
+		while (true) 
 		{
-//			Debug.Log ("not shotting"); 
+			if (stop) {
+				yield return new WaitForSeconds (0.5f); 
+				startShooting = true; 
+			} else 
+			{
+				startShooting = false; 
+				yield return new WaitForSeconds (0.5f); 
 
-			return false; 
+			}
 		}
 	}
-
+		
 
 //	IEnumerator randomDirection()
 //	{
