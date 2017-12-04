@@ -8,16 +8,17 @@ public class EnemyTurret : MonoBehaviour {
 	public float jumpTakeOffSpeed = 7; 
 	public float maxSpeed = 7; 
 	private SpriteRenderer spriteRenderer; 
-	private bool facingRight = false; //Always tries to move right at the begining when set to true  
+	private bool facingRight = true; //Always tries to move right at the begining when set to true  
 	Rigidbody2D myBody;  
 	Transform myTrans;  
 	float myWidth; 
 	public bool attacking;  
 	private GameObject player; // TODO:: Replace with actual player script  
-	public float shootRadius; //Radius in which the enemy will not move. 
 	public Collider[] attackHitboxes;
 	private bool canMove = true;
 	public bool isShooting; 
+	public float shootRadius = 3; 
+	private bool startShooting = false; 
 
 
 
@@ -156,37 +157,24 @@ public class EnemyTurret : MonoBehaviour {
 			boxy[i].enabled = false;
 			//GameObject.FindGameObjectsWithTag("outworld_background").enabled = true;
 		}
-		owB = GameObject.FindGameObjectWithTag("outworld_background");
-		outworld_background = owB.GetComponent<SpriteRenderer>();
-		outworld_background.enabled = false;
 
-		videoPlayers = GameObject.FindGameObjectsWithTag("video");
-		videos = new VideoPlayer[videoPlayers.Length];
-
-		videos[0] = videoPlayers[0].GetComponent<VideoPlayer>();
-		videos[1] = videoPlayers[1].GetComponent<VideoPlayer>();
-		videos[0].playOnAwake = true;
-		videos[1].playOnAwake = false;
-
-	
 		isChangingLevels = true;
 		canShoot = true;
 	}//end of start
 
 	// Update is called once per frame
 	void Update() {
-
 		//shoooting mechanics
 		//needs to change to be one bullet at a time
 		//probably by coroutine. and in bool isShooting
 		if (canShoot)
 		{
-			if (aiShoot())
+			if (startShooting)
 			{
-				StartCoroutine("Fire");
-				StartCoroutine ("stopMoving");
-
-				//_nextFire = Time.time + fireRate;
+				if ((myTrans.position.x < player.transform.position.x + shootRadius) && (myTrans.position.x > player.transform.position.x - shootRadius)) 
+				{
+					StartCoroutine("Fire");
+				}
 			}
 		}
 
@@ -504,6 +492,7 @@ public class EnemyTurret : MonoBehaviour {
 				}
 			}
 		}
+
 		//animator states
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
@@ -525,7 +514,7 @@ public class EnemyTurret : MonoBehaviour {
 		//public bool isPowerJumping;
 		//public bool isStomping;
 		//public bool isChangingLevels;
-
+		checkIfGameOver (); 
 	}//end of update
 
 
@@ -582,7 +571,6 @@ public class EnemyTurret : MonoBehaviour {
 		canMove = true;
 	}
 
-
 	//****************************************************************************************AI STUFF******************************************************************************************** 
 
 
@@ -590,76 +578,64 @@ public class EnemyTurret : MonoBehaviour {
 		myTrans = this.transform; 
 		myWidth = GetComponent<SpriteRenderer>().bounds.extents.x; 
 		attacking = false; 
+		StartCoroutine ("aiShoot"); 
 	} 
-
-	private bool aiShoot()
+		
+	public IEnumerator aiShoot()
 	{
-		if (Random.Range (0, 100) % 3 == 0) {
-			return true; 
-		} else 
+		while (true) 
 		{
-			return false; 
+
+			if (Random.Range (0, 100) % 3 == 0) {
+				yield return new WaitForSeconds (2f);  
+				startShooting = true;  
+			}
+	
 		}
 	}
 
-	// Vaguely using tutorial found https://www.youtube.com/watch?v=LPNSh9mwT4w 
-	// Takes the place of Input.GetAxis("Horizontal"), and returns a float < 1 and > -1  
 	private float aiHorizontal() 
 	{ 
-		float jumpDistance = 5f; 
-		if (attacking == false && canMove) { 
-			_frontBottomCorner = new Vector3(transform.position.x + _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			_backBottomCorner = new Vector3(transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			RaycastHit2D hitFrontGround = Physics2D.Raycast(_frontBottomCorner, Vector2.down, 2f, layerMask); 
-			RaycastHit2D hitBackGround = Physics2D.Raycast(_backBottomCorner, Vector2.down, 2f, layerMask); 
-
-			Vector3 _jumpFrontBottomCorner = new Vector3(jumpDistance + transform.position.x + _boxCollider.size.x / 2 , transform.position.y - _boxCollider.size.y / 2, 0); 
-			Vector3 _jumpBackBottomCorner = new Vector3(-jumpDistance + transform.position.x - _boxCollider.size.x / 2, transform.position.y - _boxCollider.size.y / 2, 0); 
-			RaycastHit2D jumpHitFrontGround = Physics2D.Raycast(_jumpFrontBottomCorner, Vector2.down, 2f, layerMask); 
-			RaycastHit2D jumpHitBackGround = Physics2D.Raycast(_jumpBackBottomCorner, Vector2.down, 2f, layerMask);
-
-			Debug.DrawRay (_jumpFrontBottomCorner, Vector2.down);  
-			Debug.DrawRay (_jumpBackBottomCorner, Vector2.down);  
-
-			if (myTrans.position.x < player.transform.position.x - shootRadius) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
-				if (hitFrontGround.collider != null || jumpHitFrontGround.collider != null || isJumping) {
-					return checkTurn(); 
-				} else {
-					return checkTurn(); 
-				}
-			} else if (myTrans.position.x > player.transform.position.x + shootRadius) { //If the enemy is currently facing left continue moving left unless it will not be grounded 
-				if (hitBackGround.collider != null || jumpHitBackGround.collider != null || isJumping) { 
-					return checkTurn();  
-				} else {  
-					return 0f; 
-				} 
-			} else 
-			{
-				return checkTurn();
-			}
-		} else  
-		{ 
-			return 0f; 
-		}  
+		return checkTurn (); 
 	} 
 
-
+	int t = 0; 
 	private float checkTurn() 
 	{
-		if (myTrans.position.x < player.transform.position.x && facingRight) {
-			facingRight = false;
+		if (myTrans.position.x < player.transform.position.x && facingRight == false) {
+			Debug.Log ("on the right"); 
+			if (t < 2) {
+				t++; 
+			} else {
+				t = 0; 
+				facingRight = true; 
+			}
 			return 1f; 
-		} else if (myTrans.position.x > player.transform.position.x && facingRight == false) {
-			facingRight = true; 
+		} else if (myTrans.position.x > player.transform.position.x && facingRight) {
+			Debug.Log ("on the left"); 
+
+			if (t < 2) {
+				t++; 
+			} else {
+				t = 0; 
+				facingRight = false; 
+			}
 			return -1f; 
 		} else {
 			return 0; 
 		}
 	}
-
 	private bool aiJump()
 	{
 		return false; 
+	}
+
+	private void checkIfGameOver()
+	{
+		//		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
+		//		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
+		//			Destroy (gameObject);
+		//		}
 	}
 
 	//facing Right Timer 

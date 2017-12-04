@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528318228832362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -61.21489, y: -20.364296, z: 0}
+  m_LocalPosition: {x: -50.11931, y: -19.89168, z: 0}
   m_LocalScale: {x: 12, y: 7, z: 1}
   m_Children:
   - {fileID: 4871964091006300}
@@ -210,9 +210,10 @@ MonoBehaviour:
   jumpTakeOffSpeed: 7
   maxSpeed: 7
   attacking: 0
-  shootRadius: 0
+  followCenterRadius: 0
   attackHitboxes: []
   isShooting: 0
+  shootRadius: 10
   walkSpeed: 6
   jumpSpeed: 10
   gravity: 20
@@ -264,8 +265,8 @@ MonoBehaviour:
   music: []
   musicPlayers: []
   animator: {fileID: 0}
-  shot: {fileID: 0}
-  shotSpawn: {fileID: 0}
+  shot: {fileID: 1823174590483234, guid: b571421101f3a43a5a5d18cd066eb68c, type: 2}
+  shotSpawn: {fileID: 4311967974877134}
   fireRate: 0.5
 --- !u!114 &114734214940839356
 MonoBehaviour:

@@ -748,10 +748,10 @@ public class EnemyBoss: MonoBehaviour {
 
 	private void checkIfGameOver()
 	{
-		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
-		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
-			Destroy (gameObject);
-		}
+//		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
+//		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
+//			Destroy (gameObject);
+//		}
 	}
 
 	//facing Right Timer 

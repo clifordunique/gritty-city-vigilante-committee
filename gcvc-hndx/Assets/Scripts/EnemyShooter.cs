@@ -156,12 +156,6 @@ public class EnemyShooter : MonoBehaviour {
 			boxy[i].enabled = false;
 			//GameObject.FindGameObjectsWithTag("outworld_background").enabled = true;
 		}
-		owB = GameObject.FindGameObjectWithTag("outworld_background");
-		outworld_background = owB.GetComponent<SpriteRenderer>();
-		outworld_background.enabled = false;
-
-		videoPlayers = GameObject.FindGameObjectsWithTag("video");
-		videos = new VideoPlayer[videoPlayers.Length];
 
 		isChangingLevels = true;
 		canShoot = true;
@@ -169,7 +163,6 @@ public class EnemyShooter : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update() {
-
 		//shoooting mechanics
 		//needs to change to be one bullet at a time
 		//probably by coroutine. and in bool isShooting
@@ -178,9 +171,6 @@ public class EnemyShooter : MonoBehaviour {
 			if (aiShoot())
 			{
 				StartCoroutine("Fire");
-				StartCoroutine ("stopMoving");
-
-				//_nextFire = Time.time + fireRate;
 			}
 		}
 
@@ -498,6 +488,7 @@ public class EnemyShooter : MonoBehaviour {
 				}
 			}
 		}
+
 		//animator states
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
@@ -519,7 +510,7 @@ public class EnemyShooter : MonoBehaviour {
 		//public bool isPowerJumping;
 		//public bool isStomping;
 		//public bool isChangingLevels;
-
+		checkIfGameOver (); 
 	}//end of update
 
 
@@ -699,7 +690,14 @@ public class EnemyShooter : MonoBehaviour {
 		}
 		return false; 
 	}
-		
+
+	private void checkIfGameOver()
+	{
+		//		GameObject playerHurt = GameObject.FindWithTag ("player_hurt");
+		//		if (playerHurt.GetComponent<PlayerStatsAndStates> ()._isDead) {
+		//			Destroy (gameObject);
+		//		}
+	}
 	//facing Right Timer 
 	IEnumerator faceRightTime() 
 	{ 
