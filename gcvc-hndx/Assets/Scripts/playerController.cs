@@ -39,7 +39,7 @@ public class playerController : MonoBehaviour {
     public bool canCrouch = false;
     public bool canChangeWep = true;
     public bool canSuperShot = true;
-    public bool hasLeo = false;
+    public bool hasLeo;
     private bool canMoveHorizontal = true;
     public Vector3 shotadjustment;
    
@@ -103,7 +103,7 @@ public class playerController : MonoBehaviour {
 	void Awake()
     {
         wepNum = 0;
-        shotadjustment = new Vector3(0, -1, 0);
+        
         //grabs the character attached to the script
         _CharacterController = GetComponent<CharacterController2D>();
         _currentGlideTime = glideTime;
@@ -112,6 +112,7 @@ public class playerController : MonoBehaviour {
         setupAwake();
         animator = GetComponent<Animator>();
         canShoot = true;
+        hasLeo = true;
     }//end of start
 
     // Update is called once per frame
@@ -531,9 +532,10 @@ public class playerController : MonoBehaviour {
     //controls firing and the rate of fire
     IEnumerator Fire()
     {
+        isShooting = true;
         canShootCheck();
 
-
+        shotadjustment = new Vector3(0, -1, 0);
         Instantiate(horizshot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
@@ -565,22 +567,30 @@ public class playerController : MonoBehaviour {
             {
                 shotadjustment = new Vector3(-6, 3.5f, 0);
             }
-            
-
             canShootCheck();
             Instantiate(vShot[wepNum], shotSpawn.position + shotadjustment, shotSpawn.rotation);
             ammoCount[wepNum] -= 1;
         }
         //wepNum2 = leo
-        if (wepNum == 2 && (ammoCount[wepNum] > 0) && hasLeo)
+        if (wepNum == 2 && (ammoCount[wepNum] > 0))
         {
+            if (isFacingRight)
+            {
+                shotadjustment = new Vector3(4, 2, 0);
+
+            }
+            else
+            {
+                shotadjustment = new Vector3(-4, 2, 0);
+            }
+            //shotadjustment = new Vector3(0, -1, 0);
             canShootCheck();
-            Instantiate(vShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+            Instantiate(vShot[wepNum], shotSpawn.position + shotadjustment, shotSpawn.rotation);
             ammoCount[wepNum] -= 2;
         }
 
         yield return new WaitForSeconds(fireRate);
-        isShooting = false;
+        //isShooting = false;
         canMoveHorizontal = true;
         canShoot = true;
     }
@@ -591,7 +601,7 @@ public class playerController : MonoBehaviour {
             canMoveHorizontal = false;
         }
         canShoot = false;
-        isShooting = true;
+        //isShooting = true;
     }
     //animation before super shot
     IEnumerator preSuper()
@@ -630,12 +640,15 @@ public class playerController : MonoBehaviour {
     IEnumerator wepSelRight()
     {
         canChangeWep = false;
-        if (wepNum == 2)
+        if (wepNum == 2 && hasLeo)
         {
+            Debug.Log(hasLeo);
+            Debug.Log("WEAPON2");
             wepNum = 0;
         }
         else if (wepNum == 1 && !hasLeo)
         {
+            Debug.Log("weapon one " + hasLeo);
             wepNum = 0;
         }
         else

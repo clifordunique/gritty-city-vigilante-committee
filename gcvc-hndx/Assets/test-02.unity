@@ -980,6 +980,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e4d845b1b69ec4b80f6c4704a6930c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossHpBar: {fileID: 0}
 --- !u!1 &146350569
 GameObject:
   m_ObjectHideFlags: 0
@@ -4511,8 +4512,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 641735429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 197.5, y: 111, z: 0}
-  m_LocalScale: {x: 0.49375, y: 0.49375, z: 0.49375}
+  m_LocalPosition: {x: 207, y: 116.5, z: 0}
+  m_LocalScale: {x: 0.5175, y: 0.5175, z: 0.5175}
   m_Children:
   - {fileID: 1415917258}
   - {fileID: 1579161497}
@@ -6986,6 +6987,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3e4d845b1b69ec4b80f6c4704a6930c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossHpBar: {fileID: 0}
 --- !u!50 &1002467755
 Rigidbody2D:
   serializedVersion: 4
@@ -12961,7 +12963,7 @@ Prefab:
         type: 2}
       propertyPath: vShot.Array.data[2]
       value: 
-      objectReference: {fileID: 1080753384513164, guid: fc002f447c4f39946b1603583788bea0,
+      objectReference: {fileID: 1608714941904276, guid: f359feb0a1b5f6b479b108acade0d80f,
         type: 2}
     - target: {fileID: 114438476663429274, guid: d6caf55158ef2954b8525eb792eee8b1,
         type: 2}

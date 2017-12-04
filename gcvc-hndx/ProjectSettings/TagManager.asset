@@ -25,6 +25,9 @@ TagManager:
   - enemy_spawner
   - hulk
   - wolvie
+  - bossFightCameraPosition
+  - bossHpSlider
+  - leo
   layers:
   - Default
   - TransparentFX
