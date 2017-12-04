@@ -587,8 +587,11 @@ public class EnemyTurret : MonoBehaviour {
 		{
 
 			if (Random.Range (0, 100) % 3 == 0) {
-				yield return new WaitForSeconds (2f);  
 				startShooting = true;  
+				yield return new WaitForSeconds (1f);  
+				startShooting = false;  
+				yield return new WaitForSeconds (2f);  
+
 			}
 	
 		}
