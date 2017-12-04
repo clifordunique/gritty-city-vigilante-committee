@@ -28,6 +28,7 @@ TagManager:
   - bossFightCameraPosition
   - bossHpSlider
   - leo
+  - instaDeath
   layers:
   - Default
   - TransparentFX

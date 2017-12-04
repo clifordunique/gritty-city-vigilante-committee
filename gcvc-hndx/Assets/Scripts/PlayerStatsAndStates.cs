@@ -77,6 +77,7 @@ public class PlayerStatsAndStates : playerController
         SetUItext();
         wpBar.value = wpPercent();
         superBar.value = superPercent();
+        hpBar.value = healthPercent();
 
     }
 
@@ -122,6 +123,12 @@ public class PlayerStatsAndStates : playerController
     //save spots and spawn points
     void OnTriggerEnter2D(Collider2D tag)
     {
+        if(tag.gameObject.tag == "instaDeath")
+        {
+            HP = 0;
+
+            StartCoroutine("deathCheck");
+        }
         //enemy hit boxes
         if (tag.gameObject.tag == "enemy")
         {
