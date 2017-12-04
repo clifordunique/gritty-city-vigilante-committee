@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 using Prime31;
 using UnityEngine.Video;
@@ -20,6 +21,7 @@ public class playerController : MonoBehaviour {
     public float crouchWalkSpeed = 3.0f;
     public float powerJumpSpeed = 10.0f;
     public float stompSpeed = 4.0f;
+    public float[] ammoCount;
     public LayerMask layerMask;
      
     
@@ -37,6 +39,7 @@ public class playerController : MonoBehaviour {
     public bool canCrouch = false;
     public bool canChangeWep = true;
     public bool canSuperShot = true;
+    public bool hasLeo = false;
     private bool canMoveHorizontal = true;
     public Vector3 shotadjustment;
    
@@ -54,6 +57,7 @@ public class playerController : MonoBehaviour {
     public bool isPowerJumping;
     public bool isStomping;
     public bool isChangingLevels;
+    public bool isSuper;
 
     //public bool isWallSliding
     //public bool isDashing
@@ -62,13 +66,8 @@ public class playerController : MonoBehaviour {
 
     //some stuff to make the level disapear for the "gimmick"
     //public bool isGone = false;
-    public BoxCollider2D[] boxTest;
-    public BoxCollider2D[] CityColliderBox;
     public GameObject[] box; 
     public GameObject[] cityGameObject;
-    public SpriteRenderer[] boxy;
-    public SpriteRenderer[] citySprites;
-    public GameObject owB;
     //public SpriteRenderer outworld_background;
 
     
@@ -76,13 +75,14 @@ public class playerController : MonoBehaviour {
     public Animator animator;
 
     public GameObject horizshot;
-    //public GameObject superShot;
     public GameObject[] SuperMove;
     public GameObject[] vShot;
     public int wepNum;
     public Transform shotSpawn;
     public Transform superSpawn;
-    
+    public AudioSource YouAreNowDead;
+    public Image super_image;
+    //public GameObject DeathmusicPlayer;
     public float fireRate = .5f;
     
     //private variables
@@ -109,10 +109,8 @@ public class playerController : MonoBehaviour {
         _currentGlideTime = glideTime;
         _boxCollider = GetComponent<BoxCollider2D>();
         _originalBoxColliderSize = _boxCollider.size;
-        gimmickSetup();
+        setupAwake();
         animator = GetComponent<Animator>();
-        
-
         canShoot = true;
     }//end of start
 
@@ -137,16 +135,13 @@ public class playerController : MonoBehaviour {
                 //supershot
                 if (canSuperShot && Input.GetButton("Fire6"))
                 {
-                    // _moveDirection.y = 100;
-                    StartCoroutine("SuperShot");
+                    
+                    StartCoroutine("preSuper");
+                    
                 }
                 //change vigilante
                 if (canChangeWep)
                 {
-                    if (Input.GetButton("LeftBump"))
-                    {
-                        StartCoroutine("wepSelLeft");
-                    }
                     if (Input.GetButton("RightBump"))
                     {
                         StartCoroutine("wepSelRight");
@@ -432,7 +427,7 @@ public class playerController : MonoBehaviour {
         //animator.SetBool("isFacingRight", isFacingRight);
         animator.SetFloat("movementX", _moveDirection.x);
         animator.SetFloat("movementY", _moveDirection.y);
-
+        animator.SetBool("isSuper", isSuper);
 
         //public bool isGrounded;
         //public bool isJumping;
@@ -449,11 +444,12 @@ public class playerController : MonoBehaviour {
         //public bool isChangingLevels;
     }
     //makes it start with just objects with "level" tag
-    void gimmickSetup()
+    void setupAwake()
     {
         box = GameObject.FindGameObjectsWithTag("outworld");
         cityGameObject = GameObject.FindGameObjectsWithTag("regular");
         SuperMove = GameObject.FindGameObjectsWithTag("super_shot");
+        super_image.enabled = false;
         for(int i = 0; i < SuperMove.Length; i++)
         {
             SuperMove[i].SetActive(false);
@@ -475,8 +471,7 @@ public class playerController : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
         wallJumped = false;
     }
-
-   
+    
     //wall run time
     IEnumerator WallRunTimer()
     {
@@ -493,6 +488,8 @@ public class playerController : MonoBehaviour {
         isPowerJumping = false;
 
     }
+
+    //turns red and blue platforms on or off
     IEnumerator SwitchGimmick()
     {
         //changes to red platforms
@@ -534,14 +531,9 @@ public class playerController : MonoBehaviour {
     //controls firing and the rate of fire
     IEnumerator Fire()
     {
-        if (isGrounded)
-        {
-            canMoveHorizontal = false;
-        }
-         //mebbe change this midair to be able to move or change when walking and shooting
-        canShoot = false;
-        isShooting = true;
-        
+        canShootCheck();
+
+
         Instantiate(horizshot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
@@ -553,70 +545,96 @@ public class playerController : MonoBehaviour {
     IEnumerator vFire()
     {
         //isShooting = false;
-        if (isGrounded)
+        
+        //wepNum0 = hulk
+        if (wepNum == 0 && (ammoCount[wepNum] > 0))
         {
-            canMoveHorizontal = false;
+            canShootCheck();
+            Instantiate(vShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+            ammoCount[wepNum] -= 5;
         }
-        canShoot = false;
-        isShooting = true;
+        //wepNum1 = wolverine
+        if (wepNum == 1 && (ammoCount[wepNum] > 0))
+        {
+            if (isFacingRight)
+            {
+                shotadjustment = new Vector3(6, 3.5f, 0);
 
-        Instantiate(horizshot, shotSpawn.position, shotSpawn.rotation);
+            }
+            else
+            {
+                shotadjustment = new Vector3(-6, 3.5f, 0);
+            }
+            
+
+            canShootCheck();
+            Instantiate(vShot[wepNum], shotSpawn.position + shotadjustment, shotSpawn.rotation);
+            ammoCount[wepNum] -= 1;
+        }
+        //wepNum2 = leo
+        if (wepNum == 2 && (ammoCount[wepNum] > 0) && hasLeo)
+        {
+            canShootCheck();
+            Instantiate(vShot[wepNum], shotSpawn.position, shotSpawn.rotation);
+            ammoCount[wepNum] -= 2;
+        }
+
         yield return new WaitForSeconds(fireRate);
         isShooting = false;
         canMoveHorizontal = true;
         canShoot = true;
     }
-    //super shot
-    IEnumerator SuperShot()
+    void canShootCheck()
     {
-        //make can SuperShot public and tie it to a 
-        //max number of points you have to have
         if (isGrounded)
         {
             canMoveHorizontal = false;
         }
-        //mebbe change this midair to be able to move or change when walking and shooting
         canShoot = false;
         isShooting = true;
+    }
+    //animation before super shot
+    IEnumerator preSuper()
+    {
+        canMove = false;
+        canShoot = false;
+        isSuper = true;
+        super_image.enabled = true;
+        transform.position += new Vector3(0, 15, 0);
+        YouAreNowDead.Play();
+        yield return new WaitForSeconds(4f);
+        StartCoroutine("SuperShot");
+    }
+    //super shot
+    IEnumerator SuperShot()
+    {
+        super_image.enabled = false;
         for (int i = 0; i < SuperMove.Length; i++)
         {
             SuperMove[i].SetActive(true);
         }
-        //SuperMove.SetActive(true);
-        //Instantiate(superShot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
         yield return new WaitForSeconds(2f);
-        //SuperMove.SetActive(false);
         for (int i = 0; i < SuperMove.Length; i++)
         {
             SuperMove[i].SetActive(false);
         }
+        ammoCount[3] = 0;
         canSuperShot = false;
-        isShooting = false;
-        canMoveHorizontal = true;
+        isSuper = false;
         canShoot = true;
-
-
+        canMove = true;
+       
     }
 
     //weapon select
-    IEnumerator wepSelLeft()
-    {
-        canChangeWep = false;
-        if (wepNum == 0)
-        {
-            wepNum = 2;
-        }
-        else
-        {
-            wepNum--;
-        }
-        yield return new WaitForSeconds(.25f);
-        canChangeWep = true;
-    }
     IEnumerator wepSelRight()
     {
         canChangeWep = false;
         if (wepNum == 2)
+        {
+            wepNum = 0;
+        }
+        else if (wepNum == 1 && !hasLeo)
         {
             wepNum = 0;
         }

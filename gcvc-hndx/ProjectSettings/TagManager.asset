@@ -22,6 +22,9 @@ TagManager:
   - coin
   - super_shot
   - super
+  - enemy_spawner
+  - hulk
+  - wolvie
   layers:
   - Default
   - TransparentFX
@@ -33,7 +36,7 @@ TagManager:
   - 
   - Player
   - Level
-  - 
+  - bullets
   - 
   - 
   - 

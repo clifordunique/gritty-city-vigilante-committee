@@ -5,18 +5,24 @@ using UnityEngine;
 public class Vshotmover : playerController
 {
     public float speed;
-    //private GameObject player;
-    private Vector3 velo;
-
+    public Animator Shot_animator;
+    private GameObject player;
+    public Vector3 velo;
+    // private Collider2D other;
     private bool alive = false;
+    private bool hasHit = false;
+    private float hit = 0;
 
 
-    void Start()
+
+    void Awake()
     {
         //connects to the player/object to find direction 
         // that they are facing.
+        player = GameObject.FindWithTag("Player");
         Vector3 velo = Vector3.zero;
         speed = .5f;
+        Shot_animator = GetComponent<Animator>();
         //Debug.Log(gameObject);
     }
 
@@ -25,32 +31,26 @@ public class Vshotmover : playerController
     {
 
         //horizontal
-        if (isFacingRight && !alive)
+        if (!alive && !hasHit)
         {
+            StartCoroutine("startUpAnimation");
             //if(gameObject = "horiz_shot")
-            velo = new Vector3(0, -1f * speed, 0);
-            transform.Translate(velo);
-            alive = true;
-
-
-        }
-        else if (!isFacingRight && !alive)
-        {
-            //Debug.Log(isFacingRight);
             //velo = new Vector3(0, speed, 0);
-            velo = new Vector3(0, speed, 0);
-            transform.Translate(velo);
+            //transform.Translate(velo);
+            //alive = true;
 
-            alive = true;
+            //Debug.Log("1hasHit " + hasHit);
+
+
         }
+        
         else
         {
-            //this ensures the bullets doesn't change direction 
-            //after being fired.
+            //alive = true;
             transform.Translate(velo);
-
-
+            Debug.Log(alive);
         }
+        SetAnimator();
 
     }
     void OnBecameInvisible()
@@ -69,12 +69,67 @@ public class Vshotmover : playerController
         // ..and if the game object we intersect has the tag 'Pick Up' assigned to it..
         if (other.gameObject.CompareTag("killme"))
         {
-            //destroys enemy
+            // Handled in the EnemyHurtBox Now
+            alive = false;
+            // destorys or change to hitpoint --
+            hasHit = true;
             Destroy(other.transform.parent.gameObject);
 
+
             //destroys bullet
-            Destroy(gameObject);
+            //Destroy(gameObject);
+
 
         }
+    }
+    IEnumerator startUpAnimation()
+    {
+
+        if (isFacingRight)
+        {
+            //StartCoroutine("startUpAnimation");
+            //if(gameObject = "horiz_shot")
+            velo = new Vector3(0, speed, 0);
+            
+
+            //Debug.Log("1hasHit " + hasHit);
+
+
+        }
+        if (!isFacingRight)
+        {
+           // StartCoroutine("startUpAnimation");
+            //Debug.Log(isFacingRight);
+            //velo = new Vector3(0, speed, 0);
+            //velo = new Vector3(speed, 0, 0);
+            velo = new Vector3(0, speed, 0);
+           
+            //Debug.Log("2hasHit " + hasHit);
+        }
+        yield return new WaitForSeconds(.5f);
+        transform.Translate(velo);
+
+        alive = true;
+    }
+    //death animation for the bullet no need for enemy
+    IEnumerator deathAnimation()
+    {
+        //bullet is nolonger alive
+
+        Debug.Log("play end bullet animation");
+        //destorys or change to hitpoint --
+        //velo = Vector3.zero;
+        //transform.Translate(velo);
+        //Destroy(other.transform.parent.gameObject);
+        yield return new WaitForSeconds(1f);
+        //destroys bullet
+        //Destroy(gameObject);
+
+    }
+    void SetAnimator()
+    {
+        Shot_animator.SetBool("isAlive", alive);
+        //Shot_animator.SetBool("hasHit", hasHit);
+        //Shot_animator.SetFloat("goingStraight", hit);
     }
 }

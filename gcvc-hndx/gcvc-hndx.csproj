@@ -232,6 +232,7 @@
     <Compile Include="Assets\Scripts\EnemyShotMover.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\EnemyTurret.cs" />
+    <Compile Include="Assets\Scripts\Hulkshot.cs" />
     <Compile Include="Assets\Scripts\playerController.cs" />
     <Compile Include="Assets\Scripts\PlayerStatsAndStates.cs" />
     <Compile Include="Assets\Scripts\Shotmover.cs" />

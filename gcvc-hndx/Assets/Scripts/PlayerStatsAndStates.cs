@@ -13,13 +13,17 @@ public class PlayerStatsAndStates : playerController
     public bool test = true;
     public Slider hpBar;
     public Slider wpBar;
+    public Slider superBar;
     public Image death_image;
+    private float superMax;
+    private float superAmount;
     private float HP;
     private float WP;
     private float maxHP;
     private float maxWP;
     private float HPrec;
     private float WPrec;
+    private float superRec;
     private float HPdiff;
     private Transform saveTransform;
     private Vector3 Saveposition;
@@ -50,7 +54,10 @@ public class PlayerStatsAndStates : playerController
         maxWP = 50;
         HPrec = 10;
         WPrec = 5;
-        
+        superRec = 1;
+
+        superMax = 10;
+        superAmount = 10;
         player = GameObject.FindGameObjectWithTag("Player");
         Saveposition = player.GetComponent<Transform>().position;
         //Debug.Log(Saveposition);
@@ -64,9 +71,13 @@ public class PlayerStatsAndStates : playerController
     {
         HPdiff = maxHP - HP;
         wnum = player.GetComponent<playerController>().wepNum;
+        WP = player.GetComponent<playerController>().ammoCount[wnum];
+        superAmount = player.GetComponent<playerController>().ammoCount[3];
         SetAnimator();
         SetUItext();
-       
+        wpBar.value = wpPercent();
+        superBar.value = superPercent();
+
     }
 
     //checks if you're dead and stops knockback
@@ -88,6 +99,10 @@ public class PlayerStatsAndStates : playerController
         _isDead = false;
         StartCoroutine("StartUP");
         
+    }
+    float superPercent()
+    {
+        return superAmount / superMax;
     }
     //returns health % for health bars
     float healthPercent()
@@ -113,9 +128,16 @@ public class PlayerStatsAndStates : playerController
             StartCoroutine("KnockBack");
 
 		}
+        //pick up leo 
+        //this can be expanded upon to
+        //include more vigilantes
+        if (tag.gameObject.tag == "leoPickup")
+        {
+            player.GetComponent<playerController>().hasLeo = true;
+        }
         if (tag.gameObject.tag == "enemy shot")
         {
-            HP--;
+            
             StartCoroutine("KnockBack");
 
         }
@@ -147,20 +169,14 @@ public class PlayerStatsAndStates : playerController
         //recover wp items
         if(tag.gameObject.tag == "Wrecovery")
         {
-            if ((maxWP - WP) <= WPrec)
-            {
-                WP = maxWP;
-            }
-            else
-            {
-                WP += WPrec;
-            }
-            
-            SetUItext();
-            wpBar.value = wpPercent();
+            addtowpMeter();
             //do animation and associated sound.
         }
+        if (tag.gameObject.tag == "Superrecovery")
+        {
+            addtoSuperMeter();
 
+        }
     }
     IEnumerator StartUP()
     {
@@ -168,11 +184,14 @@ public class PlayerStatsAndStates : playerController
         _isStarting = true;
         //assosiated start up animation and sound
         HP = maxHP;
-        WP = maxWP;
+        player.GetComponent<playerController>().ammoCount[0] = maxWP;
+        player.GetComponent<playerController>().ammoCount[1] = maxWP;
+        player.GetComponent<playerController>().ammoCount[2] = maxWP;
+        player.GetComponent<playerController>().ammoCount[3] = superMax;
         SetUItext();
         hpBar.value = healthPercent();
         wpBar.value = wpPercent();
-
+        superBar.value = superPercent();
         //set movement to zero
         //private Vector3 _moveDirection = Vector3.zero;
         player.GetComponent<playerController>()._moveDirection = Vector3.zero;
@@ -181,6 +200,34 @@ public class PlayerStatsAndStates : playerController
         _isStarting = false;
         player.GetComponent<playerController>().canMove = true;
 
+    }
+    void addtowpMeter()
+    {
+        if ((maxWP - player.GetComponent<playerController>().ammoCount[wnum]) <= WPrec)
+        {
+            player.GetComponent<playerController>().ammoCount[wnum] = maxWP;
+        }
+        else
+        {
+            player.GetComponent<playerController>().ammoCount[wnum] += WPrec;
+        }
+        wpBar.value = wpPercent();
+    }
+
+    void addtoSuperMeter()
+    {
+        //getting hit increases your super bar also.
+        if ((superMax - superAmount) <= superRec)
+        {
+            player.GetComponent<playerController>().ammoCount[3] = superMax;
+            player.GetComponent<playerController>().canSuperShot = true;
+        }
+        else
+        {
+            Debug.Log("hit wall get mad");
+            player.GetComponent<playerController>().ammoCount[3] += superRec;
+        }
+        superBar.value = superPercent();
     }
     IEnumerator SaveTimer()
     {
@@ -193,6 +240,7 @@ public class PlayerStatsAndStates : playerController
     //controls firing and the rate of fire
     IEnumerator KnockBack()
     {
+        
         _isKnockBack = true;
         kbTime = .25f;
         //Debug.Log(kbTime);
@@ -204,6 +252,7 @@ public class PlayerStatsAndStates : playerController
             HP -= 10;
             Debug.Log("more than 10 " + HP.ToString());
             player.GetComponent<playerController>().canMove = false;
+            addtoSuperMeter();
 
         }
         else if ((HPdiff) > 10)
@@ -215,10 +264,13 @@ public class PlayerStatsAndStates : playerController
         hpBar.value = healthPercent();
 
         //add in detection from the wall as to not get stuck in or pushed further than;
-        //if in the air // might take this out
         if (!player.GetComponent<playerController>().isGrounded && (KBflags.left || KBflags.right) && KBflags.below )
         {
             knockback = new Vector3(-5, -2, 0);
+        }
+        else if(player.GetComponent<playerController>().isGrounded && !(KBflags.left || KBflags.right))
+        {
+            knockback = new Vector3(-5, 0, 0);
         }
         else //otherwise
         {

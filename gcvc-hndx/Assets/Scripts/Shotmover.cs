@@ -15,7 +15,7 @@ public class Shotmover : playerController
 
 
 
-    void Start () {
+    void Awake () {
         //connects to the player/object to find direction 
         // that they are facing.
         player = GameObject.FindWithTag("Player");
@@ -36,7 +36,7 @@ public class Shotmover : playerController
                 velo = new Vector3(-1f * speed, 0, 0);
                 transform.Translate(velo);
                 alive = true;
-            Debug.Log("1hasHit " + hasHit);
+            //Debug.Log("1hasHit " + hasHit);
                 
 
             }
@@ -48,7 +48,7 @@ public class Shotmover : playerController
                 transform.Translate(velo);
 
                 alive = true;
-                Debug.Log("2hasHit " + hasHit);
+                //Debug.Log("2hasHit " + hasHit);
             }
            
             //this ensures the bullets doesn't change direction 
@@ -58,7 +58,7 @@ public class Shotmover : playerController
             hit++;
             Debug.Log(hit);
             StartCoroutine("deathAnimation");
-            Debug.Log("3hasHit " + hasHit);
+            //Debug.Log("3hasHit " + hasHit);
 
             }
         else
@@ -88,10 +88,9 @@ public class Shotmover : playerController
             alive = false;
             // destorys or change to hitpoint --
             hasHit = true;
-            // alive = false;
             Destroy(other.transform.parent.gameObject);
-            //yield return new WaitForSeconds(3f);
             
+        
             //destroys bullet
             //Destroy(gameObject);
 
@@ -116,8 +115,8 @@ public class Shotmover : playerController
     }
     void SetAnimator()
     {
-        animator.SetBool("isAlive", alive);
-        animator.SetBool("hasHit", hasHit);
-        animator.SetFloat("goingStraight", hit);
+        Shot_animator.SetBool("isAlive", alive);
+        Shot_animator.SetBool("hasHit", hasHit);
+        Shot_animator.SetFloat("goingStraight", hit);
     }
 }

@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 114714094215861382}
   - component: {fileID: 61178082850298724}
   - component: {fileID: 95726073576433346}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: horiz_shot
   m_TagString: horzShot
   m_Icon: {fileID: 0}
@@ -146,8 +146,8 @@ MonoBehaviour:
   canCrouch: 0
   canChangeWep: 1
   canSuperShot: 1
+  shotadjustment: {x: 0, y: 0, z: 0}
   isGrounded: 0
-  isJumping: 0
   isFacingRight: 0
   doubleJumped: 0
   wallJumped: 0
@@ -159,20 +159,19 @@ MonoBehaviour:
   isPowerJumping: 0
   isStomping: 0
   isChangingLevels: 0
+  isSuper: 0
   isShooting: 0
-  boxTest: []
-  CityColliderBox: []
   box: []
   cityGameObject: []
-  boxy: []
-  citySprites: []
-  owB: {fileID: 0}
   animator: {fileID: 0}
   horizshot: {fileID: 0}
+  SuperMove: []
   vShot: []
   wepNum: 0
   shotSpawn: {fileID: 0}
   superSpawn: {fileID: 0}
+  YouAreNowDead: {fileID: 0}
+  super_image: {fileID: 0}
   fireRate: 0
   _moveDirection: {x: 0, y: 0, z: 0}
   _CharacterController: {fileID: 0}
