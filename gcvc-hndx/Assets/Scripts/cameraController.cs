@@ -47,14 +47,14 @@ public class cameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-		//checkLocation (); 
-		//if (bossFight) {
-			//bossBehavior ();
-		//} else if (specialMove) {
-			//specialBehavior (); 
-		//} else {
+		checkLocation (); 
+		if (bossFight) {
+			bossBehavior ();
+		} else if (specialMove) {
+			specialBehavior (); 
+		} else {
 			normalBehavior (); 
-		//}
+		}
         
 	}
 

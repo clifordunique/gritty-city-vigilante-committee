@@ -24,7 +24,7 @@ public class EnemyBoss: MonoBehaviour {
 	public bool turned = false; 
 	private bool stop = false; 
 	private bool startShooting = false; 
-
+	private bool canmove = true;
 
 	//tells what our collision state is
 	public CharacterController2D.CharacterCollisionState2D flags;
@@ -93,7 +93,7 @@ public class EnemyBoss: MonoBehaviour {
 	public GameObject shot;
 	public Transform shotSpawn;
 
-	public float fireRate = 2f;
+	public float fireRate = 5f;
 
 	//private variables
 	private Vector3 _moveDirection = Vector3.zero;
@@ -109,14 +109,13 @@ public class EnemyBoss: MonoBehaviour {
 	private Vector3 _backTopCorner;
 	private Vector3 _frontBottomCorner; 
 	private Vector3 _backBottomCorner; 
-	private float attackRadius; 
+	public float attackRadius; 
 
 
 	// Use this for initialization
 	void Start ()
 	{
 		player = GameObject.FindWithTag ("Player"); 
-		attackRadius = 3;
 
 
 		//grabs the character attached to the script
@@ -559,15 +558,20 @@ public class EnemyBoss: MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
-		Vector3 shotadjustment = new Vector3(-4.5f, 0, 0);
+		Vector3 shotadjustment;
+		if (isFacingRight) {
+			shotadjustment = new Vector3 (4.5f, 0, 0);
+		} else {
+			shotadjustment = new Vector3 (-4.5f, 0, 0);
+		}
 		canShoot = false;
 		isShooting = true;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
 		yield return new WaitForSeconds(.6f);
+		isShooting = false; 
 		Instantiate(shot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
 		yield return new WaitForSeconds(fireRate);
-		isShooting = false; 
 		canShoot = true;
 	}
 
@@ -592,6 +596,7 @@ public class EnemyBoss: MonoBehaviour {
 			if (stop) {
 				yield return new WaitForSeconds (4f); 
 				stop = false;
+				StartCoroutine ("canMove");
 			} else {
 				yield return new WaitForSeconds (0.1f); 
 			}
@@ -602,7 +607,7 @@ public class EnemyBoss: MonoBehaviour {
 	{
 		while (true) 
 		{
-			if (stop && (_moveDirection.x <= 0.1 ||_moveDirection.x >= 0.1 )) {
+			if (stop && (_moveDirection.x <= 0.1 ||_moveDirection.x >= 0.1 ) && (Math.Abs (player.transform.position.x - myTrans.position.x) < attackRadius)) {
 				yield return new WaitForSeconds (0.5f); 
 				startShooting = true; 
 			} else 
@@ -611,6 +616,13 @@ public class EnemyBoss: MonoBehaviour {
 				yield return new WaitForSeconds (0.5f); 
 			}
 		}
+	}
+
+	IEnumerator canMove()
+	{
+		canmove = false; 
+		yield return new WaitForSeconds (2f);
+		canmove = true; 
 	}
 
 	private float aiHorizontal() 
@@ -623,7 +635,7 @@ public class EnemyBoss: MonoBehaviour {
 
 		Debug.DrawRay (_frontBottomCorner, Vector2.down);  
 		Debug.DrawRay (_backBottomCorner, Vector2.down);
-		if (!stop && isShooting == false) {
+		if (!stop && canShoot == true && canmove == true) {
 			if (goingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null) {
 					facingRight = true; 
