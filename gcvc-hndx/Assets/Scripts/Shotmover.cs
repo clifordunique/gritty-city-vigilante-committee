@@ -88,7 +88,7 @@ public class Shotmover : playerController
             alive = false;
             // destorys or change to hitpoint --
             hasHit = true;
-            Destroy(other.transform.parent.gameObject);
+            // Destroy(other.transform.parent.gameObject);
             
         
             //destroys bullet

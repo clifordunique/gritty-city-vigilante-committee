@@ -93,7 +93,7 @@ public class EnemyBoss: MonoBehaviour {
 	public GameObject shot;
 	public Transform shotSpawn;
 
-	public float fireRate = .5f;
+	public float fireRate = 2f;
 
 	//private variables
 	private Vector3 _moveDirection = Vector3.zero;
@@ -559,11 +559,13 @@ public class EnemyBoss: MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
+		Vector3 shotadjustment = new Vector3(-4.5f, 0, 0);
 		canShoot = false;
 		isShooting = true;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
-		Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+		yield return new WaitForSeconds(.6f);
+		Instantiate(shot, shotSpawn.position + shotadjustment, shotSpawn.rotation);
 		yield return new WaitForSeconds(fireRate);
 		isShooting = false; 
 		canShoot = true;

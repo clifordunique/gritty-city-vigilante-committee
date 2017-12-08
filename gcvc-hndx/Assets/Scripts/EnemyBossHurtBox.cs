@@ -11,6 +11,7 @@ public class EnemyBossHurtBox : MonoBehaviour {
 	private float maxHP;
 	private float HPrec;
 	private float HPdiff;
+	public GameObject player_hurt_box; 
 
 
 	void Awake()
@@ -21,10 +22,16 @@ public class EnemyBossHurtBox : MonoBehaviour {
 		HP = 100; 
 		HPrec = 10;
 		bossHpBar.value = 100; 
+		player_hurt_box = GameObject.FindGameObjectWithTag("player_hurt");
+
 	}
 
     private void Update()
     {
+		if (player_hurt_box.GetComponent<PlayerStatsAndStates> ()._isDead == true) 
+		{
+			Destroy(transform.parent.gameObject);
+		}
 		HPdiff = maxHP - HP;
         //should make a function to handle this but make sure 
         //that it's checking health every frame
@@ -35,6 +42,7 @@ public class EnemyBossHurtBox : MonoBehaviour {
 			camera.GetComponent<cameraController> ().setBossDied (); 
 			Destroy(transform.parent.gameObject);
         }
+
     }
     void OnTriggerEnter2D(Collider2D other)
 	{
