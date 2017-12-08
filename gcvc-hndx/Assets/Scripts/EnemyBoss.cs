@@ -71,7 +71,7 @@ public class EnemyBoss: MonoBehaviour {
 	//public bool isWallSliding
 	//public bool isDashing
 	//public bool isAirDashing
-	//public bool isShooting  //for animation
+	public bool isShooting;  //for animation
 
 	//some stuff to make the level disapear for the "gimmick"
 	//public bool isGone = false;
@@ -498,6 +498,7 @@ public class EnemyBoss: MonoBehaviour {
 		CheckAttack (); 
 
 		//animator states
+		animator.SetBool("isShooting", isShooting);
 		animator.SetBool("isJumping", isJumping);
 		animator.SetBool("isGrounded", isGrounded);
 		//animator.SetBool("isFacingRight", isFacingRight);
@@ -558,12 +559,13 @@ public class EnemyBoss: MonoBehaviour {
 	//controls firing and the rate of fire
 	IEnumerator Fire()
 	{
-//		Debug.Log(fireRate);
 		canShoot = false;
+		isShooting = true;
 		//position needs to change after we figure out where he's shooting from
 		//or how the character is shooting
 		Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		yield return new WaitForSeconds(fireRate);
+		isShooting = false; 
 		canShoot = true;
 	}
 
@@ -586,11 +588,9 @@ public class EnemyBoss: MonoBehaviour {
 		while (true) 
 		{
 			if (stop) {
-//				Debug.Log ("stop"); 
-				yield return new WaitForSeconds (2f); 
+				yield return new WaitForSeconds (4f); 
 				stop = false;
 			} else {
-//				Debug.Log ("not stop"); 
 				yield return new WaitForSeconds (0.1f); 
 			}
 		}
@@ -600,7 +600,7 @@ public class EnemyBoss: MonoBehaviour {
 	{
 		while (true) 
 		{
-			if (stop) {
+			if (stop && (_moveDirection.x <= 0.1 ||_moveDirection.x >= 0.1 )) {
 				yield return new WaitForSeconds (0.5f); 
 				startShooting = true; 
 			} else 
@@ -621,7 +621,7 @@ public class EnemyBoss: MonoBehaviour {
 
 		Debug.DrawRay (_frontBottomCorner, Vector2.down);  
 		Debug.DrawRay (_backBottomCorner, Vector2.down);
-		if (!stop) {
+		if (!stop && isShooting == false) {
 			if (goingRight) { //If the enemy is currently facing right continue moving right unless it will not be grounded 
 				if (hitFrontGround.collider != null) {
 					facingRight = true; 

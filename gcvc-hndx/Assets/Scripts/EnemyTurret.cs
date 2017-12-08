@@ -607,7 +607,7 @@ public class EnemyTurret : MonoBehaviour {
 	{
 		if (myTrans.position.x < player.transform.position.x && facingRight == false) {
 			Debug.Log ("on the right"); 
-			if (t < 2) {
+			if (t < 4) {
 				t++; 
 			} else {
 				t = 0; 
@@ -616,8 +616,7 @@ public class EnemyTurret : MonoBehaviour {
 			return 1f; 
 		} else if (myTrans.position.x > player.transform.position.x && facingRight) {
 			Debug.Log ("on the left"); 
-
-			if (t < 2) {
+			if (t < 4) {
 				t++; 
 			} else {
 				t = 0; 
