@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShotMover : playerController
+public class EnemyShotMover : OLDplayerController
 {
 	public float speed;
 	private GameObject Player;
