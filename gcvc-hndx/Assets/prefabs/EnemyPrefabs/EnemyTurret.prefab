@@ -42,15 +42,15 @@ GameObject:
   - component: {fileID: 50202452719944834}
   - component: {fileID: 61881634215073982}
   - component: {fileID: 114734214940839356}
-  - component: {fileID: 95517574181639882}
   - component: {fileID: 114603626205143260}
+  - component: {fileID: 95753897528917380}
   m_Layer: 9
   m_Name: EnemyTurret
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4311967974877134
 Transform:
   m_ObjectHideFlags: 1
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1528318228832362}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -50.11931, y: -19.89168, z: 0}
+  m_LocalPosition: {x: -44.99416, y: -25.7, z: 0}
   m_LocalScale: {x: 12, y: 7, z: 1}
   m_Children:
   - {fileID: 4871964091006300}
@@ -159,7 +159,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.46}
+    oldSize: {x: 0.86, y: 0.8}
     newSize: {x: 1.28, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -168,7 +168,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.34739175, y: 0.48916903}
   m_EdgeRadius: 0
---- !u!95 &95517574181639882
+--- !u!95 &95753897528917380
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -177,7 +177,7 @@ Animator:
   m_GameObject: {fileID: 1528318228832362}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2ef1969fc37435f43903e4c3f02dd491, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1e4c86df4bc53407d8be6b21d24c9c7d, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -210,10 +210,9 @@ MonoBehaviour:
   jumpTakeOffSpeed: 7
   maxSpeed: 7
   attacking: 0
-  followCenterRadius: 0
   attackHitboxes: []
   isShooting: 0
-  shootRadius: 10
+  shootRadius: 20
   walkSpeed: 6
   jumpSpeed: 10
   gravity: 20
@@ -396,7 +395,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300036, guid: fd00ddee79e05314d9e77d1f1130ab3f, type: 3}
+  m_Sprite: {fileID: 21300018, guid: cd743ec05f190433c8fc87b24f0555be, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
