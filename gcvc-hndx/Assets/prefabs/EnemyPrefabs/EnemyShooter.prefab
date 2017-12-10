@@ -58,7 +58,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1694672173775544}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -73.134125, y: -18.825947, z: 0}
+  m_LocalPosition: {x: -38.7, y: -25.4, z: 0}
   m_LocalScale: {x: 12, y: 7, z: 1}
   m_Children:
   - {fileID: 4840908507738742}
@@ -130,18 +130,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.00042159855, y: 0.011919722}
+  m_Offset: {x: -0.035820134, y: -0.02761656}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.35, y: 0.46}
+    oldSize: {x: 0.59, y: 0.71}
     newSize: {x: 1.28, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.34739175, y: 0.48916903}
+  m_Size: {x: 0.2749083, y: 0.5682416}
   m_EdgeRadius: 0
 --- !u!61 &61759074557282526
 BoxCollider2D:
@@ -177,7 +177,7 @@ Animator:
   m_GameObject: {fileID: 1694672173775544}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2ef1969fc37435f43903e4c3f02dd491, type: 2}
+  m_Controller: {fileID: 9100000, guid: 21ee7709878cafb4ea8d03bd753c7702, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -262,7 +262,6 @@ MonoBehaviour:
   attacking: 0
   followCenterRadius: 10
   attackHitboxes: []
-  isShooting: 0
   walkSpeed: 6
   jumpSpeed: 10
   gravity: 20
@@ -301,6 +300,7 @@ MonoBehaviour:
   isPowerJumping: 0
   isStomping: 0
   isChangingLevels: 0
+  isShooting: 0
   boxTest: []
   CityColliderBox: []
   box: []
@@ -314,7 +314,7 @@ MonoBehaviour:
   music: []
   musicPlayers: []
   animator: {fileID: 0}
-  shot: {fileID: 1793569461445286, guid: 2aec7b7015b2d4fdfa259738b186f345, type: 2}
+  shot: {fileID: 1357941121136970, guid: 8607db0f95708b34a9b1f4643303b524, type: 2}
   shotSpawn: {fileID: 4133448041984608}
   fireRate: 2
 --- !u!212 &212628385457836178
@@ -351,9 +351,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300036, guid: fd00ddee79e05314d9e77d1f1130ab3f, type: 3}
+  m_Sprite: {fileID: 21300008, guid: 88291968f667a4adf8c00b0cfd6e41f2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1.28, y: 2.56}
